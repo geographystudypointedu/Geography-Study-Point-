@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Admin Panel - Geo Study Point</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 🌟 Premium White Frosted Glass Effect */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+        /* Hide sections until admin is verified */
+        #dashboardContent {
+            display: none; 
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-100 via-indigo-50 to-blue-100 min-h-screen p-4 relative font-sans">
+
+    <!-- 🌍 GTranslate Widget -->
+    <div class="gtranslate_wrapper z-50 mt-2"></div>
+    <script>window.gtranslateSettings = {"default_language":"en","detect_browser_language":true,"wrapper_selector":".gtranslate_wrapper"};</script>
+    <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
+
+    <!-- 👑 Super Admin Badge -->
+    <div class="fixed top-4 right-4 z-50 bg-indigo-600 text-white text-[10px] md:text-xs px-4 py-1.5 rounded-full font-bold shadow-xl border border-white/50 flex items-center gap-2">
+        <span>🛡️</span> Geo Study Point Admin
+    </div>
+
+    <!-- Main Container -->
+    <div class="container mx-auto flex flex-col items-center flex-grow z-10 w-full mt-12 mb-8 max-w-5xl">
+        
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-slate-800 tracking-tight">Teacher & Admin Portal</h1>
+            <p class="text-sm text-slate-600 font-bold mt-1">Role-Based Access System</p>
+        </div>
+
+        <!-- 🔐 1. ORIGINAL ADMIN ACCESS & PERMISSION LOGIN -->
+        <div id="loginSection" class="glass-box p-8 rounded-[2rem] w-full max-w-md transform transition-all shadow-lg border-t-4 border-t-indigo-600 mb-8">
+            <div class="text-center mb-6">
+                <span class="text-5xl">🔐</span>
+                <h2 class="text-xl font-bold text-slate-800 mt-2">Admin Authentication</h2>
+                <p class="text-xs text-slate-500 font-medium">Please verify your role to access the panel.</p>
+            </div>
+            
+            <div class="space-y-4">
+                <select id="roleSelect" class="w-full p-3 rounded-xl border border-slate-300 font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="">-- Select Your Role --</option>
+                    <option value="superadmin">👑 Super Admin (Full Access)</option>
+                    <option value="teacher">👨‍🏫 Teacher (Check Papers Only)</option>
+                </select>
+                
+                <input type="password" id="adminPassword" placeholder="Enter Secret PIN" class="w-full p-3 rounded-xl border border-slate-300 font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                
+                <button onclick="verifyAdmin()" class="w-full bg-indigo-600 text-white font-extrabold py-3 rounded-xl shadow-lg hover:bg-indigo-700 transition-all flex items-center justify-center gap-2">
+                    Unlock Panel
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 🔓 HIDDEN DASHBOARD (Opens after Login) -->
+        <!-- ========================================== -->
+        <div id="dashboardContent" class="w-full">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mb-6">
+                
+                <!-- ✅ ORIGINAL MCQ QUESTION SETTER -->
+                <div class="glass-box p-6 rounded-[2rem] w-full border-t-4 border-t-blue-500">
+                    <h2 class="text-lg font-bold text-blue-700 mb-4 flex items-center gap-2">✅ Set MCQ Question</h2>
+                    <div class="space-y-3">
+                        <input type="text" placeholder="Question (e.g., Largest continent?)" class="w-full p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-500">
+                        <div class="grid grid-cols-2 gap-2">
+                            <input type="text" placeholder="Option A" class="w-full p-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-blue-500">
+                            <input type="text" placeholder="Option B" class="w-full p-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-blue-500">
+                            <input type="text" placeholder="Option C" class="w-full p-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-blue-500">
+                            <input type="text" placeholder="Option D" class="w-full p-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <select class="w-full p-2.5 rounded-xl border border-slate-300 text-sm font-bold text-green-700">
+                            <option value="">-- Correct Answer --</option>
+                            <option value="A">Option A</option>
+                            <option value="B">Option B</option>
+                            <option value="C">Option C</option>
+                            <option value="D">Option D</option>
+                        </select>
+                        <button onclick="alert('MCQ Saved!')" class="w-full bg-blue-100 text-blue-700 font-bold py-2 rounded-xl border border-blue-200 hover:bg-blue-200 transition">Save MCQ</button>
+                    </div>
+                </div>
+
+                <!-- 📝 NEW SUBJECTIVE (AI) QUESTION SETTER -->
+                <div class="glass-box p-6 rounded-[2rem] w-full border-t-4 border-t-purple-500">
+                    <h2 class="text-lg font-bold text-purple-700 mb-4 flex items-center gap-2">📝 Set Subjective (AI) Exam</h2>
+                    <div class="space-y-3">
+                        <input type="text" placeholder="Question (e.g., Causes of Tides?)" class="w-full p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-purple-500">
+                        <input type="number" placeholder="Marks (e.g., 5)" class="w-full p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-purple-500">
+                        <textarea placeholder="Gemini AI Keywords (e.g., Moon's gravity)" class="w-full p-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-purple-500 h-20 resize-none"></textarea>
+                        <button onclick="alert('Subjective Rules Saved!')" class="w-full bg-purple-100 text-purple-700 font-bold py-2 rounded-xl border border-purple-200 hover:bg-purple-200 transition">Save AI Rule</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 🤖 NEW AI SMART EVALUATION PANEL -->
+            <div class="glass-box p-6 md:p-8 rounded-[2rem] w-full mb-6 border-l-4 border-l-teal-500">
+                <h2 class="text-xl font-bold text-teal-700 mb-4 flex items-center gap-2">🤖 Smart Evaluation (Human-in-the-Loop)</h2>
+                
+                <div class="bg-white/70 p-4 rounded-xl border border-slate-200 mb-4">
+                    <p class="text-xs text-slate-500 font-bold uppercase mb-1">Student's Answer (Voice/Text):</p>
+                    <p class="text-sm text-slate-800 italic">"The main cause is the gravitational pull of the moon and the sun..."</p>
+                </div>
+
+                <div class="bg-teal-50 p-4 rounded-xl border border-teal-200 mb-4 flex gap-3 items-start shadow-sm">
+                    <span class="text-2xl">✨</span>
+                    <div>
+                        <p class="text-sm font-bold text-teal-800">Gemini AI Suggestion:</p>
+                        <p class="text-xs text-teal-700 mt-1">Suggested Marks: 4 / 5. Reason: Accurate conceptual points. Ignored minor spelling errors.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 bg-white p-3 rounded-xl border border-slate-200 w-fit">
+                    <label class="text-sm font-bold text-slate-700">Final Marks:</label>
+                    <input type="number" value="4" step="0.5" class="w-20 p-2 rounded-lg border border-slate-300 text-center font-bold text-lg text-indigo-600 focus:outline-none focus:ring-2 focus:ring-teal-500">
+                    <button onclick="alert('Marks Approved!')" class="bg-teal-500 text-white font-bold py-2 px-4 rounded-lg shadow hover:bg-teal-600 transition text-sm">✅ Approve</button>
+                </div>
+            </div>
+
+            <!-- 🚀 NEW PUBLISH & NOTIFY -->
+            <div class="glass-box p-6 md:p-8 rounded-[2rem] w-full text-center bg-gradient-to-br from-white to-red-50 border-t-4 border-t-red-500">
+                <h2 class="text-xl font-bold text-red-600 mb-2">🚀 Publish Results & Notify</h2>
+                <p class="text-sm text-slate-600 mb-6 font-medium">Sends push notifications to all students via FCM.</p>
+                <button onclick="alert('🔔 Push Notification sent to all students!')" class="w-full max-w-md mx-auto bg-gradient-to-r from-red-500 to-rose-600 text-white font-extrabold py-4 px-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-lg flex justify-center items-center gap-2 animate-pulse">
+                    <span>🔔 Publish All Results & Notify</span>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-5 text-[11px] text-slate-600 font-medium z-10 w-full glass-box mt-auto">
+        <p class="mb-1 text-slate-800 font-bold">Copyright ©® Geo Study Point.</p>
+        <p class="mt-1 text-sm text-slate-700">System Architecture by <b class="text-indigo-700">Mr. Swastik Halder</b></p>
+    </footer>
+
+    <script>
+        // ORIGINAL ROLE-BASED LOGIN LOGIC
+        function verifyAdmin() {
+            const role = document.getElementById('roleSelect').value;
+            const pin = document.getElementById('adminPassword').value;
+
+            if (role === "") {
+                alert("Please select your role first.");
+                return;
+            }
+            if (pin === "") {
+                alert("Please enter the secret PIN.");
+                return;
+            }
+
+            // Demo unlock action (In real version, Firebase will verify this)
+            alert(`✅ Identity Verified as: ${role.toUpperCase()}`);
+            
+            // Hide Login, Show Dashboard
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardContent').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
