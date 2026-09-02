@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geo Study Point - Secure Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Glassmorphism Effect */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 to-blue-900 min-h-screen text-white flex flex-col justify-between" oncontextmenu="return false;" onselectstart="return false;">
+
+    <div class="gtranslate_wrapper"></div>
+    <script>window.gtranslateSettings = {"default_language":"en","detect_browser_language":true,"wrapper_selector":".gtranslate_wrapper"};</script>
+    <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
+
+    <div class="fixed top-2 right-2 z-50 bg-red-600 text-[10px] md:text-xs px-3 py-1 rounded-full font-bold shadow-lg animate-pulse mt-2 mr-2">
+        Beta Version 0.01 🚧⚠️ | Dev: Mr. Swastik Halder
+    </div>
+
+    <div class="container mx-auto px-4 py-10 flex flex-col items-center justify-center flex-grow mt-10">
+        <div class="glass-box p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center">
+            <h1 class="text-3xl font-extrabold mb-2">🌍 Geo Study Point</h1>
+            <p class="text-gray-300 mb-8 text-sm">Strictly Secured Geography Examination Portal</p>
+            
+            <button onclick="handleLogin()" class="w-full bg-white text-gray-900 font-bold py-3 px-4 rounded-xl shadow-lg hover:bg-gray-200 transition flex items-center justify-center gap-2">
+                <span>🔐</span> Sign in with Google
+            </button>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 text-[10px] text-gray-400 border-t border-white/10">
+        <p>Copyright ©® Geo Study Point.</p>
+        <p>এই ওয়েবসাইটটি ছাড়া অন্য কোথাও এর শর্ট ফর্ম বা অন্য ডোমেন কিনে চালানো দণ্ডনীয় অপরাধমূলক কাজ।</p>
+        <p class="mt-1">Engineered & Developed by <b>Mr. Swastik Halder</b> (Certified Developer)</p>
+    </footer>
+
+    <script>
+        function handleLogin() {
+            alert("Google One-Tap Login API will be connected here in the next step!");
+        }
+    </script>
+</body>
+</html>
