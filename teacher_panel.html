@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 📱 100% Responsive for Mobile, iPad, and Windows Desktop -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#ffffff">
+    
+    <title>Master Admin Panel - Geo Study Point</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        body { padding-bottom: env(safe-area-inset-bottom); background-color: #f8fafc; }
+        
+        .glass-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+        
+        #dashboardContent { display: none; }
+        .disabled-action { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+        
+        /* AI Scanner Animation */
+        .scan-line {
+            width: 100%;
+            height: 4px;
+            background: #06b6d4;
+            position: absolute;
+            top: 0; left: 0;
+            box-shadow: 0 0 15px #06b6d4, 0 0 30px #06b6d4;
+            animation: scan 2s linear infinite;
+            display: none; z-index: 20;
+        }
+        @keyframes scan { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+    </style>
+
+    <!-- 🌐 GTranslate Auto-Bengali Logic (First Time Visit) -->
+    <script>
+        if (document.cookie.indexOf('googtrans') === -1) {
+            document.cookie = 'googtrans=/en/bn; path=/';
+            document.cookie = 'googtrans=/en/bn; domain=' + window.location.hostname + '; path=/';
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col font-sans text-slate-800 relative">
+
+    <!-- 🌍 Premium GTranslate (EN, BN, HI) -->
+    <div class="fixed top-4 right-4 sm:right-6 z-[100] bg-white border border-slate-200 shadow-sm rounded-full px-4 py-2 flex items-center gap-2">
+        <span class="text-indigo-600 text-lg"><i class="fa-solid fa-language"></i></span>
+        <div class="gtranslate_wrapper"></div>
+    </div>
+    <script>
+        window.gtranslateSettings = { "default_language": "en", "languages": ["en", "bn", "hi"], "wrapper_selector": ".gtranslate_wrapper", "flag_size": 20 };
+    </script>
+    <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
+
+    <!-- 👑 Role Status Badge -->
+    <div id="roleBadge" class="fixed top-4 left-4 sm:left-6 z-[100] bg-slate-800 text-white text-[11px] sm:text-xs px-3.5 py-2 rounded-full font-bold shadow-xl flex items-center gap-2 border border-slate-700">
+        <span>🔒</span> Authenticate First
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 w-full max-w-6xl flex-grow flex flex-col items-center">
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="inline-block p-3 bg-indigo-50 rounded-2xl mb-3 border border-indigo-100 shadow-sm">
+                <span class="text-3xl sm:text-4xl">🏛️</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900">Geo Study Point Administration</h1>
+            <p class="text-xs sm:text-sm text-slate-500 font-bold mt-1 uppercase tracking-wider">Military-Grade Access Control</p>
+        </div>
+
+        <!-- 🔐 1. Authentication Section -->
+        <div id="loginSection" class="glass-box p-6 sm:p-8 rounded-[2rem] w-full max-w-md shadow-xl border-t-8 border-t-indigo-600 mb-8">
+            <div class="text-center mb-6">
+                <span class="text-5xl">🛡️</span>
+                <h2 class="text-xl font-black mt-2 text-slate-800">System Login</h2>
+                <p class="text-xs text-slate-500 mt-1">Authorized personnel only</p>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[11px] font-extrabold uppercase text-slate-600 mb-1 block">Registered Email</label>
+                    <input type="email" id="adminEmail" placeholder="e.g., swastikhalder2023@gmail.com" class="w-full p-3.5 rounded-xl border border-slate-300 font-bold text-slate-700 text-sm focus:ring-2 focus:ring-indigo-500 bg-white shadow-sm">
+                </div>
+                <div>
+                    <label class="text-[11px] font-extrabold uppercase text-slate-600 mb-1 block">Security PIN</label>
+                    <input type="password" id="adminPassword" placeholder="Enter Secure PIN" class="w-full p-3.5 rounded-xl border border-slate-300 font-bold text-slate-700 text-sm focus:ring-2 focus:ring-indigo-500 bg-white shadow-sm">
+                </div>
+                <button onclick="verifyAdmin()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold py-4 rounded-xl shadow-lg text-sm transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                    <span>🔓</span> Authenticate Server
+                </button>
+            </div>
+        </div>
+
+        <!-- 🔓 ADMIN DASHBOARD CONTENT -->
+        <div id="dashboardContent" class="w-full space-y-6">
+
+            <!-- 🔑 Super Admin Only Section -->
+            <div id="superAdminSection" class="glass-box p-6 rounded-[2rem] border-t-4 border-t-amber-500 bg-amber-50 hidden">
+                <h2 class="text-base sm:text-lg font-bold text-amber-900 mb-2 flex items-center gap-2"><span>🔑</span> Super Admin Controls</h2>
+                <p class="text-xs text-slate-600 mb-4 font-bold">Logged in as: <span class="text-indigo-600">swastikhalder2023@gmail.com</span></p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+                    <input type="text" placeholder="Teacher Name" class="w-full p-3 rounded-xl border border-slate-300 text-xs bg-white shadow-sm">
+                    <input type="email" placeholder="Teacher Email" class="w-full p-3 rounded-xl border border-slate-300 text-xs bg-white shadow-sm">
+                    <input type="password" placeholder="Assign PIN" class="w-full p-3 rounded-xl border border-slate-300 text-xs bg-white shadow-sm">
+                </div>
+                <button onclick="alert('✅ Sub-Admin Generated in Firebase!')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-3 rounded-xl text-xs shadow transition">➕ Generate Sub-Admin ID</button>
+            </div>
+
+            <!-- 📜 Dynamic Policy Management System (CMS) -->
+            <div class="glass-box p-6 rounded-[2rem] border-t-4 border-t-purple-500 bg-purple-50">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-base sm:text-lg font-bold text-purple-900 flex items-center gap-2"><span>📜</span> Dynamic Policy Management (CMS)</h2>
+                    <span class="bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-[10px] font-black uppercase">Auto-Wipe Active</span>
+                </div>
+                <p class="text-[10px] sm:text-xs text-slate-500 font-bold mb-4">Upload PDF → AI Extract → Admin Review → Publish → Temp File Destroyed.</p>
+                
+                <div class="overflow-x-auto w-full rounded-xl border border-slate-200 shadow-sm bg-white">
+                    <table class="w-full text-left text-xs sm:text-sm border-collapse min-w-[700px]">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-700 border-b border-slate-200">
+                                <th class="p-3 font-extrabold">Policy Document</th>
+                                <th class="p-3 font-extrabold">Upload PDF</th>
+                                <th class="p-3 font-extrabold">Version</th>
+                                <th class="p-3 font-extrabold">Status</th>
+                                <th class="p-3 font-extrabold text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="policyTableBody">
+                            <tr class="border-b border-slate-100 hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-800">🔒 Privacy Policy</td>
+                                <td class="p-3">
+                                    <input type="file" id="pdfPrivacy" accept="application/pdf" class="hidden" onchange="processPolicyPDF('Privacy Policy')">
+                                    <button onclick="document.getElementById('pdfPrivacy').click()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded text-[10px] font-bold transition">📄 Select PDF</button>
+                                </td>
+                                <td class="p-3 font-mono text-[10px] font-bold text-indigo-600">v1.2</td>
+                                <td class="p-3"><span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-[10px] font-bold">Published</span></td>
+                                <td class="p-3 text-center">
+                                    <button onclick="alert('Upload a new PDF to review and publish.')" class="bg-purple-600 text-white px-3 py-1.5 rounded-lg text-[10px] font-bold shadow">Preview & Publish</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-800">📜 Terms & Conditions</td>
+                                <td class="p-3">
+                                    <input type="file" id="pdfTerms" accept="application/pdf" class="hidden" onchange="processPolicyPDF('Terms & Conditions')">
+                                    <button onclick="document.getElementById('pdfTerms').click()" class="bg-slate-200 text-slate-700 px-3 py-1.5 rounded text-[10px] font-bold">📄 Select PDF</button>
+                                </td>
+                                <td class="p-3 font-mono text-[10px] font-bold text-indigo-600">v1.0</td>
+                                <td class="p-3"><span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-[10px] font-bold">Published</span></td>
+                                <td class="p-3 text-center">
+                                    <button class="bg-purple-600 text-white px-3 py-1.5 rounded-lg text-[10px] font-bold shadow">Preview & Publish</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 🧠 AI Data Extractor (Exam Papers) -->
+            <div class="glass-box p-6 rounded-[2rem] border-t-4 border-t-cyan-500 bg-cyan-50">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+                    <div>
+                        <h2 class="text-base sm:text-lg font-bold text-cyan-900 flex items-center gap-2"><span>🧠</span> AI Multi-Format Question Creator</h2>
+                        <p class="text-xs text-slate-600 font-bold mt-1">Upload Photos, PDFs. Gemini will extract data and <b>permanently wipe the source file</b>.</p>
+                    </div>
+                    <span class="bg-cyan-200 text-cyan-800 px-3 py-1 rounded-full text-[10px] font-black uppercase">Gemini Flash AI</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="border-2 border-dashed border-cyan-300 rounded-2xl p-4 flex flex-col items-center justify-center relative bg-white min-h-[220px]">
+                        <input type="file" id="aiFileInput" accept="image/*,application/pdf" class="hidden" onchange="previewAiFile(event)">
+                        <div id="aiUploadPrompt" class="text-center w-full">
+                            <button onclick="document.getElementById('aiFileInput').click()" class="bg-slate-800 text-white font-bold py-3.5 px-6 rounded-xl text-sm shadow-lg mx-auto w-full max-w-xs">
+                                📄 / 📷 Upload Photo or Document
+                            </button>
+                        </div>
+                        <div id="aiFilePreviewContainer" class="hidden w-full h-full relative flex flex-col items-center justify-center">
+                            <span class="text-6xl mb-2">📄</span><p class="text-[10px] font-extrabold uppercase">Ready for Extraction</p>
+                            <div id="scanLine" class="scan-line"></div>
+                            <button id="startScanBtn" onclick="startAiScan()" class="absolute bg-cyan-600 text-white font-bold py-2 px-6 rounded-full text-sm shadow-xl animate-bounce">
+                                ✨ Extract Data
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col h-full">
+                        <textarea id="aiGeneratedOutput" class="w-full flex-grow h-44 p-4 rounded-xl border border-slate-300 bg-white text-sm text-slate-700 font-medium focus:ring-2 focus:ring-cyan-500 mb-3 resize-none shadow-inner" readonly placeholder="Extracted data will appear here..."></textarea>
+                        <button id="saveAiDataBtn" onclick="saveAndDestroyFile()" class="w-full bg-emerald-600 text-white font-bold py-3.5 rounded-xl shadow-lg disabled-action uppercase text-xs sm:text-sm">
+                            💾 Save Database & Wipe File
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🗑️ 24-Hour Recovery Trash (Super Admin Exclusive) -->
+            <div id="trashSection" class="glass-box p-6 rounded-[2rem] border-t-4 border-t-rose-600 bg-rose-50 hidden">
+                <h2 class="text-base sm:text-lg font-bold text-rose-900 flex items-center gap-2 mb-2"><span>🗑️</span> 24-Hour Recovery Trash Box</h2>
+                <p class="text-xs text-slate-600 mb-4 font-bold">Sub-admins' deleted items arrive here. Only you can restore or wipe them.</p>
+                <div id="trashList" class="space-y-2">
+                    <p class='text-xs text-rose-500 font-bold italic p-2'>Trash is currently empty.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🔍 Policy Preview & Publish Modal -->
+    <div id="policyReviewModal" class="fixed inset-0 z-[500] bg-slate-900/90 backdrop-blur-sm hidden flex-col items-center justify-center p-4">
+        <div class="bg-white w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+            <div class="bg-purple-600 p-4 flex justify-between items-center text-white">
+                <h3 class="font-bold text-sm" id="reviewTitle">Review & Approve Policy</h3>
+                <button onclick="document.getElementById('policyReviewModal').style.display='none'" class="font-black text-lg">×</button>
+            </div>
+            <div class="p-4 overflow-y-auto flex-grow bg-slate-50">
+                <p class="text-[10px] text-emerald-600 font-bold mb-2">✅ PDF Processed & Text Extracted Successfully</p>
+                <textarea class="w-full h-64 p-3 border border-slate-300 rounded-lg text-xs font-medium text-slate-700 resize-none" readonly>This is the auto-extracted content from the PDF. Review before publishing...</textarea>
+            </div>
+            <div class="p-4 border-t border-slate-200 bg-white flex flex-col gap-2">
+                <p class="text-[10px] text-rose-500 font-bold text-center">⚠️ Publishing will replace the live version and permanently wipe the uploaded PDF.</p>
+                <button onclick="approveAndWipePolicy()" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl text-xs shadow-md">
+                    ✅ Approve, Publish to Website & Destroy Temp PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🌐 Professional Light Theme Footer -->
+    <div class="w-full bg-white pt-10 pb-8 mt-auto rounded-t-[2.5rem] border-t border-slate-200 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] relative overflow-hidden">
+        <div class="container mx-auto px-6 flex flex-col items-center text-center space-y-6 max-w-3xl relative z-10">
+            
+            <div class="flex flex-col items-center gap-3">
+                <button onclick="window.location.href='mailto:geograpystudypoint.edu@gmail.com'" class="bg-slate-800 text-white font-bold py-3 px-8 rounded-full text-xs sm:text-sm shadow-md flex items-center justify-center gap-2 transition-all">
+                    ✉️ Email Support
+                </button>
+                <a href="tel:+918670636716" class="text-xs text-slate-600 font-bold hover:text-indigo-600 transition-all">📞 Helpline: +91 86706 36716</a>
+            </div>
+
+            <div class="flex gap-4 pt-2">
+                <a href="https://www.facebook.com/share/1Bz6MtVnVS/" target="_blank" class="w-12 h-12 bg-slate-100 text-slate-700 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all text-lg"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/subhasish4031?igsi=MTdpbGk2NXlieG9xYg==" target="_blank" class="w-12 h-12 bg-slate-100 text-slate-700 rounded-full flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all text-lg"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/918670636716" target="_blank" class="w-12 h-12 bg-slate-100 text-slate-700 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition-all text-lg"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+
+            <!-- Highly Glowing Developer Badge -->
+            <div class="w-full max-w-lg bg-white border border-emerald-100 p-6 rounded-2xl mt-2 shadow-[0_0_30px_rgba(16,185,129,0.15)] relative">
+                <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase mb-3 border border-emerald-200">
+                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+                    Beta Version 0.1
+                </div>
+                <h3 class="text-lg sm:text-xl font-black text-slate-900 tracking-wide mt-1">Mr. Swastik Halder</h3>
+                <p class="text-xs text-indigo-600 font-extrabold uppercase tracking-widest mb-3">Lead Developer & System Architect</p>
+                <p class="text-[10px] text-slate-500 font-bold uppercase mb-1">🛠️ Designed • Developed • Architected</p>
+                <p class="text-[9px] text-slate-400 font-medium tracking-wide">UI/UX • System Architecture • Platform Development • Security • Performance</p>
+                <div class="mt-4 flex justify-center gap-3 text-2xl animate-bounce"><span>⚠️</span><span>🚧</span></div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-6 pt-4 border-t border-slate-100 w-full">
+                <a href="policy.html?doc=privacy" target="_blank" class="text-[11px] font-bold text-slate-600 hover:text-indigo-600">🔒 Privacy Policy</a>
+                <a href="policy.html?doc=terms" target="_blank" class="text-[11px] font-bold text-slate-600 hover:text-indigo-600">📜 Terms & Conditions</a>
+                <a href="policy.html?doc=cookie" target="_blank" class="text-[11px] font-bold text-slate-600 hover:text-indigo-600">🍪 Cookie Policy</a>
+                <a href="policy.html?doc=disclaimer" target="_blank" class="text-[11px] font-bold text-slate-600 hover:text-indigo-600">⚠️ Disclaimer</a>
+            </div>
+
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 w-full text-left">
+                <p class="text-[10px] font-black text-slate-700 uppercase mb-1">© 2026 Geo Study Point. All Rights Reserved.</p>
+                <p class="text-[9px] text-slate-500 leading-relaxed text-justify">
+                    <strong>Copyright & Content Protection Notice:</strong> Geo Study Point-এর ওয়েবসাইট, ডিজিটাল কনটেন্ট, নকশা, লেখা, গ্রাফিক্স এবং সিস্টেম কাঠামো অনুমতি ছাড়া সম্পূর্ণ বা আংশিকভাবে কপি, পুনঃপ্রকাশ বা বাণিজ্যিকভাবে ব্যবহার করা যাবে না। অননুমোদিত ব্যবহারের বিরুদ্ধে প্রযোজ্য আইন অনুযায়ী ব্যবস্থা গ্রহণের অধিকার সংরক্ষিত।
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Logic (Firebase Auth Simulation, CMS, AI) -->
+    <script>
+        let currentRole = "";
+        const superAdminEmail = "swastikhalder2023@gmail.com";
+
+        // 1. Firebase Authentication Simulation
+        function verifyAdmin() {
+            const email = document.getElementById('adminEmail').value.trim();
+            const pin = document.getElementById('adminPassword').value;
+            
+            if (email === "" || pin === "") {
+                alert("⚠️ Error: Please enter your Registered Email and PIN.");
+                return;
+            }
+
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardContent').style.display = 'block';
+
+            const badge = document.getElementById('roleBadge');
+            const superAdminBox = document.getElementById('superAdminSection');
+            const trashSection = document.getElementById('trashSection');
+
+            if (email === superAdminEmail) {
+                currentRole = "superadmin";
+                badge.innerHTML = "👑 Logged in as: Master Super Admin";
+                badge.className = "fixed top-4 left-4 sm:left-6 z-[100] bg-indigo-600 text-white text-[11px] sm:text-xs px-3.5 py-2 rounded-full font-bold shadow-xl";
+                superAdminBox.classList.remove('hidden');
+                trashSection.classList.remove('hidden');
+            } else {
+                currentRole = "subadmin";
+                badge.innerHTML = "👨‍🏫 Logged in as: Sub-Admin";
+                badge.className = "fixed top-4 left-4 sm:left-6 z-[100] bg-amber-600 text-white text-[11px] sm:text-xs px-3.5 py-2 rounded-full font-bold shadow-xl";
+                superAdminBox.classList.add('hidden');
+                trashSection.classList.add('hidden');
+            }
+        }
+
+        // 2. Policy CMS Workflow
+        function processPolicyPDF(policyName) {
+            document.getElementById('reviewTitle').innerText = `Review: ${policyName} (Draft)`;
+            setTimeout(() => { document.getElementById('policyReviewModal').style.display = 'flex'; }, 800);
+        }
+        function approveAndWipePolicy() {
+            document.getElementById('policyReviewModal').style.display = 'none';
+            alert("✅ Architecture Protocol Executed:\n\n1. Content saved to live database.\n2. Version updated to latest.\n3. Original PDF permanently wiped from temporary storage.");
+        }
+
+        // 3. AI File Scanner Workflow
+        function previewAiFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.getElementById('aiUploadPrompt').classList.add('hidden');
+                document.getElementById('aiFilePreviewContainer').classList.remove('hidden');
+            }
+        }
+        function startAiScan() {
+            document.getElementById('startScanBtn').classList.add('hidden');
+            document.getElementById('scanLine').style.display = 'block';
+            document.getElementById('aiGeneratedOutput').value = "⏳ Extracting data using Gemini AI...";
+
+            setTimeout(() => {
+                document.getElementById('scanLine').style.display = 'none';
+                document.getElementById('aiGeneratedOutput').value = "✅ AI Extraction Successful:\n\n[Q] What are Tides?\n[Ans] Tides are the rise and fall of sea levels caused by the combined effects of the gravitational forces exerted by the Moon and the Sun, and the rotation of the Earth.";
+                document.getElementById('saveAiDataBtn').classList.remove('disabled-action');
+            }, 2500);
+        }
+        function saveAndDestroyFile() {
+            document.getElementById('aiFileInput').value = "";
+            document.getElementById('aiFilePreviewContainer').classList.add('hidden');
+            document.getElementById('aiUploadPrompt').classList.remove('hidden');
+            document.getElementById('aiGeneratedOutput').value = "";
+            document.getElementById('saveAiDataBtn').classList.add('disabled-action');
+            document.getElementById('startScanBtn').classList.remove('hidden');
+            alert("✅ Data Saved to Server!\n\n☢️ SECURITY PROTOCOL: Uploaded file wiped permanently from memory.");
+        }
+    </script>
+</body>
+</html>
