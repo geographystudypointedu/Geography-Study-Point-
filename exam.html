@@ -3,130 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Exam - Geo Study Point</title>
+    <title>MCQ Exam - Geo Study Point</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 🌟 Premium White Frosted Glass Effect */
         .glass-box {
-            background: rgba(255, 255, 255, 0.55);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         }
-        /* Extra Security: Prevent Text Selection */
-        body {
-            user-select: none;
-            -webkit-user-select: none;
+        body { user-select: none; -webkit-user-select: none; }
+        
+        /* Custom Radio Button Style */
+        input[type="radio"]:checked + label {
+            background-color: #e0e7ff;
+            border-color: #6366f1;
+            font-weight: bold;
+            color: #4338ca;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-100 via-teal-50 to-cyan-100 min-h-screen flex flex-col items-center p-4 relative overflow-hidden" oncontextmenu="return false;" onselectstart="return false;">
+<body class="bg-gradient-to-br from-indigo-50 via-teal-50 to-blue-100 min-h-screen flex flex-col items-center p-4 relative overflow-hidden" 
+      oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;" ondragstart="return false;">
 
     <!-- 🌍 GTranslate Widget -->
     <div class="gtranslate_wrapper z-50 mt-2"></div>
     <script>window.gtranslateSettings = {"default_language":"en","detect_browser_language":true,"wrapper_selector":".gtranslate_wrapper"};</script>
     <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
 
-    <!-- 🚧 Floating Beta Badge -->
-    <div class="fixed top-4 right-4 z-50 bg-gradient-to-r from-red-500 to-pink-600 text-white text-[10px] md:text-xs px-4 py-1.5 rounded-full font-bold shadow-xl animate-pulse border border-white/50">
-        Beta Version 0.01 🚧 | Dev: Mr. Swastik Halder
-    </div>
-
-    <!-- Exam Container -->
-    <div class="container mx-auto flex flex-col items-center justify-center flex-grow z-10 w-full mt-16 mb-8">
+    <div class="container mx-auto flex flex-col items-center flex-grow z-10 w-full mt-10 mb-8 max-w-3xl">
         
-        <!-- 🤍 Premium White Glass Box -->
-        <div class="glass-box p-6 md:p-10 rounded-[2rem] w-full max-w-2xl transform transition-all duration-300">
+        <div class="glass-box p-6 md:p-8 rounded-[2rem] w-full transform transition-all">
             
-            <!-- Exam Header & Timer -->
-            <div class="flex justify-between items-center border-b border-slate-300 pb-4 mb-6">
+            <!-- Exam Header -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-300 pb-4 mb-6 gap-4">
                 <div>
-                    <h2 class="text-xl font-extrabold text-slate-800 tracking-tight">Geography Mock Test 1</h2>
-                    <p class="text-xs text-slate-600 font-medium mt-1">Do not switch tabs or minimize the browser.</p>
+                    <h2 class="text-2xl font-extrabold text-slate-800 tracking-tight">Geography MCQ Test</h2>
+                    <p class="text-[10px] text-red-600 font-bold mt-1 uppercase tracking-wide">
+                        🛡️ Shuffled | Offline Auto-Save Active
+                    </p>
                 </div>
-                <div class="bg-red-100 border border-red-200 px-4 py-2 rounded-xl shadow-inner">
-                    <span class="text-red-600 font-bold text-lg flex items-center gap-2">
-                        ⏱️ <span id="time">15:00</span>
-                    </span>
-                </div>
-            </div>
-
-            <!-- Question Section -->
-            <div class="mb-8">
-                <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-4">
-                    <span class="text-indigo-600 mr-2">Q1.</span> Which is the largest continent by land area?
-                </h3>
-                
-                <!-- Options -->
-                <div class="space-y-3">
-                    <label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 bg-white/60 hover:bg-white cursor-pointer transition-all duration-200 shadow-sm">
-                        <input type="radio" name="q1" class="w-5 h-5 text-indigo-600 border-slate-300 focus:ring-indigo-500">
-                        <span class="text-slate-700 font-medium">Asia</span>
-                    </label>
-                    <label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 bg-white/60 hover:bg-white cursor-pointer transition-all duration-200 shadow-sm">
-                        <input type="radio" name="q1" class="w-5 h-5 text-indigo-600 border-slate-300 focus:ring-indigo-500">
-                        <span class="text-slate-700 font-medium">Africa</span>
-                    </label>
-                    <label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 bg-white/60 hover:bg-white cursor-pointer transition-all duration-200 shadow-sm">
-                        <input type="radio" name="q1" class="w-5 h-5 text-indigo-600 border-slate-300 focus:ring-indigo-500">
-                        <span class="text-slate-700 font-medium">North America</span>
-                    </label>
-                    <label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 bg-white/60 hover:bg-white cursor-pointer transition-all duration-200 shadow-sm">
-                        <input type="radio" name="q1" class="w-5 h-5 text-indigo-600 border-slate-300 focus:ring-indigo-500">
-                        <span class="text-slate-700 font-medium">Europe</span>
-                    </label>
+                <div class="flex gap-3">
+                    <div class="bg-green-100 border border-green-200 px-3 py-1.5 rounded-lg flex items-center shadow-inner">
+                        <span id="networkStatus" class="text-green-700 font-bold text-[10px] uppercase">📶 Saved</span>
+                    </div>
+                    <div class="bg-red-100 border border-red-200 px-4 py-1.5 rounded-lg shadow-inner">
+                        <span class="text-red-600 font-bold text-lg flex items-center gap-2">
+                            ⏱️ <span id="time">15:00</span>
+                        </span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="flex justify-between items-center pt-4 border-t border-slate-300">
-                <button class="bg-white/50 text-slate-700 hover:bg-slate-100 border border-slate-300 font-bold py-2.5 px-6 rounded-xl transition-all duration-300 shadow-sm">
-                    Previous
-                </button>
-                <button onclick="submitExam()" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-2.5 px-8 rounded-xl shadow-[0_8px_20px_rgba(79,70,229,0.3)] hover:shadow-[0_10px_25px_rgba(79,70,229,0.5)] transform hover:-translate-y-1 transition-all duration-300">
-                    Next Question ➡️
+            <!-- 📝 Dynamic MCQ Container -->
+            <div id="mcqContainer" class="space-y-6">
+                <!-- Questions will be injected here -->
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-end pt-4 border-t border-slate-300 mt-6">
+                <button id="submitBtn" onclick="submitMCQExam()" class="bg-gradient-to-r from-teal-500 to-emerald-600 text-white font-extrabold py-3.5 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all text-sm flex items-center gap-2">
+                    <span>✅ Final Submit & Check Result</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="text-center py-5 text-[11px] text-slate-600 font-medium z-10 w-full glass-box rounded-t-3xl mt-auto border-b-0">
-        <p class="mb-1 text-slate-800 font-bold">Copyright ©® Geo Study Point.</p>
-        <p class="px-4">Operating this website's short form or purchasing its domain elsewhere is a punishable offense.</p>
-        <p class="mt-2 text-sm text-slate-700">Engineered & Developed by <b class="text-indigo-700 font-extrabold">Mr. Swastik Halder</b></p>
-    </footer>
+    <!-- Hidden Instant Result Modal -->
+    <div id="resultModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white p-8 rounded-[2rem] w-full max-w-sm text-center transform scale-95 transition-all">
+            <div class="text-5xl mb-4">🏆</div>
+            <h2 class="text-2xl font-extrabold text-slate-800 mb-2">Instant Result!</h2>
+            <p class="text-sm text-slate-600 mb-6">Your answers have been matched with the Teacher's answer key.</p>
+            <div class="bg-green-100 border border-green-200 rounded-xl p-4 mb-6">
+                <p class="text-xs text-green-700 font-bold uppercase mb-1">Your Score</p>
+                <p class="text-4xl font-black text-green-700"><span id="finalScore">0</span> / <span id="totalScore">0</span></p>
+            </div>
+            <button onclick="window.location.href='dashboard.html'" class="w-full bg-slate-800 text-white font-bold py-3 rounded-xl hover:bg-slate-900 transition">
+                Return to Dashboard
+            </button>
+        </div>
+    </div>
 
     <script>
-        // Simple 15 Minute Timer
-        let timeInSecs = 15 * 60;
-        let ticker = setInterval("tick()", 1000);
-
-        function tick() {
-            let mins = Math.floor(timeInSecs / 60);
-            let secs = timeInSecs % 60;
-            if (secs < 10) secs = "0" + secs;
-            document.getElementById("time").innerHTML = mins + ":" + secs;
-            if (timeInSecs > 0) {
-                timeInSecs--;
-            } else {
-                clearInterval(ticker);
-                alert("Time is up! Auto-submitting the exam.");
-            }
-        }
-
-        function submitExam() {
-            alert("This will load the next question or submit the exam!");
-        }
-
-        // Anti-Cheating: Warning when user switches tabs
+        // 🛡️ 1. Tab-Switching Warning
+        let warningCount = 0;
         document.addEventListener("visibilitychange", function() {
             if (document.hidden) {
-                alert("⚠️ WARNING: Tab switching detected! This activity has been recorded.");
+                warningCount++;
+                alert(`⚠️ STRICT WARNING (${warningCount}/3):\nTab switching is not allowed! Exam will auto-submit after 3 warnings.`);
+                if(warningCount >= 3) { submitMCQExam(); }
             }
         });
+
+        // ⏱️ 2. Dynamic Timer
+        let timeInSecs = 15 * 60; 
+        let timerInterval = setInterval(() => {
+            let mins = Math.floor(timeInSecs / 60);
+            let secs = timeInSecs % 60;
+            document.getElementById("time").innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            if (timeInSecs <= 0) { clearInterval(timerInterval); submitMCQExam(); }
+            timeInSecs--;
+        }, 1000);
+
+        // 🧠 3. Exam Database (Demo from Supabase)
+        const examData = [
+            { id: 1, question: "What is the primary cause of ocean tides?", correct: "Gravitational pull of Moon and Sun", options: ["Wind patterns", "Gravitational pull of Moon and Sun", "Earth's rotation only", "Ocean temperature"] },
+            { id: 2, question: "Which is the longest river in the world?", correct: "Nile", options: ["Amazon", "Nile", "Ganga", "Yangtze"] },
+            { id: 3, question: "Which planet is known as the Red Planet?", correct: "Mars", options: ["Venus", "Mars", "Jupiter", "Saturn"] }
+        ];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // 🖥️ 4. Render Shuffled Questions & Restore Offline Data
+        function renderExam() {
+            const container = document.getElementById('mcqContainer');
+            
+            // To keep shuffling consistent on refresh, a real app would use session storage seed.
+            // For now, we will render and then re-apply any saved answers.
+            const shuffledQuestions = shuffleArray([...examData]);
+            
+            shuffledQuestions.forEach((q, index) => {
+                const shuffledOptions = shuffleArray([...q.options]);
+                let optionsHtml = '';
+                
+                // Fetch saved answer from browser storage
+                let savedAnswer = localStorage.getItem(`mcq_ans_${q.id}`);
+
+                shuffledOptions.forEach((opt, optIdx) => {
+                    let isChecked = (savedAnswer === opt) ? "checked" : "";
+                    optionsHtml += `
+                        <div class="relative">
+                            <input type="radio" name="q_${q.id}" id="q${q.id}_opt${optIdx}" value="${opt}" onchange="saveAnswer(${q.id}, this.value)" class="peer hidden" ${isChecked}>
+                            <label for="q${q.id}_opt${optIdx}" class="block p-3 rounded-lg border border-slate-300 cursor-pointer hover:bg-slate-50 transition text-sm text-slate-700">${opt}</label>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML += `
+                    <div class="bg-white/80 p-5 rounded-xl border border-slate-200 shadow-sm" data-qid="${q.id}">
+                        <h3 class="text-base font-bold text-slate-800 mb-4">
+                            <span class="text-indigo-600 mr-1">Q${index + 1}.</span> ${q.question}
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            ${optionsHtml}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        
+        // 💾 5. Offline Auto-Save Logic (Browser Storage)
+        function saveAnswer(questionId, selectedValue) {
+            localStorage.setItem(`mcq_ans_${questionId}`, selectedValue);
+            document.getElementById('networkStatus').innerHTML = '✅ Saved';
+            setTimeout(() => { document.getElementById('networkStatus').innerHTML = '📶 Auto-saving...'; }, 500);
+        }
+
+        // Initialize rendering
+        renderExam();
+
+        // ⚡ 6. Final Submit & Instant Result Evaluation
+        function submitMCQExam() {
+            clearInterval(timerInterval); 
+            
+            let score = 0;
+            examData.forEach(q => {
+                const selectedOption = localStorage.getItem(`mcq_ans_${q.id}`);
+                if (selectedOption === q.correct) {
+                    score++;
+                }
+                // Clear the browser storage so next exam is fresh
+                localStorage.removeItem(`mcq_ans_${q.id}`);
+            });
+            
+            // Show Instant Result
+            document.getElementById('finalScore').innerText = score;
+            document.getElementById('totalScore').innerText = examData.length;
+            document.getElementById('resultModal').classList.remove('hidden');
+        }
     </script>
 </body>
 </html>
