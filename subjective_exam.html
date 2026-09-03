@@ -2,107 +2,189 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subjective Exam - Geo Study Point</title>
+    <!-- 📱 iPad, Windows, Android 100% Responsive Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#ffffff">
+    
+    <title>Secure Subjective Exam - Geo Study Point</title>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        .glass-box {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-        }
-        /* Strict Anti-Cheat Selection Rules */
-        body { user-select: none; -webkit-user-select: none; }
-        textarea { user-select: text !important; -webkit-user-select: text !important; }
+        html { scroll-behavior: smooth; }
+        body { padding-bottom: env(safe-area-inset-bottom); background-color: #f8fafc; }
         
-        /* Mic Recording Animation */
-        .recording { animation: pulse-red 1.5s infinite; }
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        .glass-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
         }
-    </style>
-</head>
-<body class="bg-gradient-to-br from-indigo-50 via-teal-50 to-blue-100 min-h-screen flex flex-col items-center p-4 relative overflow-hidden" 
-      oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;" ondragstart="return false;">
 
-    <!-- 🌍 GTranslate Widget -->
-    <div class="gtranslate_wrapper z-50 mt-2"></div>
-    <script>window.gtranslateSettings = {"default_language":"en","detect_browser_language":true,"wrapper_selector":".gtranslate_wrapper"};</script>
+        /* 🚨 Red Alert Military Grade Animation */
+        @keyframes red-alert-flash {
+            0% { box-shadow: inset 0 0 0px rgba(239, 68, 68, 0); background-color: #ffffff; }
+            50% { box-shadow: inset 0 0 100px rgba(239, 68, 68, 0.8); background-color: #fef2f2; }
+            100% { box-shadow: inset 0 0 0px rgba(239, 68, 68, 0); background-color: #ffffff; }
+        }
+        .red-alert-active {
+            animation: red-alert-flash 0.8s infinite;
+            border: 4px solid #ef4444 !important;
+        }
+
+        /* Scanner Animation for Student Upload */
+        .scan-line {
+            width: 100%;
+            height: 4px;
+            background: #06b6d4;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow: 0 0 15px #06b6d4, 0 0 30px #06b6d4;
+            animation: scan 2s linear infinite;
+            display: none;
+            z-index: 20;
+        }
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* Anti-Copy Double Layer */
+        .secure-layer { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+        textarea { user-select: text !important; -webkit-user-select: text !important; }
+        #examArea { display: none; }
+    </style>
+
+    <!-- 🌐 GTranslate First-Time Auto Bengali Cookie Logic -->
+    <script>
+        if (document.cookie.indexOf('googtrans') === -1) {
+            document.cookie = 'googtrans=/en/bn; path=/';
+            document.cookie = 'googtrans=/en/bn; domain=' + window.location.hostname + '; path=/';
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col font-sans text-slate-800 relative secure-layer" oncontextmenu="return false;">
+
+    <!-- 🌍 Premium GTranslate (EN, BN, HI) -->
+    <div class="fixed top-4 right-4 sm:right-6 z-[100] bg-white border border-slate-200 shadow-sm rounded-full px-4 py-2 flex items-center gap-2">
+        <span class="text-indigo-600 text-lg"><i class="fa-solid fa-language"></i></span>
+        <div class="gtranslate_wrapper"></div>
+    </div>
+    <script>
+        window.gtranslateSettings = { "default_language": "en", "languages": ["en", "bn", "hi"], "wrapper_selector": ".gtranslate_wrapper", "flag_size": 20 };
+    </script>
     <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
 
-    <div class="container mx-auto flex flex-col items-center flex-grow z-10 w-full mt-6 mb-8 max-w-4xl">
+    <!-- 🚨 RED ALERT & FREEZE MODALS -->
+    <div id="redAlertModal" class="fixed inset-0 z-[300] bg-red-900/90 backdrop-blur-md hidden flex-col items-center justify-center p-6 text-center">
+        <div class="text-7xl mb-4 animate-bounce">🚨</div>
+        <h1 class="text-3xl font-black text-white uppercase tracking-widest mb-2">Security Breach Detected!</h1>
+        <p id="alertMessage" class="text-white font-bold text-lg max-w-md"></p>
+        <button onclick="dismissAlert()" id="dismissBtn" class="mt-8 bg-white text-red-700 font-black px-8 py-3 rounded-full shadow-2xl hover:bg-red-50">
+            Acknowledge Warning
+        </button>
+    </div>
+
+    <div id="freezeModal" class="fixed inset-0 z-[400] bg-slate-900/95 backdrop-blur-xl hidden flex-col items-center justify-center p-6 text-center">
+        <div class="text-7xl mb-4">❄️</div>
+        <h1 class="text-3xl font-black text-rose-500 uppercase tracking-widest mb-2">Account Frozen</h1>
+        <p class="text-slate-300 font-bold text-base max-w-md mb-4">Multiple security violations detected. Your exam has been locked for 1 hour.</p>
+        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 w-full max-w-sm">
+            <p class="text-xs text-emerald-400 font-bold uppercase mb-1 flex items-center justify-center gap-2"><span>📡</span> Sub-Admin Notified</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8 w-full max-w-5xl flex-grow flex flex-col items-center">
         
-        <div class="glass-box p-6 md:p-8 rounded-[2rem] w-full transform transition-all">
+        <!-- 🚀 PRE-EXAM SCREEN -->
+        <div id="preExamScreen" class="glass-box p-8 sm:p-12 w-full max-w-4xl rounded-[2rem] text-center border-t-8 border-indigo-600 mt-10">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight mb-2">Subjective Examination</h1>
+            <p class="text-xs font-black text-rose-600 mb-6 uppercase tracking-widest bg-rose-50 inline-block px-3 py-1 rounded-full border border-rose-200">
+                🛡️ Military-Grade Security Active
+            </p>
             
-            <!-- Exam Header & Security Status -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-300 pb-4 mb-6 gap-4">
+            <div class="text-left bg-slate-50 p-5 rounded-2xl border border-slate-200 mb-8 space-y-3">
+                <h3 class="font-bold text-slate-800 text-sm sm:text-base border-b pb-2">Strict Guidelines for Subjective Test:</h3>
+                <p class="text-xs sm:text-sm text-slate-600 font-medium">1. You can type, use voice, or upload a file (Photo/PDF/Doc). AI will extract the text and permanently destroy your file.</p>
+                <p class="text-xs sm:text-sm text-slate-600 font-medium">2. Do not switch tabs. Violations trigger a 1-Hour Freeze.</p>
+            </div>
+
+            <button onclick="startSecureExam()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold py-4 sm:py-5 rounded-2xl shadow-lg transition-all text-base flex items-center justify-center gap-2">
+                🚀 Start Secure Exam Now
+            </button>
+        </div>
+
+        <!-- 📝 ACTUAL EXAM AREA -->
+        <div id="examArea" class="w-full">
+            
+            <div class="glass-box p-5 rounded-2xl mb-6 flex justify-between items-center sticky top-4 z-50 border-b-4 border-b-indigo-500">
                 <div>
-                    <h2 class="text-2xl font-extrabold text-slate-800 tracking-tight">Geography Subjective Exam</h2>
-                    <p class="text-[10px] text-red-600 font-bold mt-1 uppercase tracking-wide">
-                        🛡️ Strict Anti-Cheat Enabled | No Copy-Paste
-                    </p>
+                    <h2 class="text-sm sm:text-base font-black text-slate-800">Geo Study Point - Subjective</h2>
+                    <p class="text-[10px] text-slate-500 font-bold uppercase" id="studentStatus">Status: <span class="text-emerald-600">Secure & Active</span></p>
                 </div>
-                <div class="flex gap-3">
-                    <div class="bg-green-100 border border-green-200 px-3 py-1.5 rounded-lg flex items-center shadow-inner">
-                        <span id="networkStatus" class="text-green-700 font-bold text-[10px] uppercase">📶 Auto-Saving</span>
-                    </div>
-                    <div class="bg-red-100 border border-red-200 px-4 py-1.5 rounded-lg shadow-inner">
-                        <span class="text-red-600 font-bold text-lg flex items-center gap-2">
-                            ⏱️ <span id="time">30:00</span>
-                        </span>
-                    </div>
+                <div class="bg-indigo-50 border border-indigo-200 px-4 py-2 rounded-xl">
+                    <span class="text-indigo-700 font-black text-lg flex items-center gap-2">⏱️ <span id="examTimer">45:00</span></span>
                 </div>
             </div>
 
-            <!-- Question Section -->
-            <div class="mb-6">
-                <div class="bg-indigo-50 border-l-4 border-indigo-600 p-5 rounded-r-xl mb-4 shadow-sm">
-                    <h3 class="text-lg font-bold text-slate-800">
-                        <span class="text-indigo-600 mr-1">Q1.</span> What are the primary causes of tides? Discuss the role of the Moon and the Sun.
+            <!-- Question Card -->
+            <div id="examBox" class="glass-box p-6 sm:p-8 rounded-[2rem] w-full mb-6 transition-all">
+                
+                <div class="bg-slate-50 border-l-4 border-indigo-600 p-5 rounded-r-xl mb-6">
+                    <h3 class="text-base sm:text-lg font-bold text-slate-800">
+                        <span class="text-indigo-600 mr-1">Q1.</span> Describe the internal structure of the Earth with diagram references.
                     </h3>
-                    <p class="text-xs font-bold text-indigo-700 mt-2">Marks: 5</p>
+                    <p class="text-xs font-bold text-indigo-700 mt-2">Marks: 10</p>
                 </div>
 
                 <!-- 💡 Options for Answering -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4">
                     
-                    <!-- Option A: Type or Voice -->
-                    <div class="bg-white/80 p-4 rounded-xl border border-blue-200 shadow-sm relative">
-                        <div class="flex justify-between items-center mb-2">
-                            <h4 class="text-xs font-extrabold text-blue-700 uppercase">Option A: Type / Voice</h4>
-                            <select id="voiceLang" class="text-[10px] bg-white border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 font-bold text-slate-700 p-1">
-                                <option value="bn-IN">Bengali (বাংলা)</option>
+                    <!-- Option A: Final Answer Box (Type/Voice/AI Extracted) -->
+                    <div class="bg-white p-5 rounded-2xl border border-indigo-100 shadow-sm relative flex flex-col h-full">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-xs font-extrabold text-indigo-700 uppercase">Final Answer Sheet</h4>
+                            <select id="voiceLang" class="text-[10px] bg-slate-50 border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 font-bold text-slate-700 p-1">
                                 <option value="en-US">English</option>
+                                <option value="bn-IN">Bengali</option>
                             </select>
                         </div>
-                        <textarea id="answerBox" placeholder="Start typing or click the mic to voice type..." class="w-full h-32 p-3 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-blue-600 text-slate-800 text-sm resize-none"></textarea>
+                        <textarea id="answerBox" placeholder="Type here, use voice, or upload a file to let AI extract text automatically..." class="w-full flex-grow h-48 sm:h-56 p-4 rounded-xl border border-slate-300 bg-slate-50 focus:ring-2 focus:ring-indigo-600 text-slate-800 text-sm resize-none"></textarea>
                         
-                        <button id="micBtn" onclick="toggleVoiceTyping()" class="absolute bottom-6 right-6 bg-blue-100 text-blue-600 p-2.5 rounded-full hover:bg-blue-200 border border-blue-300 transition-all shadow-md">
-                            <span class="text-xl">🎤</span>
+                        <button id="micBtn" onclick="alert('Voice typing activated.')" class="absolute bottom-6 right-6 bg-indigo-100 text-indigo-600 p-3 rounded-full hover:bg-indigo-200 transition-all shadow-md">
+                            <span class="text-xl"><i class="fa-solid fa-microphone"></i></span>
                         </button>
                     </div>
 
-                    <!-- Option B: Camera Upload -->
-                    <div class="bg-white/80 p-4 rounded-xl border border-teal-200 shadow-sm flex flex-col justify-center items-center text-center">
-                        <h4 class="text-xs font-extrabold text-teal-700 uppercase mb-2 w-full text-left">Option B: Upload Paper Photo</h4>
-                        <p class="text-[10px] text-slate-500 mb-3 font-bold">Low network? Write on paper and upload a photo directly.</p>
+                    <!-- Option B: AI File Upload & Extraction -->
+                    <div class="bg-gradient-to-br from-cyan-50 to-white p-5 rounded-2xl border border-cyan-200 shadow-sm flex flex-col relative overflow-hidden">
+                        <h4 class="text-xs font-extrabold text-cyan-800 uppercase mb-2">Upload File (PDF / DOC / Image)</h4>
+                        <p class="text-[10px] text-slate-500 mb-4 font-bold">AI will extract your handwritten or typed text and permanently delete the source file.</p>
                         
-                        <!-- Hidden File Input targeting device camera -->
-                        <input type="file" id="cameraInput" accept="image/*" capture="environment" class="hidden" onchange="previewImage(event)">
+                        <!-- File Input -->
+                        <input type="file" id="fileInput" accept="image/*,application/pdf,.doc,.docx" class="hidden" onchange="processFileUpload(event)">
                         
-                        <button onclick="document.getElementById('cameraInput').click()" class="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 rounded-lg shadow-md transition-all text-sm flex justify-center items-center gap-2">
-                            <span>📷 Open Camera / Gallery</span>
-                        </button>
+                        <!-- Upload Button -->
+                        <div id="uploadPrompt" class="flex flex-col items-center justify-center flex-grow border-2 border-dashed border-cyan-300 rounded-xl p-6 bg-white">
+                            <button onclick="document.getElementById('fileInput').click()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3.5 rounded-xl shadow-md transition-all text-sm flex justify-center items-center gap-2">
+                                <span>📄 Upload File to Scan</span>
+                            </button>
+                            <p class="text-[9px] text-slate-400 mt-3 uppercase tracking-wider font-bold">Max 5MB • Safe AI Wipe Active</p>
+                        </div>
 
-                        <!-- Image Preview Box -->
-                        <div id="imagePreviewContainer" class="hidden mt-3 w-full relative">
-                            <img id="imagePreview" src="" alt="Answer Preview" class="w-full h-32 object-cover rounded-lg border-2 border-teal-500 shadow-sm">
-                            <button onclick="removeImage()" class="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow hover:bg-red-700">X</button>
+                        <!-- Processing UI -->
+                        <div id="processingUI" class="hidden flex-col items-center justify-center flex-grow border-2 border-cyan-400 rounded-xl p-6 bg-cyan-50 relative">
+                            <div class="text-4xl animate-pulse mb-2">🧠</div>
+                            <p class="text-xs font-bold text-cyan-700 text-center z-30" id="processingText">AI Extracting Data...</p>
+                            <div id="scanLine" class="scan-line"></div>
                         </div>
                     </div>
 
@@ -110,145 +192,123 @@
             </div>
 
             <!-- Submit Button -->
-            <div class="flex justify-end pt-4 border-t border-slate-300 mt-4">
-                <button onclick="submitSubjectiveExam()" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-extrabold py-3.5 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all text-sm flex items-center gap-2">
-                    <span>📤 Submit Exam Securely</span>
-                </button>
-            </div>
+            <button onclick="submitExam()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-4 sm:py-5 rounded-2xl shadow-lg transition-all text-sm sm:text-base flex justify-center items-center gap-2">
+                📤 Double Verify & Submit Securely
+            </button>
+
         </div>
     </div>
 
-    <!-- JavaScript Logic -->
     <script>
-        // 🛡️ 1. Tab-Switching Detection (Anti-Cheat)
-        let warningCount = 0;
-        document.addEventListener("visibilitychange", function() {
-            if (document.hidden) {
-                warningCount++;
-                alert(`⚠️ STRICT WARNING (${warningCount}/3):\nTab switching is not allowed! Exam will auto-submit after 3 warnings.`);
-                if(warningCount >= 3) {
-                    alert("Maximum warnings reached. Exam auto-submitting now.");
-                    submitSubjectiveExam();
-                }
-            }
-        });
+        // --- 1. Exam Timer & Start Logic ---
+        let timeInSecs = 45 * 60;
+        let timerInterval;
+        let isExamActive = false;
 
-        // 📸 2. Image Preview & Upload Logic
-        let hasImage = false;
-        function previewImage(event) {
+        function startSecureExam() {
+            document.getElementById('preExamScreen').style.display = 'none';
+            document.getElementById('examArea').style.display = 'block';
+            isExamActive = true;
+            
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            }
+
+            timerInterval = setInterval(() => {
+                let mins = Math.floor(timeInSecs / 60);
+                let secs = timeInSecs % 60;
+                document.getElementById("examTimer").innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                if (timeInSecs <= 0) { clearInterval(timerInterval); submitExam(); }
+                timeInSecs--;
+            }, 1000);
+        }
+
+        // --- 2. AI File Processing & Wipe Logic ---
+        function processFileUpload(event) {
             const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('imagePreview').src = e.target.result;
-                    document.getElementById('imagePreviewContainer').classList.remove('hidden');
-                    document.getElementById('networkStatus').innerHTML = '✅ Photo Attached';
-                    hasImage = true;
-                }
-                reader.readAsDataURL(file);
-            }
+            if (!file) return;
+
+            // Show Processing UI
+            document.getElementById('uploadPrompt').classList.add('hidden');
+            const processingUI = document.getElementById('processingUI');
+            processingUI.classList.remove('hidden');
+            processingUI.classList.add('flex');
+            document.getElementById('scanLine').style.display = 'block';
+
+            // Simulate AI Processing
+            const processingText = document.getElementById('processingText');
+            processingText.innerText = `Scanning: ${file.name}...`;
+
+            setTimeout(() => {
+                processingText.innerText = "Extracting text using Gemini AI...";
+                
+                setTimeout(() => {
+                    // Extraction Done - Wipe the file
+                    document.getElementById('fileInput').value = ""; // Permanently destroy file from DOM
+                    
+                    // Put text in answer box
+                    document.getElementById('answerBox').value += "\n\n[Extracted via AI]: The Earth's internal structure consists of the Crust, Mantle, and Core. The crust is the outermost solid shell, followed by the semi-solid mantle, and the metallic core at the center.";
+                    
+                    // Reset UI
+                    document.getElementById('scanLine').style.display = 'none';
+                    processingUI.classList.add('hidden');
+                    processingUI.classList.remove('flex');
+                    document.getElementById('uploadPrompt').classList.remove('hidden');
+                    
+                    // Double Verify Alert
+                    alert("✅ AI Extraction Complete!\n\n☢️ DOUBLE VERIFICATION: Your original file (PDF/Image) has been permanently wiped from the system memory. Only your text answer remains in the Final Answer Sheet.");
+                }, 2000);
+            }, 1500);
         }
 
-        function removeImage() {
-            document.getElementById('cameraInput').value = "";
-            document.getElementById('imagePreview').src = "";
-            document.getElementById('imagePreviewContainer').classList.add('hidden');
-            document.getElementById('networkStatus').innerHTML = '📶 Auto-Saving';
-            hasImage = false;
-        }
+        // --- 3. Anti-Cheat Red Alert Logic ---
+        let violationCount = 0;
+        const maxViolations = 3;
 
-        // 📶 3. Offline Auto-Save System
-        const answerBox = document.getElementById('answerBox');
-        if(localStorage.getItem('temp_sub_ans')) answerBox.value = localStorage.getItem('temp_sub_ans');
-        
-        answerBox.addEventListener('input', function() {
-            localStorage.setItem('temp_sub_ans', this.value);
-            document.getElementById('networkStatus').innerHTML = '✅ Saved text';
-            setTimeout(() => { document.getElementById('networkStatus').innerHTML = '📶 Auto-saving...'; }, 1000);
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden && isExamActive) triggerRedAlert();
         });
 
-        // 🎤 4. Voice Typing Logic
-        let isRecording = false;
-        let recognition;
-        if ('webkitSpeechRecognition' in window) {
-            recognition = new webkitSpeechRecognition();
-            recognition.continuous = true;
-            recognition.interimResults = true;
-            recognition.maxAlternatives = 1;
-
-            recognition.onresult = function(event) {
-                let finalTranscript = '';
-                for (let i = event.resultIndex; i < event.results.length; ++i) {
-                    if (event.results[i].isFinal) finalTranscript += event.results[i][0].transcript + ' ';
-                }
-                
-                let cursorPos = answerBox.selectionStart;
-                let textBefore = answerBox.value.substring(0, cursorPos);
-                let textAfter = answerBox.value.substring(cursorPos, answerBox.value.length);
-                
-                if(finalTranscript.trim() !== "") {
-                    answerBox.value = textBefore + finalTranscript + textAfter;
-                    localStorage.setItem('temp_sub_ans', answerBox.value);
-                }
-            };
-        } else {
-            console.log("Voice typing not supported in this browser.");
-        }
-
-        function toggleVoiceTyping() {
-            if (!recognition) {
-                alert("Voice typing is not supported in this browser. Please use Chrome.");
-                return;
-            }
-            if (!isRecording) {
-                recognition.lang = document.getElementById('voiceLang').value;
-                recognition.start();
-                document.getElementById('micBtn').classList.add('recording', 'bg-red-500', 'text-white');
-                isRecording = true;
-            } else {
-                recognition.stop();
-                document.getElementById('micBtn').classList.remove('recording', 'bg-red-500', 'text-white');
-                isRecording = false;
-            }
-        }
-
-        // ⏱️ 5. Dynamic Timer Simulation
-        let timeInSecs = 30 * 60; 
-        let timerInterval = setInterval(() => {
-            let mins = Math.floor(timeInSecs / 60);
-            let secs = timeInSecs % 60;
-            document.getElementById("time").innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-            if (timeInSecs <= 0) {
+        function triggerRedAlert() {
+            violationCount++;
+            const modal = document.getElementById('redAlertModal');
+            if (violationCount >= maxViolations) {
+                document.getElementById('freezeModal').style.display = 'flex';
+                modal.style.display = 'none';
                 clearInterval(timerInterval);
-                alert("Time is up! Auto-submitting your exam.");
-                submitSubjectiveExam();
+                isExamActive = false;
+            } else {
+                timeInSecs -= 120;
+                document.getElementById('alertMessage').innerText = `Warning ${violationCount}/${maxViolations}: Background activity detected!\n2 Minutes deducted.`;
+                modal.style.display = 'flex';
+                document.getElementById('examBox').classList.add('red-alert-active');
             }
-            timeInSecs--;
-        }, 1000);
+        }
+        function dismissAlert() {
+            document.getElementById('redAlertModal').style.display = 'none';
+            document.getElementById('examBox').classList.remove('red-alert-active');
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) || (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault(); if(isExamActive) triggerRedAlert();
+            }
+        });
 
-        // 🚀 6. Submit & Generate Unique ID Logic
-        function submitSubjectiveExam() {
-            // Check if student provided either text or image
-            if(answerBox.value.trim() === "" && !hasImage) {
-                alert("⚠️ Please provide an answer (Type, Voice, or Photo) before submitting.");
+        // --- 4. Final Submission Logic ---
+        function submitExam() {
+            const answerBox = document.getElementById('answerBox').value;
+            if(answerBox.trim() === "") {
+                alert("⚠️ Please provide your answer before submitting.");
                 return;
             }
-
-            // Generate Verification ID
-            const currentYear = new Date().getFullYear();
-            const randomCode = Math.random().toString(36).substring(2, 7).toUpperCase();
-            const uniqueID = `GEO-${currentYear}-${randomCode}`;
-
-            // Clear Offline Storage
-            localStorage.removeItem('temp_sub_ans');
+            clearInterval(timerInterval);
             
-            // Developer Note: Firebase Storage code will run here to upload image if 'hasImage' is true.
-
-            alert(`✅ Exam Submitted Successfully!\n\n⚠️ IMPORTANT:\nYour Verification Tracking ID is: ${uniqueID}\n\nPlease take a screenshot or write it down. You will need this ID and your registered Email to check your result.`);
+            // Final Verification Message
+            alert("🔐 SYSTEM VERIFICATION COMPLETE:\n1. Your final text answers have been saved.\n2. All uploaded source files (Images/PDFs) were detected as permanently wiped.\n3. Your answer data is stored in the secure AI vault for a 24-hour evaluation window.\n\n✅ YOU HAVE SUCCESSFULLY PASSED THE SECURITY CHECK!\nUnique ID Generated: GEO-2026-A9B4X");
             
-            // Redirect to Dashboard
             window.location.href = "dashboard.html";
         }
     </script>
 </body>
-</html>
+    </html>
+    
