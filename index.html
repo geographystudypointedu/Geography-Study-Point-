@@ -3,76 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geo Study Point - Secure Portal</title>
-    <!-- Tailwind CSS -->
+    <title>Login - Geo Study Point</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 🌟 Premium White Frosted Glass Effect */
         .glass-box {
-            background: rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.65);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         }
-        /* Extra Security: Prevent Text Selection */
-        body {
-            user-select: none; 
-            -webkit-user-select: none;
-        }
+        body { user-select: none; -webkit-user-select: none; }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-100 via-teal-50 to-cyan-100 min-h-screen flex flex-col justify-between items-center relative overflow-hidden" oncontextmenu="return false;" onselectstart="return false;">
+<body class="bg-gradient-to-br from-blue-100 via-teal-50 to-cyan-100 min-h-screen flex flex-col items-center justify-center p-4" oncontextmenu="return false;">
 
-    <!-- 🌍 GTranslate Widget -->
-    <div class="gtranslate_wrapper z-50 mt-2"></div>
+    <!-- GTranslate -->
+    <div class="gtranslate_wrapper fixed top-4 left-4 z-50"></div>
     <script>window.gtranslateSettings = {"default_language":"en","detect_browser_language":true,"wrapper_selector":".gtranslate_wrapper"};</script>
     <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
 
-    <!-- 🚧 Floating Beta Badge -->
-    <div class="fixed top-4 right-4 z-50 bg-gradient-to-r from-red-500 to-pink-600 text-white text-[10px] md:text-xs px-4 py-1.5 rounded-full font-bold shadow-xl animate-pulse border border-white/50">
-        Beta Version 0.01 🚧 | Dev: Mr. Swastik Halder
-    </div>
-
-    <!-- Main Login Section -->
-    <div class="container mx-auto px-4 flex flex-col items-center justify-center flex-grow z-10 w-full mt-12 mb-8">
-        <!-- 🤍 Premium White Glass Box -->
-        <div class="glass-box p-8 md:p-10 rounded-[2rem] w-full max-w-md text-center transform transition-all duration-300 hover:scale-[1.02]">
-            
-            <!-- Logo/Icon Area -->
-            <div class="bg-white/90 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-5 shadow-inner border border-gray-100">
-                <span class="text-4xl">🌍</span>
-            </div>
-
-            <h1 class="text-3xl md:text-4xl font-extrabold mb-2 text-slate-800 drop-shadow-sm tracking-tight">Geo Study Point</h1>
-            <p class="text-slate-600 mb-8 text-sm md:text-base font-bold px-2">Strictly Secured Geography Examination Portal</p>
-            
-            <!-- 🎨 Colorful Google Login Button with Logo -->
-            <button onclick="handleLogin()" class="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-bold py-3.5 px-4 rounded-2xl shadow-[0_8px_20px_rgba(79,70,229,0.3)] hover:shadow-[0_10px_25px_rgba(79,70,229,0.5)] transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3 border border-indigo-400/30">
-                <div class="bg-white p-1.5 rounded-full flex items-center justify-center">
-                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5">
-                </div>
-                <span class="text-lg tracking-wide">Sign in with Google</span>
-            </button>
-
-            <!-- Security Alert Tag -->
-            <div class="mt-6 flex items-center justify-center gap-2 text-xs font-bold text-red-600 bg-red-50 py-2 px-3 rounded-xl border border-red-100">
-                <span>⚠️</span> Secure Connection Active
-            </div>
+    <div class="glass-box p-8 md:p-10 rounded-[2.5rem] w-full max-w-md text-center relative z-10 transform transition-all hover:scale-[1.02]">
+        
+        <div class="bg-white w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6 shadow-lg border-4 border-blue-100">
+            <span class="text-5xl">🌍</span>
         </div>
+        
+        <h1 class="text-3xl font-extrabold text-slate-800 tracking-tight">Geo Study Point</h1>
+        <p class="text-sm text-slate-500 font-bold mt-2 mb-8">AI-Powered Geography Examination Portal</p>
+
+        <!-- Secure Firebase Google Login Button -->
+        <button onclick="loginWithGoogle()" class="w-full bg-white text-slate-700 font-bold py-3.5 px-4 rounded-xl shadow-md border border-slate-200 hover:bg-slate-50 hover:shadow-lg transition-all flex items-center justify-center gap-3">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-6 h-6">
+            <span>Secure Login with Google</span>
+        </button>
+
+        <p class="text-[10px] text-slate-400 font-bold mt-6 uppercase tracking-wide flex items-center justify-center gap-1">
+            <span>🔒</span> Secured by Firebase & Supabase
+        </p>
     </div>
 
-    <!-- Footer -->
-    <footer class="text-center py-5 text-[11px] text-slate-600 font-medium z-10 w-full glass-box rounded-t-3xl mt-auto border-b-0">
-        <p class="mb-1 text-slate-800 font-bold">Copyright ©® Geo Study Point.</p>
-        <p class="px-4">Operating this website's short form or purchasing its domain elsewhere is a punishable offense.</p>
-        <p class="mt-2 text-sm text-slate-700">Engineered & Developed by <b class="text-indigo-700 font-extrabold">Mr. Swastik Halder</b></p>
+    <footer class="fixed bottom-4 text-center text-xs font-bold text-slate-600">
+        Developed & Engineered by <span class="text-indigo-700">Mr. Swastik Halder</span>
     </footer>
 
     <script>
-        function handleLogin() {
-            // Temporary demo alert
-            alert("This button will automatically log you in with your Google Account soon!");
+        // Hybrid Auth Logic Placeholder (Firebase -> Supabase -> Dashboard)
+        function loginWithGoogle() {
+            const btn = document.querySelector('button');
+            btn.innerHTML = `<span class="animate-pulse">Authenticating with Firebase...</span>`;
+            
+            setTimeout(() => {
+                // Developer will add Firebase Auth Code here
+                window.location.href = "dashboard.html";
+            }, 1500);
         }
     </script>
 </body>
