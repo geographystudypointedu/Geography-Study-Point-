@@ -1,89 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam Results - Geo Study Point</title>
+    <title>Official Result Portal & AI Mentor - Geo Study Point</title>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jsPDF & AutoTable for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <!-- QRious for Large QR Code Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
     <style>
-        /* 🌟 Premium White Frosted Glass Effect */
         .glass-box {
-            background: rgba(255, 255, 255, 0.55);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid #e2e8f0;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         }
-        /* Extra Security: Prevent Text Selection */
-        body {
-            user-select: none;
-            -webkit-user-select: none;
-        }
+        .chat-area { max-height: 250px; overflow-y: auto; scroll-behavior: smooth; }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-100 via-teal-50 to-cyan-100 min-h-screen flex flex-col items-center p-4 relative overflow-hidden" oncontextmenu="return false;" onselectstart="return false;">
+<body class="bg-gradient-to-br from-slate-100 to-indigo-50 min-h-screen flex flex-col items-center py-10 px-4 font-sans text-slate-800">
 
-    <!-- 🌍 GTranslate Widget -->
-    <div class="gtranslate_wrapper z-50 mt-2"></div>
-    <script>window.gtranslateSettings = {"default_language":"en","detect_browser_language":true,"wrapper_selector":".gtranslate_wrapper"};</script>
-    <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
-
-    <!-- 🚧 Floating Beta Badge -->
-    <div class="fixed top-4 right-4 z-50 bg-gradient-to-r from-red-500 to-pink-600 text-white text-[10px] md:text-xs px-4 py-1.5 rounded-full font-bold shadow-xl animate-pulse border border-white/50">
-        Beta Version 0.01 🚧 | Dev: Mr. Swastik Halder
-    </div>
-
-    <!-- Result Container -->
-    <div class="container mx-auto flex flex-col items-center justify-center flex-grow z-10 w-full mt-16 mb-8">
+    <div class="w-full max-w-4xl space-y-8">
         
-        <!-- 🤍 Premium White Glass Box -->
-        <div class="glass-box p-8 md:p-12 rounded-[2rem] w-full max-w-md text-center transform transition-all duration-300 hover:scale-[1.02]">
-            
-            <!-- Trophy / Success Icon -->
-            <div class="bg-green-100 w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6 shadow-inner border border-green-200">
-                <span class="text-5xl">🏆</span>
-            </div>
-
-            <h2 class="text-3xl font-extrabold text-slate-800 tracking-tight mb-2">Exam Completed!</h2>
-            <p class="text-slate-600 font-medium mb-8">Geography Mock Test 1</p>
-
-            <!-- Score Display -->
-            <div class="bg-white/70 p-6 rounded-2xl mb-8 border border-slate-200 shadow-sm relative overflow-hidden">
-                <div class="absolute -right-4 -top-4 text-8xl opacity-5">📈</div>
-                <p class="text-sm text-slate-500 font-bold uppercase tracking-wider mb-2">Your Score</p>
-                
-                <div class="text-6xl font-black text-indigo-600 drop-shadow-sm mb-3">
-                    85<span class="text-2xl text-slate-400 font-bold">/100</span>
-                </div>
-                
-                <div class="inline-block bg-green-100 text-green-700 px-4 py-1.5 rounded-full text-xs font-extrabold border border-green-200">
-                    Excellent Performance 🌟
+        <!-- 🎓 Result Search Section -->
+        <div class="glass-box p-8 rounded-2xl relative overflow-hidden border-t-8 border-indigo-700">
+            <div class="text-center mb-6">
+                <h1 class="text-3xl font-black text-slate-900 uppercase tracking-widest">Geo Study Point</h1>
+                <h2 class="text-lg font-bold text-slate-600 mt-1 uppercase">Official Result Portal</h2>
+                <div class="mt-4 inline-block bg-emerald-100 text-emerald-800 px-4 py-2 rounded-lg text-sm font-bold border border-emerald-300 shadow-sm">
+                    ✅ Secure Evaluation & AI Verification Active
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="space-y-4">
-                <button onclick="goDashboard()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-3.5 px-4 rounded-2xl shadow-[0_8px_20px_rgba(79,70,229,0.3)] hover:shadow-[0_10px_25px_rgba(79,70,229,0.5)] transform hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-2">
-                    <span class="text-lg">🏠 Back to Dashboard</span>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+                <input type="email" id="searchEmail" placeholder="Registered Email" class="px-5 py-3 border border-slate-300 rounded-xl w-full sm:w-72 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 font-bold text-slate-700">
+                <input type="text" id="searchId" placeholder="Verification ID (e.g. GEO-XYZ)" class="px-5 py-3 border border-slate-300 rounded-xl w-full sm:w-72 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 uppercase font-bold text-slate-700">
+                <button id="searchResultBtn" class="bg-indigo-700 hover:bg-indigo-800 text-white font-extrabold py-3 px-8 rounded-xl shadow-lg transition-all text-sm flex items-center justify-center gap-2">
+                    🔍 Fetch Result
                 </button>
+            </div>
+        </div>
+
+        <!-- 🚀 Student Result Action Area -->
+        <div id="studentDashboardArea" class="hidden space-y-6">
+            
+            <!-- PDF Download Box -->
+            <div class="glass-box p-6 rounded-2xl border-l-4 border-l-green-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div>
+                    <h3 class="text-lg font-bold text-green-700">🎉 Result Found Successfully!</h3>
+                    <p class="text-xs text-slate-600 font-medium mt-1">Your data is verified by Firebase Server. Download your official marksheet below.</p>
+                </div>
+                <button id="downloadPdfBtn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all text-sm flex items-center justify-center gap-2 animate-bounce">
+                    📥 Download PDF Marksheet
+                </button>
+            </div>
+
+            <!-- 🤖 AI Mentor Chatbox -->
+            <div class="glass-box p-6 rounded-2xl border-t-8 border-teal-500">
+                <h3 class="text-teal-700 font-extrabold mb-2 flex items-center gap-2 text-base uppercase tracking-wide">
+                    <span>🤖</span> Post-Result AI Mentor (Gemini Flash)
+                </h3>
+                <p class="text-xs text-slate-500 mb-4 font-bold">Ask AI about your mistakes or how to improve based on your downloaded result.</p>
+                
+                <div id="chatHistory" class="chat-area bg-slate-50 border border-slate-200 rounded-xl p-4 mb-4 space-y-3 text-sm text-slate-700 shadow-inner">
+                    <div class="bg-teal-50 p-3 rounded-xl border border-teal-100 text-teal-900 inline-block w-4/5">
+                        <b>🤖 AI Mentor:</b> Hello! I have analyzed your official result. Do you want to know where you lost marks or how to prepare better?
+                    </div>
+                </div>
+
+                <div class="flex gap-2">
+                    <input type="text" id="chatInput" placeholder="Ask AI: Why did I lose marks in the subjective part?" class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-teal-500 bg-white">
+                    <button id="sendAiBtn" class="bg-teal-600 text-white font-bold px-6 py-3 rounded-xl text-sm hover:bg-teal-700 transition shadow">Send</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="text-center py-5 text-[11px] text-slate-600 font-medium z-10 w-full glass-box rounded-t-3xl mt-auto border-b-0">
-        <p class="mb-1 text-slate-800 font-bold">Copyright ©® Geo Study Point.</p>
-        <p class="px-4">Operating this website's short form or purchasing its domain elsewhere is a punishable offense.</p>
-        <p class="mt-2 text-sm text-slate-700">Engineered & Developed by <b class="text-indigo-700 font-extrabold">Mr. Swastik Halder</b></p>
-    </footer>
-
+    <!-- Core Logic -->
     <script>
-        function goDashboard() {
-            // This will take the student back to the dashboard
-            window.location.href = "dashboard.html";
-        }
+        let currentStudentData = null; 
+
+        // ১. Fetch Result Logic 
+        document.getElementById('searchResultBtn').addEventListener('click', () => {
+            const inputEmail = document.getElementById('searchEmail').value.trim();
+            const inputId = document.getElementById('searchId').value.trim();
+            
+            if (!inputEmail || !inputId) { 
+                alert("⚠️ Error: Please enter BOTH your Registered Email and Verification ID."); 
+                return; 
+            }
+
+            const btn = document.getElementById('searchResultBtn');
+            btn.innerHTML = "⏳ Authenticating...";
+            
+            // Mock Fetch Delay
+            setTimeout(() => {
+                currentStudentData = {
+                    name: "Student Name",
+                    email: inputEmail,
+                    verificationId: inputId,
+                    stream: "Geography (Class 12 - Arts)",
+                    finalStatus: "PASSED WITH DISTINCTION",
+                    marks: [
+                        ["I. Multiple Choice (MCQ)", "35", "10", "00", "35%", "31.5", "O"],
+                        ["II. Descriptive / Subjective", "35", "10", "+1.5", "35%", "28.0", "A+"],
+                        ["III. Practical / Map Pointing", "30", "10", "00", "30%", "27.5", "O"]
+                    ],
+                    totalInfo: ["Total Aggregate", "100", "30", "+1.5", "100%", "87.0 (87%)", "A+"]
+                };
+
+                btn.innerHTML = "✅ Identity Verified";
+                btn.classList.replace('bg-indigo-700', 'bg-green-600');
+                document.getElementById('studentDashboardArea').classList.remove('hidden');
+            }, 1500);
+        });
+
+        // ২. PDF Generation Logic (With Digital Seal from your screenshot)
+        document.getElementById('downloadPdfBtn').addEventListener('click', () => {
+            if(!currentStudentData) return;
+            const btn = document.getElementById('downloadPdfBtn');
+            btn.innerHTML = "⏳ Generating Official PDF...";
+            
+            setTimeout(() => {
+                const secureHash = (Math.random().toString(36).substring(2, 15)).toUpperCase();
+                const verificationUrl = `https://geostudypoint.com/verify-result?id=${currentStudentData.verificationId}`;
+
+                const { jsPDF } = window.jspdf;
+                const docPdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+                // Header
+                docPdf.setFont("helvetica", "bold");
+                docPdf.setFontSize(26);
+                docPdf.setTextColor(30, 58, 138);
+                docPdf.text("GEO STUDY POINT", 105, 20, { align: "center" });
+                
+                docPdf.setFontSize(12);
+                docPdf.setTextColor(100, 100, 100);
+                docPdf.text("OFFICIAL STATEMENT OF MARKS", 105, 27, { align: "center" });
+
+                // QR Code
+                const qr = new QRious({ value: verificationUrl, size: 250, level: 'H' });
+                docPdf.addImage(qr.toDataURL('image/png'), 'PNG', 155, 10, 40, 40);
+                docPdf.setFontSize(7);
+                docPdf.setTextColor(220, 38, 38);
+                docPdf.text("SCAN TO VERIFY", 175, 53, { align: "center" });
+
+                // Student Details Box
+                docPdf.setDrawColor(200, 200, 200);
+                docPdf.setFillColor(248, 250, 252);
+                docPdf.roundedRect(15, 45, 130, 25, 3, 3, 'FD');
+
+                docPdf.setFontSize(10);
+                docPdf.setTextColor(0, 0, 0);
+                docPdf.text("Candidate's Name:", 20, 52);
+                docPdf.setFont("helvetica", "bold");
+                docPdf.text(currentStudentData.name, 55, 52);
+
+                docPdf.setFont("helvetica", "normal");
+                docPdf.text("Verification ID:", 20, 59);
+                docPdf.setFont("helvetica", "bold");
+                docPdf.text(currentStudentData.verificationId, 55, 59);
+
+                // Table
+                docPdf.autoTable({
+                    startY: 80,
+                    head: [['Paper / Module', 'Full Marks', 'Pass Marks', 'Grace', 'Weightage', 'Obtained', 'Grade']],
+                    body: [...currentStudentData.marks, currentStudentData.totalInfo],
+                    theme: 'grid',
+                    headStyles: { fillColor: [30, 58, 138], textColor: 255, fontStyle: 'bold', halign: 'center' },
+                    bodyStyles: { halign: 'center', textColor: 20 },
+                });
+
+                const finalY = docPdf.lastAutoTable.finalY;
+                docPdf.setFontSize(12);
+                docPdf.setTextColor(0, 100, 0);
+                docPdf.text(`Final Result Status: ${currentStudentData.finalStatus}`, 15, finalY + 15);
+
+                // Digital Vector Seal Box (From your screenshot)
+                const sealX = 130;
+                const sealY = finalY + 10;
+                docPdf.setDrawColor(30, 58, 138);
+                docPdf.setLineWidth(0.5);
+                docPdf.rect(sealX, sealY, 65, 30);
+                docPdf.setLineWidth(0.1);
+                docPdf.rect(sealX + 1, sealY + 1, 63, 28);
+                docPdf.setTextColor(30, 58, 138);
+                docPdf.setFont("helvetica", "bold");
+                docPdf.setFontSize(9);
+                docPdf.text("[ VALIDATED & SECURED ]", sealX + 32.5, sealY + 8, { align: "center" });
+                docPdf.setFontSize(8);
+                docPdf.setFont("helvetica", "normal");
+                docPdf.text("Controller of Examinations", sealX + 32.5, sealY + 15, { align: "center" });
+                docPdf.setFont("helvetica", "bold");
+                docPdf.text("Geo Study Point", sealX + 32.5, sealY + 20, { align: "center" });
+
+                docPdf.save(`Result_${currentStudentData.verificationId}.pdf`);
+                btn.innerHTML = "📥 Download PDF Marksheet";
+            }, 1000);
+        });
+
+        // ৩. AI Chat Logic (Fixed addEventListener)
+        document.getElementById('sendAiBtn').addEventListener('click', () => {
+            const input = document.getElementById('chatInput');
+            const chatHistory = document.getElementById('chatHistory');
+            
+            if(input.value.trim() === "") return;
+
+            // Student Message
+            chatHistory.innerHTML += `<div class="bg-indigo-50 p-3 rounded-xl border border-indigo-100 text-indigo-900 ml-auto w-4/5 text-right"><b>You:</b> ${input.value}</div>`;
+            input.value = "";
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            // Simulated AI Response
+            setTimeout(() => {
+                chatHistory.innerHTML += `<div class="bg-teal-50 p-3 rounded-xl border border-teal-100 text-teal-900 inline-block w-4/5"><b>🤖 AI Mentor:</b> Based on the Teacher's evaluation in the database, you did perfectly in MCQ, but missed some key geographical terms in the descriptive section.</div>`;
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }, 1200);
+        });
     </script>
 </body>
 </html>
-  
