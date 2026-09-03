@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subjective Exam - Geo Study Point</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass-box {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+        /* Strict Anti-Cheat Selection Rules */
+        body { user-select: none; -webkit-user-select: none; }
+        textarea { user-select: text !important; -webkit-user-select: text !important; }
+        
+        /* Mic Recording Animation */
+        .recording { animation: pulse-red 1.5s infinite; }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-teal-50 to-blue-100 min-h-screen flex flex-col items-center p-4 relative overflow-hidden" 
+      oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;" ondragstart="return false;">
+
+    <!-- 🌍 GTranslate Widget -->
+    <div class="gtranslate_wrapper z-50 mt-2"></div>
+    <script>window.gtranslateSettings = {"default_language":"en","detect_browser_language":true,"wrapper_selector":".gtranslate_wrapper"};</script>
+    <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
+
+    <div class="container mx-auto flex flex-col items-center flex-grow z-10 w-full mt-6 mb-8 max-w-4xl">
+        
+        <div class="glass-box p-6 md:p-8 rounded-[2rem] w-full transform transition-all">
+            
+            <!-- Exam Header & Security Status -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-300 pb-4 mb-6 gap-4">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-800 tracking-tight">Geography Subjective Exam</h2>
+                    <p class="text-[10px] text-red-600 font-bold mt-1 uppercase tracking-wide">
+                        🛡️ Strict Anti-Cheat Enabled | No Copy-Paste
+                    </p>
+                </div>
+                <div class="flex gap-3">
+                    <div class="bg-green-100 border border-green-200 px-3 py-1.5 rounded-lg flex items-center shadow-inner">
+                        <span id="networkStatus" class="text-green-700 font-bold text-[10px] uppercase">📶 Auto-Saving</span>
+                    </div>
+                    <div class="bg-red-100 border border-red-200 px-4 py-1.5 rounded-lg shadow-inner">
+                        <span class="text-red-600 font-bold text-lg flex items-center gap-2">
+                            ⏱️ <span id="time">30:00</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Section -->
+            <div class="mb-6">
+                <div class="bg-indigo-50 border-l-4 border-indigo-600 p-5 rounded-r-xl mb-4 shadow-sm">
+                    <h3 class="text-lg font-bold text-slate-800">
+                        <span class="text-indigo-600 mr-1">Q1.</span> What are the primary causes of tides? Discuss the role of the Moon and the Sun.
+                    </h3>
+                    <p class="text-xs font-bold text-indigo-700 mt-2">Marks: 5</p>
+                </div>
+
+                <!-- 💡 Options for Answering -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    
+                    <!-- Option A: Type or Voice -->
+                    <div class="bg-white/80 p-4 rounded-xl border border-blue-200 shadow-sm relative">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-xs font-extrabold text-blue-700 uppercase">Option A: Type / Voice</h4>
+                            <select id="voiceLang" class="text-[10px] bg-white border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 font-bold text-slate-700 p-1">
+                                <option value="bn-IN">Bengali (বাংলা)</option>
+                                <option value="en-US">English</option>
+                            </select>
+                        </div>
+                        <textarea id="answerBox" placeholder="Start typing or click the mic to voice type..." class="w-full h-32 p-3 rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-blue-600 text-slate-800 text-sm resize-none"></textarea>
+                        
+                        <button id="micBtn" onclick="toggleVoiceTyping()" class="absolute bottom-6 right-6 bg-blue-100 text-blue-600 p-2.5 rounded-full hover:bg-blue-200 border border-blue-300 transition-all shadow-md">
+                            <span class="text-xl">🎤</span>
+                        </button>
+                    </div>
+
+                    <!-- Option B: Camera Upload -->
+                    <div class="bg-white/80 p-4 rounded-xl border border-teal-200 shadow-sm flex flex-col justify-center items-center text-center">
+                        <h4 class="text-xs font-extrabold text-teal-700 uppercase mb-2 w-full text-left">Option B: Upload Paper Photo</h4>
+                        <p class="text-[10px] text-slate-500 mb-3 font-bold">Low network? Write on paper and upload a photo directly.</p>
+                        
+                        <!-- Hidden File Input targeting device camera -->
+                        <input type="file" id="cameraInput" accept="image/*" capture="environment" class="hidden" onchange="previewImage(event)">
+                        
+                        <button onclick="document.getElementById('cameraInput').click()" class="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 rounded-lg shadow-md transition-all text-sm flex justify-center items-center gap-2">
+                            <span>📷 Open Camera / Gallery</span>
+                        </button>
+
+                        <!-- Image Preview Box -->
+                        <div id="imagePreviewContainer" class="hidden mt-3 w-full relative">
+                            <img id="imagePreview" src="" alt="Answer Preview" class="w-full h-32 object-cover rounded-lg border-2 border-teal-500 shadow-sm">
+                            <button onclick="removeImage()" class="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow hover:bg-red-700">X</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-end pt-4 border-t border-slate-300 mt-4">
+                <button onclick="submitSubjectiveExam()" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-extrabold py-3.5 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all text-sm flex items-center gap-2">
+                    <span>📤 Submit Exam Securely</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // 🛡️ 1. Tab-Switching Detection (Anti-Cheat)
+        let warningCount = 0;
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                warningCount++;
+                alert(`⚠️ STRICT WARNING (${warningCount}/3):\nTab switching is not allowed! Exam will auto-submit after 3 warnings.`);
+                if(warningCount >= 3) {
+                    alert("Maximum warnings reached. Exam auto-submitting now.");
+                    submitSubjectiveExam();
+                }
+            }
+        });
+
+        // 📸 2. Image Preview & Upload Logic
+        let hasImage = false;
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('imagePreview').src = e.target.result;
+                    document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                    document.getElementById('networkStatus').innerHTML = '✅ Photo Attached';
+                    hasImage = true;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeImage() {
+            document.getElementById('cameraInput').value = "";
+            document.getElementById('imagePreview').src = "";
+            document.getElementById('imagePreviewContainer').classList.add('hidden');
+            document.getElementById('networkStatus').innerHTML = '📶 Auto-Saving';
+            hasImage = false;
+        }
+
+        // 📶 3. Offline Auto-Save System
+        const answerBox = document.getElementById('answerBox');
+        if(localStorage.getItem('temp_sub_ans')) answerBox.value = localStorage.getItem('temp_sub_ans');
+        
+        answerBox.addEventListener('input', function() {
+            localStorage.setItem('temp_sub_ans', this.value);
+            document.getElementById('networkStatus').innerHTML = '✅ Saved text';
+            setTimeout(() => { document.getElementById('networkStatus').innerHTML = '📶 Auto-saving...'; }, 1000);
+        });
+
+        // 🎤 4. Voice Typing Logic
+        let isRecording = false;
+        let recognition;
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.maxAlternatives = 1;
+
+            recognition.onresult = function(event) {
+                let finalTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) finalTranscript += event.results[i][0].transcript + ' ';
+                }
+                
+                let cursorPos = answerBox.selectionStart;
+                let textBefore = answerBox.value.substring(0, cursorPos);
+                let textAfter = answerBox.value.substring(cursorPos, answerBox.value.length);
+                
+                if(finalTranscript.trim() !== "") {
+                    answerBox.value = textBefore + finalTranscript + textAfter;
+                    localStorage.setItem('temp_sub_ans', answerBox.value);
+                }
+            };
+        } else {
+            console.log("Voice typing not supported in this browser.");
+        }
+
+        function toggleVoiceTyping() {
+            if (!recognition) {
+                alert("Voice typing is not supported in this browser. Please use Chrome.");
+                return;
+            }
+            if (!isRecording) {
+                recognition.lang = document.getElementById('voiceLang').value;
+                recognition.start();
+                document.getElementById('micBtn').classList.add('recording', 'bg-red-500', 'text-white');
+                isRecording = true;
+            } else {
+                recognition.stop();
+                document.getElementById('micBtn').classList.remove('recording', 'bg-red-500', 'text-white');
+                isRecording = false;
+            }
+        }
+
+        // ⏱️ 5. Dynamic Timer Simulation
+        let timeInSecs = 30 * 60; 
+        let timerInterval = setInterval(() => {
+            let mins = Math.floor(timeInSecs / 60);
+            let secs = timeInSecs % 60;
+            document.getElementById("time").innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            if (timeInSecs <= 0) {
+                clearInterval(timerInterval);
+                alert("Time is up! Auto-submitting your exam.");
+                submitSubjectiveExam();
+            }
+            timeInSecs--;
+        }, 1000);
+
+        // 🚀 6. Submit & Generate Unique ID Logic
+        function submitSubjectiveExam() {
+            // Check if student provided either text or image
+            if(answerBox.value.trim() === "" && !hasImage) {
+                alert("⚠️ Please provide an answer (Type, Voice, or Photo) before submitting.");
+                return;
+            }
+
+            // Generate Verification ID
+            const currentYear = new Date().getFullYear();
+            const randomCode = Math.random().toString(36).substring(2, 7).toUpperCase();
+            const uniqueID = `GEO-${currentYear}-${randomCode}`;
+
+            // Clear Offline Storage
+            localStorage.removeItem('temp_sub_ans');
+            
+            // Developer Note: Firebase Storage code will run here to upload image if 'hasImage' is true.
+
+            alert(`✅ Exam Submitted Successfully!\n\n⚠️ IMPORTANT:\nYour Verification Tracking ID is: ${uniqueID}\n\nPlease take a screenshot or write it down. You will need this ID and your registered Email to check your result.`);
+            
+            // Redirect to Dashboard
+            window.location.href = "dashboard.html";
+        }
+    </script>
+</body>
+</html>
