@@ -2,54 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Welcome to Geo Study Point - AI EdTech Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff">
+    
+    <title>Geo Study Point - AI Powered Educational Platform</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        body { padding-bottom: env(safe-area-inset-bottom); background-color: #f8fafc; min-width: 250px; }
+        html { scroll-behavior: smooth; }
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f1f5f9; }
         
-        .glass-box { 
-            background: rgba(255, 255, 255, 0.95); 
+        /* 🪟 Premium Light Glassmorphism */
+        .glass-panel { 
+            background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(20px); 
-            border: 1px solid rgba(226, 232, 240, 0.8); 
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6); 
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); 
         }
         
-        /* Smooth Animations */
-        .floating-globe { animation: float 6s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+        /* 🌈 Background Gradient */
+        .hero-bg { background: linear-gradient(135deg, #e0e7ff 0%, #f0fdf4 100%); }
         
-        .fade-out { opacity: 0; visibility: hidden; transition: visibility 0s linear 0.8s, opacity 0.8s ease-in-out; }
-        .fade-in { opacity: 1 !important; transform: translateY(0) !important; }
-        
-        /* Premium Modal Pop-in Animation */
-        .modal-pop {
-            animation: popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        /* Glowing Pulse for Icon */
-        .glow-pulse { animation: pulseGlow 2s infinite; }
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(46, 125, 50, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
-        }
-
+        /* 🎨 Custom Animations */
+        .spin-slow { animation: spin 4s linear infinite; }
         @keyframes scroll-left { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
-        .animate-marquee { display: inline-block; white-space: nowrap; animation: scroll-left 20s linear infinite; }
-        
-        img { pointer-events: none; -webkit-user-drag: none; }
+        .animate-marquee { display: inline-block; white-space: nowrap; animation: scroll-left 25s linear infinite; }
     </style>
 
-    <!-- 🌐 GTranslate Auto-Bengali Cookie -->
+    <!-- 🌐 Default Bengali Cookie -->
     <script>
         if (document.cookie.indexOf('googtrans') === -1) {
             document.cookie = 'googtrans=/en/bn; path=/';
@@ -57,247 +41,142 @@
         }
     </script>
 </head>
-<body class="bg-gradient-to-br from-white via-indigo-50 to-blue-50 min-h-screen flex flex-col font-sans text-slate-800 overflow-x-hidden relative" oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;">
+<body class="flex flex-col min-h-screen text-slate-900">
 
     <!-- 📢 Announcement Ticker -->
-    <div class="w-full bg-[#4285F4] text-white text-[9px] sm:text-xs font-bold py-1.5 sm:py-2 overflow-hidden shadow-md relative z-[150] border-b border-blue-700">
-        <div class="animate-marquee">🚀 Welcome to Geo Study Point! 🌟 Military-Grade Security, AI Mentorship, and Smart Exam Systems.</div>
+    <div class="w-full bg-indigo-600 text-white text-[11px] sm:text-xs font-bold py-2 overflow-hidden shadow-md relative z-[150]">
+        <div class="animate-marquee tracking-wide">🚀 Welcome to Geo Study Point! 🌟 Military-Grade Security, AI Mentorship, and Smart Exam Systems.</div>
     </div>
 
-    <!-- 🚀 Floating Beta Version Badge -->
-    <div class="fixed top-12 sm:top-14 left-1/2 transform -translate-x-1/2 z-[900] bg-slate-900/90 backdrop-blur-md text-emerald-400 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.2)] px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 transition-all w-max">
-        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
-        Beta 0.1
+    <!-- 🌍 Animated Premium GTranslate Widget (Highly Visible) -->
+    <div class="fixed top-12 right-4 sm:top-14 sm:right-6 z-[999] group">
+        <!-- Glowing Background Effect -->
+        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+        
+        <!-- Main Button -->
+        <div class="relative bg-white/95 backdrop-blur-xl border border-slate-200 shadow-2xl rounded-full px-4 py-2 flex items-center gap-3 cursor-pointer transform hover:scale-105 transition-all">
+            <span class="text-indigo-600 text-xl spin-slow"><i class="fa-solid fa-earth-americas"></i></span>
+            <div class="gtranslate_wrapper"></div>
+            
+            <!-- Tooltip indicating purpose -->
+            <span class="absolute -bottom-10 right-0 bg-slate-900 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg flex items-center gap-1">
+                <i class="fa-solid fa-language"></i> Change Language
+            </span>
+        </div>
     </div>
-
-    <!-- 🌍 Premium GTranslate -->
-    <div class="fixed top-12 right-2 sm:right-6 z-[900] bg-white/90 backdrop-blur-md border border-slate-200 shadow-sm rounded-full px-2 py-1 sm:px-4 sm:py-2 flex items-center gap-2 hover:shadow-md">
-        <span class="text-indigo-600 text-sm sm:text-lg"><i class="fa-solid fa-language"></i></span>
-        <div class="gtranslate_wrapper"></div>
-    </div>
-    <script>window.gtranslateSettings = { "default_language": "en", "languages": ["en", "bn", "hi"], "wrapper_selector": ".gtranslate_wrapper", "flag_size": 20, "detect_browser_language": false };</script>
+    <script>
+        window.gtranslateSettings = { "default_language": "en", "languages": ["en", "bn", "hi"], "wrapper_selector": ".gtranslate_wrapper", "detect_browser_language": false };
+    </script>
     <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
 
-    <!-- 🌟 1. Welcome Screen Modal -->
-    <div id="welcomeScreen" class="fixed inset-0 z-[800] bg-white/95 backdrop-blur-xl flex flex-col items-center justify-center p-4 sm:p-10 transition-all duration-700">
-        <div id="introAnimation" class="flex flex-col items-center justify-center transition-all duration-500 ease-in-out absolute inset-0">
-            <div class="text-6xl sm:text-8xl mb-4 animate-bounce">🌍</div>
-            <h1 class="text-3xl sm:text-5xl font-black text-indigo-600 tracking-tight animate-pulse uppercase">Welcome</h1>
-        </div>
-        <div id="mainMessage" class="max-w-2xl text-center space-y-4 opacity-0 transform translate-y-4 transition-all duration-1000 ease-out z-10 hidden">
-            <div class="text-4xl sm:text-6xl mb-2">🎓</div>
-            <h1 class="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-wide">A Heartfelt Welcome.</h1>
-            <p class="text-xs sm:text-base text-slate-600 font-medium">Practice attentively, try to give your absolute best—surpass your previous successes. ✨</p>
-            <div class="bg-blue-50 border border-blue-200 p-3 rounded-2xl shadow-sm my-4">
-                <p class="text-[10px] sm:text-sm text-indigo-700 font-bold"><span>🔐</span> Data security is our highest priority.</p>
-            </div>
-            <div class="pt-4 border-t border-slate-200">
-                <p class="text-xs sm:text-sm font-black text-slate-900 uppercase">Geo Study Point</p>
-                <p class="text-[9px] sm:text-[10px] text-slate-500 mt-1 uppercase">Dev: Mr. Swastik Halder</p>
-            </div>
-            <div class="mt-6 flex flex-col items-center gap-3">
-                <div class="text-indigo-700 font-mono font-bold text-[10px] sm:text-xs bg-indigo-100 px-3 py-1 rounded-full border border-indigo-200">
-                    Skipping in <span id="countdownTimer" class="text-sm sm:text-lg">9</span>s...
-                </div>
-                <button onclick="skipWelcomeScreen()" class="text-[10px] sm:text-[11px] text-slate-500 hover:text-indigo-600 underline font-bold">Skip Now ⏭️</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 🔐 Main Content (Dashboard Entry) -->
-    <div class="container mx-auto flex flex-col items-center justify-center flex-grow p-4 z-10 w-full max-w-[95%] sm:max-w-md 2xl:max-w-2xl mt-16 mb-10">
-        <div class="glass-box p-6 sm:p-10 rounded-3xl sm:rounded-[2.5rem] w-full text-center hover:scale-[1.02] transition-all border-t-8 border-indigo-600 shadow-xl">
-            <div class="floating-globe bg-gradient-to-br from-indigo-500 to-teal-400 w-16 h-16 sm:w-24 sm:h-24 mx-auto rounded-full flex items-center justify-center mb-6 shadow-lg border-2 sm:border-4 border-white text-3xl sm:text-5xl">🌍</div>
-            <h1 class="text-xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">Geo Study Point</h1>
-            <p class="text-[10px] sm:text-xs font-black text-indigo-600 mb-6 uppercase tracking-widest bg-indigo-100 inline-block px-3 py-1 rounded-full border border-indigo-200">AI-Powered EdTech</p>
-            <div class="space-y-3 sm:space-y-4 w-full">
-                <button onclick="simulateGoogleLogin()" class="w-full bg-white border border-slate-300 text-slate-700 font-bold py-3 sm:py-3.5 px-2 rounded-xl sm:rounded-2xl shadow-sm text-[10px] sm:text-sm flex items-center justify-center gap-2 hover:bg-slate-50 transition">
-                    <i class="fa-brands fa-google text-rose-500"></i> <span>Sign in with Google</span>
-                </button>
-                <button onclick="window.location.href='teacher_panel.html'" class="w-full bg-slate-800 text-white font-bold py-3 sm:py-3.5 px-2 rounded-xl sm:rounded-2xl shadow-md text-[10px] sm:text-sm flex items-center justify-center gap-2 hover:bg-slate-900 transition">
-                    👨‍🏫 Admin Login
-                </button>
-            </div>
-            <div id="loadingStatus" class="hidden mt-4 text-[9px] sm:text-xs font-bold text-indigo-600 animate-pulse uppercase">Verifying & Redirecting...</div>
-        </div>
-    </div>
-
-    <!-- 💚 2. Support/Donation Modal (Appears 3.5s after Welcome Screen) -->
-    <div id="supportModalOverlay" class="fixed inset-0 z-[1000] bg-slate-900/70 backdrop-blur-xl hidden flex-col items-center justify-center p-4 transition-all duration-500 opacity-0">
+    <!-- 🌟 HERO SECTION -->
+    <section class="hero-bg w-full pt-16 pb-16 lg:pt-24 lg:pb-24 px-4 sm:px-6 lg:px-8 flex-grow flex items-center relative overflow-hidden">
         
-        <div id="supportBanner" class="bg-white/95 backdrop-blur-3xl w-full max-w-[95%] sm:max-w-2xl lg:max-w-3xl rounded-[2.5rem] overflow-hidden relative border border-white/40 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] flex flex-col opacity-0">
-            
-            <!-- Header -->
-            <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-6 sm:p-8 border-b border-green-100 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-                <div class="bg-[#2E7D32] text-white p-4 rounded-2xl shadow-lg text-2xl glow-pulse">
-                    <i class="fa-solid fa-hand-holding-heart"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">Geo Study Point</h1>
-                    <p class="text-[10px] sm:text-xs text-[#2E7D32] font-black tracking-widest uppercase mt-1">Education For All • Non-Commercial</p>
-                </div>
-            </div>
+        <!-- Decorative Background Circles -->
+        <div class="absolute top-10 left-10 w-32 h-32 bg-blue-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse"></div>
+        <div class="absolute bottom-10 right-10 w-32 h-32 bg-emerald-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse" style="animation-delay: 1s;"></div>
 
-            <!-- Content -->
-            <div class="p-6 sm:p-8 space-y-6 text-slate-700 flex-grow max-h-[60vh] overflow-y-auto">
-                <p class="font-black text-lg sm:text-xl text-slate-900 text-center mb-2">Dear Students & Guardians,</p>
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+            
+            <!-- Left Text Content (High Contrast for Readability) -->
+            <div class="space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 bg-indigo-100 border border-indigo-200 text-indigo-800 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest mb-2 shadow-sm">
+                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span></span>
+                    BETA v0.1 | Operational
+                </div>
                 
-                <p class="text-sm sm:text-base font-medium text-justify sm:text-center leading-relaxed">
-                    As a student myself, I have built and maintained this platform with my own time and effort so that rural students can practice for exams completely free of cost from their homes.
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 leading-tight tracking-tight drop-shadow-sm">
+                    Welcome to <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-emerald-600">Geo Study Point</span>
+                </h1>
+                
+                <p class="text-base sm:text-lg lg:text-xl text-slate-700 font-bold max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                    An AI-Powered Educational Practice & Examination Platform. Education is Free, Learning Comes First, and Support is Voluntary.
                 </p>
                 
-                <div class="bg-indigo-50 border border-indigo-200 p-5 rounded-2xl shadow-inner">
-                    <p class="text-xs sm:text-sm text-justify sm:text-center font-semibold text-indigo-900 leading-relaxed">
-                        Maintaining the servers, Gemini/AI API Tokens, Firebase Databases, and Secure Storage incurs ongoing technical costs. If you wish, a small voluntary support of <strong>₹5, ₹10, or ₹20</strong> will greatly help in keeping this platform alive and ad-free.
-                    </p>
-                </div>
-
-                <!-- QR Section -->
-                <div class="mt-6 flex flex-col items-center">
-                    <div class="bg-white p-6 rounded-3xl border-2 border-dashed border-[#5f259f] shadow-lg relative">
-                        <h3 class="text-center font-black text-[#5f259f] mb-4 tracking-wider uppercase text-xs sm:text-sm">Scan to Pay via PhonePe/GPay</h3>
-                        
-                        <div class="bg-slate-100 w-40 h-40 sm:w-48 sm:h-48 rounded-xl flex items-center justify-center overflow-hidden mb-4 border border-slate-200 p-2 shadow-inner mx-auto">
-                             <!-- Updated file name from your screenshot -->
-                             <img src="IMG-20260321-WA0000.jpg" alt="Official QR Code" class="w-full h-full object-contain">
-                        </div>
-
-                        <div class="text-center">
-                            <p class="text-xs text-rose-500 font-bold mb-1 uppercase tracking-widest">Verify Name Before Payment</p>
-                            <p class="text-sm sm:text-base font-black text-slate-900 uppercase">SWASTIK HALDER</p>
-                            <p class="text-[10px] sm:text-xs text-slate-600 font-mono mt-2 bg-slate-100 border border-slate-200 inline-block px-3 py-1.5 rounded-lg font-bold">UPI: 7864911070-3@ybl</p>
-                        </div>
-                    </div>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                    <button onclick="window.location.href='dashboard.html'" class="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-black py-4 px-8 rounded-2xl shadow-xl transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 text-sm sm:text-base border-2 border-indigo-400">
+                        <span class="text-xl animate-bounce">🚀</span> Enter Student Portal
+                    </button>
+                    <button onclick="window.location.href='teacher_panel.html'" class="bg-white border-2 border-slate-300 hover:border-slate-800 text-slate-800 font-black py-4 px-8 rounded-2xl shadow-md transition-all flex items-center justify-center gap-3 text-sm sm:text-base">
+                        <span class="text-xl">👨‍🏫</span> Admin Access
+                    </button>
                 </div>
             </div>
 
-            <!-- Dynamic Skip Button Area -->
-            <div class="bg-slate-50 p-4 border-t border-slate-200 flex flex-col items-center shrink-0">
-                <p id="timerMessage" class="text-[10px] text-indigo-600 font-bold uppercase tracking-widest mb-2 h-4"></p>
-                <button id="skipSupportBtn" onclick="closeSupportBanner()" class="w-full sm:w-auto min-w-[200px] bg-slate-800 text-white font-black py-4 px-8 rounded-xl shadow-lg transition-all text-sm uppercase tracking-wider flex items-center justify-center gap-2">
-                    Loading...
-                </button>
+            <!-- Right Graphic / Colorful Features Box -->
+            <div class="glass-panel p-8 sm:p-10 rounded-[2.5rem] relative">
+                <h3 class="text-2xl font-black text-slate-900 mb-6 border-b-2 border-slate-200 pb-4 flex items-center gap-3">
+                    <i class="fa-solid fa-bolt text-amber-500"></i> Platform Features
+                </h3>
+                <ul class="space-y-6">
+                    <li class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-2xl transition-colors">
+                        <div class="bg-emerald-100 text-emerald-600 p-4 rounded-2xl shadow-inner text-2xl flex-shrink-0 animate-pulse">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-slate-900 text-lg">Military-Grade Security</h4>
+                            <p class="text-sm font-semibold text-slate-600 leading-relaxed mt-1">Anti-copy, anti-tab switch, and QR verification systems.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-2xl transition-colors">
+                        <div class="bg-blue-100 text-blue-600 p-4 rounded-2xl shadow-inner text-2xl flex-shrink-0 hover:rotate-12 transition-transform">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-slate-900 text-lg">AI Mentor Integration</h4>
+                            <p class="text-sm font-semibold text-slate-600 leading-relaxed mt-1">Gemini Flash AI for post-result evaluation & help.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-2xl transition-colors">
+                        <div class="bg-purple-100 text-purple-600 p-4 rounded-2xl shadow-inner text-2xl flex-shrink-0 animate-bounce">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-slate-900 text-lg">Automated Results</h4>
+                            <p class="text-sm font-semibold text-slate-600 leading-relaxed mt-1">Instant server-side grading and secure PDF Marksheets.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 🌐 MASTER FOOTER -->
+    <footer class="bg-slate-900 text-slate-300 py-12 px-4 sm:px-6 lg:px-8 w-full mt-auto border-t-4 border-indigo-500">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+            <div class="col-span-1 md:col-span-2">
+                <h2 class="text-2xl font-black text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-graduation-cap text-indigo-400"></i> Geo Study Point</h2>
+                <p class="text-sm text-slate-400 mb-4 max-w-md font-medium leading-relaxed">Developed & Maintained by <strong>Swastik Halder</strong>. <br> Pratapnagar, Arambagh, Hooghly, West Bengal, India.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-12 h-12 bg-slate-800 text-blue-500 hover:bg-blue-600 hover:text-white rounded-full flex items-center justify-center transition-all text-xl shadow-lg"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-12 h-12 bg-slate-800 text-rose-500 hover:bg-rose-600 hover:text-white rounded-full flex items-center justify-center transition-all text-xl shadow-lg"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="mailto:geograpystudypoint.edu@gmail.com" class="w-12 h-12 bg-slate-800 text-emerald-500 hover:bg-emerald-600 hover:text-white rounded-full flex items-center justify-center transition-all text-xl shadow-lg"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="font-bold text-white uppercase tracking-widest mb-4 border-b border-slate-700 pb-2">Quick Links</h3>
+                <ul class="space-y-3 text-sm font-semibold">
+                    <li><a href="dashboard.html" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-angle-right text-indigo-500"></i> Student Dashboard</a></li>
+                    <li><a href="result.html" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-angle-right text-indigo-500"></i> Verify Result</a></li>
+                    <li><a href="support_initiative.html" class="hover:text-emerald-400 transition flex items-center gap-2 text-emerald-400"><i class="fa-solid fa-heart text-emerald-500 animate-pulse"></i> Voluntary Support</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-white uppercase tracking-widest mb-4 border-b border-slate-700 pb-2">Legal & Policies</h3>
+                <ul class="space-y-3 text-sm font-semibold">
+                    <li><a href="policy.html" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-lock text-slate-500"></i> Privacy Policy</a></li>
+                    <li><a href="policy.html" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-copyright text-slate-500"></i> Copyright & IP</a></li>
+                    <li><a href="policy.html" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-scale-balanced text-slate-500"></i> Terms of Use</a></li>
+                </ul>
             </div>
         </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="w-full bg-white pt-6 pb-6 mt-auto rounded-t-3xl border-t border-slate-200 shadow-lg relative">
-        <div class="container mx-auto px-4 flex flex-col items-center text-center space-y-4 max-w-[95%] sm:max-w-3xl">
-            <p class="text-[9px] sm:text-[10px] text-slate-500 font-bold uppercase tracking-widest">© 2026 Geo Study Point. Dev: Swastik Halder</p>
+        <div class="max-w-7xl mx-auto border-t border-slate-800 pt-8 text-center text-xs text-slate-500">
+            <p class="font-bold uppercase tracking-widest mb-2 text-indigo-400">Education is Free • Support is Voluntary • Learning Comes First</p>
+            <p class="font-medium">© 2026 Geo Study Point. All Rights Reserved. Independent Educational Technology Platform.</p>
         </div>
-    </div>
+    </footer>
 
-    <script>
-        // --- 1. Welcome Screen Logic ---
-        let welcomeTimeLeft = 9; 
-        const countdownEl = document.getElementById('countdownTimer');
-        const welcomeScreen = document.getElementById('welcomeScreen');
-        const introAnimation = document.getElementById('introAnimation');
-        const mainMessage = document.getElementById('mainMessage');
-        let welcomeInterval;
-        let supportTimerStarted = false;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => { 
-                introAnimation.style.opacity = '0'; 
-                setTimeout(() => { 
-                    introAnimation.classList.add('hidden'); 
-                    mainMessage.classList.remove('hidden'); 
-                    setTimeout(() => { mainMessage.classList.add('fade-in'); }, 50); 
-                }, 500); 
-            }, 1500); 
-            
-            welcomeInterval = setInterval(() => { 
-                welcomeTimeLeft--; 
-                if(welcomeTimeLeft >= 0) countdownEl.innerText = welcomeTimeLeft; 
-                if (welcomeTimeLeft <= 0) skipWelcomeScreen(); 
-            }, 1000);
-        });
-
-        function skipWelcomeScreen() { 
-            clearInterval(welcomeInterval); 
-            welcomeScreen.classList.add('fade-out'); 
-            
-            // Once Welcome Screen is gone, start the 3.5s delay for Support Banner
-            if(!supportTimerStarted) {
-                supportTimerStarted = true;
-                setTimeout(triggerSupportBanner, 3500);
-            }
-        }
-
-        function simulateGoogleLogin() { 
-            document.getElementById('loadingStatus').classList.remove('hidden'); 
-            setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000); 
-        }
-
-        // --- 2. Support Banner Logic (3.5s Delay, 24h Tracker, 10s Skip) ---
-        const COOLDOWN_HOURS = 24;
-        const SUPPORT_WAIT_SECONDS = 10;
-        
-        function triggerSupportBanner() {
-            const lastSeen = localStorage.getItem('geoSupportLastSeen');
-            const now = new Date().getTime();
-            let isFirstTime = true;
-
-            if (lastSeen) {
-                const hoursDiff = (now - parseInt(lastSeen)) / (1000 * 60 * 60);
-                if (hoursDiff < COOLDOWN_HOURS) isFirstTime = false;
-            }
-
-            const modalOverlay = document.getElementById('supportModalOverlay');
-            const banner = document.getElementById('supportBanner');
-            const skipBtn = document.getElementById('skipSupportBtn');
-            const timerMsg = document.getElementById('timerMessage');
-
-            // Show Modal with Glassmorphism & Pop-in Animation
-            modalOverlay.classList.remove('hidden');
-            setTimeout(() => {
-                modalOverlay.classList.remove('opacity-0');
-                banner.classList.add('modal-pop');
-            }, 50);
-
-            if (isFirstTime) {
-                localStorage.setItem('geoSupportLastSeen', now.toString());
-                let timeLeft = SUPPORT_WAIT_SECONDS;
-                skipBtn.disabled = true;
-                skipBtn.classList.add('opacity-50', 'cursor-not-allowed');
-                
-                const timerInterval = setInterval(() => {
-                    timerMsg.innerText = `Please wait ${timeLeft} seconds...`;
-                    skipBtn.innerHTML = `🔒 Locked`;
-                    timeLeft--;
-                    
-                    if (timeLeft < 0) {
-                        clearInterval(timerInterval);
-                        enableSkipBtn(skipBtn, timerMsg);
-                    }
-                }, 1000);
-            } else {
-                enableSkipBtn(skipBtn, timerMsg);
-            }
-        }
-
-        function enableSkipBtn(btn, msgEl) {
-            btn.disabled = false;
-            btn.classList.remove('opacity-50', 'cursor-not-allowed');
-            btn.classList.add('hover:bg-slate-900', 'hover:-translate-y-1', 'transform');
-            btn.innerHTML = `Skip & Enter Website ⏭️`;
-            msgEl.innerText = "You can now proceed.";
-        }
-
-        function closeSupportBanner() {
-            const modalOverlay = document.getElementById('supportModalOverlay');
-            modalOverlay.classList.add('opacity-0');
-            setTimeout(() => {
-                modalOverlay.classList.add('hidden');
-            }, 500); // Matches CSS transition duration
-        }
-
-        // --- 3. Extra Security ---
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) || (e.ctrlKey && e.key === "U")) { e.preventDefault(); }
-        });
-    </script>
+    <script src="security.js"></script>
 </body>
 </html>
