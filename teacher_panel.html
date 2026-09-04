@@ -52,8 +52,17 @@
 </head>
 <body class="min-h-screen flex flex-col font-sans text-slate-800 relative">
 
+    <!-- 🚀 Floating Beta Version Badge (Top Center) -->
+    <div class="fixed top-4 sm:top-6 left-1/2 transform -translate-x-1/2 z-[998] bg-slate-900/90 backdrop-blur-md text-emerald-400 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.2)] px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 transition-all">
+        <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        Beta Version 0.1
+    </div>
+
     <!-- 🌍 Premium GTranslate (EN, BN, HI) -->
-    <div class="fixed top-4 right-4 sm:right-6 z-[100] bg-white border border-slate-200 shadow-sm rounded-full px-4 py-2 flex items-center gap-2">
+    <div class="fixed top-14 right-4 sm:top-6 sm:right-6 z-[999] bg-white border border-slate-200 shadow-sm rounded-full px-4 py-2 flex items-center gap-2">
         <span class="text-indigo-600 text-lg"><i class="fa-solid fa-language"></i></span>
         <div class="gtranslate_wrapper"></div>
     </div>
@@ -63,12 +72,12 @@
     <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
 
     <!-- 👑 Role Status Badge -->
-    <div id="roleBadge" class="fixed top-4 left-4 sm:left-6 z-[100] bg-slate-800 text-white text-[11px] sm:text-xs px-3.5 py-2 rounded-full font-bold shadow-xl flex items-center gap-2 border border-slate-700">
+    <div id="roleBadge" class="fixed top-14 left-4 sm:top-6 sm:left-6 z-[998] bg-slate-800 text-white text-[11px] sm:text-xs px-3.5 py-2 rounded-full font-bold shadow-xl flex items-center gap-2 border border-slate-700">
         <span>🔒</span> Authenticate First
     </div>
 
     <!-- Main Content Container -->
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 w-full max-w-6xl flex-grow flex flex-col items-center">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-24 pb-12 w-full max-w-6xl flex-grow flex flex-col items-center">
         
         <!-- Header -->
         <div class="text-center mb-8">
@@ -116,9 +125,47 @@
                 <button onclick="alert('✅ Sub-Admin Generated in Firebase!')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-3 rounded-xl text-xs shadow transition">➕ Generate Sub-Admin ID</button>
             </div>
 
+            <!-- 📝 MCQ Exam Answer Key Management (New Section) -->
+            <div class="glass-box p-6 rounded-[2rem] border-t-4 border-t-emerald-500 bg-emerald-50">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+                    <h2 class="text-base sm:text-lg font-bold text-emerald-900 flex items-center gap-2"><span>📝</span> MCQ Question & Answer Key Setup</h2>
+                    <span class="bg-emerald-200 text-emerald-800 px-3 py-1 rounded-full text-[10px] font-black uppercase">Firebase Sync</span>
+                </div>
+                <p class="text-[10px] sm:text-xs text-slate-600 font-bold mb-4">Set questions, 4 options, and the verified correct answer. The Correct Answer is hidden from students and only used by the server for evaluation.</p>
+                
+                <div class="space-y-4 bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm">
+                    <input type="text" placeholder="Enter Question here (e.g., What is the primary cause of ocean tides?)" class="w-full p-3.5 rounded-xl border border-slate-300 text-sm font-bold bg-slate-50 focus:ring-2 focus:ring-emerald-500">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" placeholder="Option A" class="p-3.5 rounded-xl border border-slate-300 text-xs bg-slate-50 focus:ring-2 focus:ring-emerald-500">
+                        <input type="text" placeholder="Option B" class="p-3.5 rounded-xl border border-slate-300 text-xs bg-slate-50 focus:ring-2 focus:ring-emerald-500">
+                        <input type="text" placeholder="Option C" class="p-3.5 rounded-xl border border-slate-300 text-xs bg-slate-50 focus:ring-2 focus:ring-emerald-500">
+                        <input type="text" placeholder="Option D" class="p-3.5 rounded-xl border border-slate-300 text-xs bg-slate-50 focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                    
+                    <select class="w-full p-3.5 rounded-xl border border-slate-300 text-sm font-bold text-emerald-700 bg-emerald-50 cursor-pointer focus:ring-2 focus:ring-emerald-500">
+                        <option value="">-- Select Correct Answer Key --</option>
+                        <option value="A">Option A</option>
+                        <option value="B">Option B</option>
+                        <option value="C">Option C</option>
+                        <option value="D">Option D</option>
+                    </select>
+                    
+                    <div class="flex flex-col sm:flex-row gap-3 pt-2 border-t border-slate-100">
+                        <div class="flex-grow flex items-center">
+                            <span class="text-xs font-bold text-slate-500 mr-2">Admin Timer Control:</span>
+                            <input type="number" placeholder="Mins" class="w-20 p-2 text-xs border border-slate-300 rounded-lg text-center font-bold" value="15">
+                        </div>
+                        <button onclick="alert('✅ Secure Action Completed!\n\nQuestion, Options, Answer Key, and Timer settings have been securely pushed to the Firebase Server.')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl text-sm shadow-md transition-all">
+                            💾 Save to Server Database
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <!-- 📜 Dynamic Policy Management System (CMS) -->
             <div class="glass-box p-6 rounded-[2rem] border-t-4 border-t-purple-500 bg-purple-50">
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
                     <h2 class="text-base sm:text-lg font-bold text-purple-900 flex items-center gap-2"><span>📜</span> Dynamic Policy Management (CMS)</h2>
                     <span class="bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-[10px] font-black uppercase">Auto-Wipe Active</span>
                 </div>
@@ -145,19 +192,19 @@
                                 <td class="p-3 font-mono text-[10px] font-bold text-indigo-600">v1.2</td>
                                 <td class="p-3"><span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-[10px] font-bold">Published</span></td>
                                 <td class="p-3 text-center">
-                                    <button onclick="alert('Upload a new PDF to review and publish.')" class="bg-purple-600 text-white px-3 py-1.5 rounded-lg text-[10px] font-bold shadow">Preview & Publish</button>
+                                    <button onclick="alert('Upload a new PDF to review and publish.')" class="bg-purple-600 hover:bg-purple-700 transition text-white px-3 py-1.5 rounded-lg text-[10px] font-bold shadow">Preview & Publish</button>
                                 </td>
                             </tr>
                             <tr class="border-b border-slate-100 hover:bg-slate-50">
                                 <td class="p-3 font-bold text-slate-800">📜 Terms & Conditions</td>
                                 <td class="p-3">
                                     <input type="file" id="pdfTerms" accept="application/pdf" class="hidden" onchange="processPolicyPDF('Terms & Conditions')">
-                                    <button onclick="document.getElementById('pdfTerms').click()" class="bg-slate-200 text-slate-700 px-3 py-1.5 rounded text-[10px] font-bold">📄 Select PDF</button>
+                                    <button onclick="document.getElementById('pdfTerms').click()" class="bg-slate-200 text-slate-700 px-3 py-1.5 rounded text-[10px] font-bold hover:bg-slate-300 transition">📄 Select PDF</button>
                                 </td>
                                 <td class="p-3 font-mono text-[10px] font-bold text-indigo-600">v1.0</td>
                                 <td class="p-3"><span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-[10px] font-bold">Published</span></td>
                                 <td class="p-3 text-center">
-                                    <button class="bg-purple-600 text-white px-3 py-1.5 rounded-lg text-[10px] font-bold shadow">Preview & Publish</button>
+                                    <button class="bg-purple-600 text-white px-3 py-1.5 rounded-lg text-[10px] font-bold shadow hover:bg-purple-700 transition">Preview & Publish</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -179,7 +226,7 @@
                     <div class="border-2 border-dashed border-cyan-300 rounded-2xl p-4 flex flex-col items-center justify-center relative bg-white min-h-[220px]">
                         <input type="file" id="aiFileInput" accept="image/*,application/pdf" class="hidden" onchange="previewAiFile(event)">
                         <div id="aiUploadPrompt" class="text-center w-full">
-                            <button onclick="document.getElementById('aiFileInput').click()" class="bg-slate-800 text-white font-bold py-3.5 px-6 rounded-xl text-sm shadow-lg mx-auto w-full max-w-xs">
+                            <button onclick="document.getElementById('aiFileInput').click()" class="bg-slate-800 text-white font-bold py-3.5 px-6 rounded-xl text-sm shadow-lg mx-auto w-full max-w-xs hover:bg-slate-900 transition">
                                 📄 / 📷 Upload Photo or Document
                             </button>
                         </div>
@@ -194,7 +241,7 @@
 
                     <div class="flex flex-col h-full">
                         <textarea id="aiGeneratedOutput" class="w-full flex-grow h-44 p-4 rounded-xl border border-slate-300 bg-white text-sm text-slate-700 font-medium focus:ring-2 focus:ring-cyan-500 mb-3 resize-none shadow-inner" readonly placeholder="Extracted data will appear here..."></textarea>
-                        <button id="saveAiDataBtn" onclick="saveAndDestroyFile()" class="w-full bg-emerald-600 text-white font-bold py-3.5 rounded-xl shadow-lg disabled-action uppercase text-xs sm:text-sm">
+                        <button id="saveAiDataBtn" onclick="saveAndDestroyFile()" class="w-full bg-emerald-600 text-white font-bold py-3.5 rounded-xl shadow-lg disabled-action uppercase text-xs sm:text-sm transition hover:bg-emerald-700">
                             💾 Save Database & Wipe File
                         </button>
                     </div>
@@ -218,7 +265,7 @@
         <div class="bg-white w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
             <div class="bg-purple-600 p-4 flex justify-between items-center text-white">
                 <h3 class="font-bold text-sm" id="reviewTitle">Review & Approve Policy</h3>
-                <button onclick="document.getElementById('policyReviewModal').style.display='none'" class="font-black text-lg">×</button>
+                <button onclick="document.getElementById('policyReviewModal').style.display='none'" class="font-black text-lg hover:text-rose-300 transition">×</button>
             </div>
             <div class="p-4 overflow-y-auto flex-grow bg-slate-50">
                 <p class="text-[10px] text-emerald-600 font-bold mb-2">✅ PDF Processed & Text Extracted Successfully</p>
@@ -226,7 +273,7 @@
             </div>
             <div class="p-4 border-t border-slate-200 bg-white flex flex-col gap-2">
                 <p class="text-[10px] text-rose-500 font-bold text-center">⚠️ Publishing will replace the live version and permanently wipe the uploaded PDF.</p>
-                <button onclick="approveAndWipePolicy()" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl text-xs shadow-md">
+                <button onclick="approveAndWipePolicy()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-xs shadow-md transition">
                     ✅ Approve, Publish to Website & Destroy Temp PDF
                 </button>
             </div>
@@ -238,29 +285,26 @@
         <div class="container mx-auto px-6 flex flex-col items-center text-center space-y-6 max-w-3xl relative z-10">
             
             <div class="flex flex-col items-center gap-3">
-                <button onclick="window.location.href='mailto:geograpystudypoint.edu@gmail.com'" class="bg-slate-800 text-white font-bold py-3 px-8 rounded-full text-xs sm:text-sm shadow-md flex items-center justify-center gap-2 transition-all">
+                <button onclick="window.location.href='mailto:geograpystudypoint.edu@gmail.com'" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-8 rounded-full text-xs sm:text-sm shadow-md flex items-center justify-center gap-2 transition-all">
                     ✉️ Email Support
                 </button>
                 <a href="tel:+918670636716" class="text-xs text-slate-600 font-bold hover:text-indigo-600 transition-all">📞 Helpline: +91 86706 36716</a>
             </div>
 
-            <div class="flex gap-4 pt-2">
-                <a href="https://www.facebook.com/share/1Bz6MtVnVS/" target="_blank" class="w-12 h-12 bg-slate-100 text-slate-700 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all text-lg"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/subhasish4031?igsi=MTdpbGk2NXlieG9xYg==" target="_blank" class="w-12 h-12 bg-slate-100 text-slate-700 rounded-full flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all text-lg"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://wa.me/918670636716" target="_blank" class="w-12 h-12 bg-slate-100 text-slate-700 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition-all text-lg"><i class="fa-brands fa-whatsapp"></i></a>
-            </div>
-
-            <!-- Highly Glowing Developer Badge -->
-            <div class="w-full max-w-lg bg-white border border-emerald-100 p-6 rounded-2xl mt-2 shadow-[0_0_30px_rgba(16,185,129,0.15)] relative">
-                <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase mb-3 border border-emerald-200">
-                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
-                    Beta Version 0.1
-                </div>
-                <h3 class="text-lg sm:text-xl font-black text-slate-900 tracking-wide mt-1">Mr. Swastik Halder</h3>
-                <p class="text-xs text-indigo-600 font-extrabold uppercase tracking-widest mb-3">Lead Developer & System Architect</p>
-                <p class="text-[10px] text-slate-500 font-bold uppercase mb-1">🛠️ Designed • Developed • Architected</p>
-                <p class="text-[9px] text-slate-400 font-medium tracking-wide">UI/UX • System Architecture • Platform Development • Security • Performance</p>
-                <div class="mt-4 flex justify-center gap-3 text-2xl animate-bounce"><span>⚠️</span><span>🚧</span></div>
+            <!-- 🌟 Official Social Media Icons -->
+            <div class="flex gap-5 pt-2">
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/share/1Bz6MtVnVS/" target="_blank" class="w-12 h-12 bg-[#1877F2] text-white rounded-full flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all text-xl shadow-md">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/subhasish4031?igsi=MTdpbGk2NXlieG9xYg==" target="_blank" class="w-12 h-12 bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white rounded-full flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all text-xl shadow-md">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <!-- WhatsApp -->
+                <a href="https://wa.me/918670636716" target="_blank" class="w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all text-xl shadow-md">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
             </div>
 
             <div class="flex flex-wrap justify-center gap-4 sm:gap-6 pt-4 border-t border-slate-100 w-full">
@@ -303,14 +347,14 @@
 
             if (email === superAdminEmail) {
                 currentRole = "superadmin";
-                badge.innerHTML = "👑 Logged in as: Master Super Admin";
-                badge.className = "fixed top-4 left-4 sm:left-6 z-[100] bg-indigo-600 text-white text-[11px] sm:text-xs px-3.5 py-2 rounded-full font-bold shadow-xl";
+                badge.innerHTML = "👑 Master Super Admin";
+                badge.className = "fixed top-14 left-4 sm:top-6 sm:left-6 z-[998] bg-indigo-600 text-white text-[11px] sm:text-xs px-3.5 py-2 rounded-full font-bold shadow-xl flex items-center gap-2";
                 superAdminBox.classList.remove('hidden');
                 trashSection.classList.remove('hidden');
             } else {
                 currentRole = "subadmin";
-                badge.innerHTML = "👨‍🏫 Logged in as: Sub-Admin";
-                badge.className = "fixed top-4 left-4 sm:left-6 z-[100] bg-amber-600 text-white text-[11px] sm:text-xs px-3.5 py-2 rounded-full font-bold shadow-xl";
+                badge.innerHTML = "👨‍🏫 Sub-Admin";
+                badge.className = "fixed top-14 left-4 sm:top-6 sm:left-6 z-[998] bg-amber-600 text-white text-[11px] sm:text-xs px-3.5 py-2 rounded-full font-bold shadow-xl flex items-center gap-2";
                 superAdminBox.classList.add('hidden');
                 trashSection.classList.add('hidden');
             }
@@ -355,5 +399,8 @@
             alert("✅ Data Saved to Server!\n\n☢️ SECURITY PROTOCOL: Uploaded file wiped permanently from memory.");
         }
     </script>
+    
+    <!-- 🚨 Core Security Protocol (Global Kill Switch) -->
+    <script src="security.js"></script>
 </body>
 </html>
