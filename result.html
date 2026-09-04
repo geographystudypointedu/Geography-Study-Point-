@@ -2,11 +2,19 @@
 <html lang="en" translate="no">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 📱 100% Responsive for Mobile, iPad, and Windows Desktop -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#ffffff">
+    
     <title>Official Result Portal & AI Mentor - Geo Study Point</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Language Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- jsPDF & AutoTable for PDF Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
@@ -22,10 +30,28 @@
         }
         .chat-area { max-height: 250px; overflow-y: auto; scroll-behavior: smooth; }
     </style>
+
+    <!-- 🌐 GTranslate First-Time Auto Bengali Cookie Logic -->
+    <script>
+        if (document.cookie.indexOf('googtrans') === -1) {
+            document.cookie = 'googtrans=/en/bn; path=/';
+            document.cookie = 'googtrans=/en/bn; domain=' + window.location.hostname + '; path=/';
+        }
+    </script>
 </head>
 <body class="bg-gradient-to-br from-slate-100 to-indigo-50 min-h-screen flex flex-col items-center py-10 px-4 font-sans text-slate-800">
 
-    <div class="w-full max-w-4xl space-y-8">
+    <!-- 🌍 Premium GTranslate (EN, BN, HI) -->
+    <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-[999] bg-white/90 backdrop-blur-md border border-slate-200 shadow-sm rounded-full px-4 py-2 flex items-center gap-2 transition-all hover:shadow-md">
+        <span class="text-indigo-600 text-lg"><i class="fa-solid fa-language"></i></span>
+        <div class="gtranslate_wrapper"></div>
+    </div>
+    <script>
+        window.gtranslateSettings = { "default_language": "en", "languages": ["en", "bn", "hi"], "wrapper_selector": ".gtranslate_wrapper", "flag_size": 20 };
+    </script>
+    <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
+
+    <div class="w-full max-w-4xl space-y-8 mt-10">
         
         <!-- 🎓 Result Search Section -->
         <div class="glass-box p-8 rounded-2xl relative overflow-hidden border-t-8 border-indigo-700">
@@ -181,7 +207,7 @@
                 docPdf.setTextColor(0, 100, 0);
                 docPdf.text(`Final Result Status: ${currentStudentData.finalStatus}`, 15, finalY + 15);
 
-                // Digital Vector Seal Box (From your screenshot)
+                // Digital Vector Seal Box
                 const sealX = 130;
                 const sealY = finalY + 10;
                 docPdf.setDrawColor(30, 58, 138);
@@ -204,7 +230,7 @@
             }, 1000);
         });
 
-        // ৩. AI Chat Logic (Fixed addEventListener)
+        // ৩. AI Chat Logic
         document.getElementById('sendAiBtn').addEventListener('click', () => {
             const input = document.getElementById('chatInput');
             const chatHistory = document.getElementById('chatHistory');
@@ -223,5 +249,9 @@
             }, 1200);
         });
     </script>
+
+    <!-- 🚨 Core Security Protocol (Global Kill Switch) 🚨 -->
+    <script src="security.js"></script>
+
 </body>
 </html>
