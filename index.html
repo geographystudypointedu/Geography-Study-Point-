@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        html { scroll-behavior: smooth; }
-        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f1f5f9; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f1f5f9; overflow-x: hidden; }
         
         /* 🪟 Premium Light Glassmorphism */
         .glass-panel { 
@@ -31,37 +31,47 @@
         .spin-slow { animation: spin 4s linear infinite; }
         @keyframes scroll-left { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
         .animate-marquee { display: inline-block; white-space: nowrap; animation: scroll-left 25s linear infinite; }
+        
+        /* Preloader Transition */
+        #preloader { transition: opacity 0.5s ease-out, visibility 0.5s ease-out; }
     </style>
 
-    <!-- 🌐 Default Bengali Cookie -->
+    <!-- 🌐 Automatic Bengali Translation Cookie -->
     <script>
-        if (document.cookie.indexOf('googtrans') === -1) {
-            document.cookie = 'googtrans=/en/bn; path=/';
-            document.cookie = 'googtrans=/en/bn; domain=' + window.location.hostname + '; path=/';
+        function setGTranslateCookie() {
+            if (document.cookie.indexOf('googtrans=/en/bn') === -1) {
+                document.cookie = 'googtrans=/en/bn; path=/';
+                document.cookie = 'googtrans=/en/bn; domain=' + window.location.hostname + '; path=/';
+            }
         }
+        setGTranslateCookie();
     </script>
 </head>
-<body class="flex flex-col min-h-screen text-slate-900">
+<body class="flex flex-col min-h-screen text-slate-900 relative">
+
+    <!-- ⏳ Preloader (Welcome Message) -->
+    <div id="preloader" class="fixed inset-0 z-[100000] bg-[#f1f5f9] flex flex-col items-center justify-center transition-all duration-500">
+        <div class="relative flex justify-center items-center">
+            <div class="absolute animate-ping w-20 h-20 rounded-full bg-indigo-400 opacity-75"></div>
+            <div class="relative w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center text-white text-3xl shadow-xl">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+        </div>
+        <h2 class="mt-6 text-xl font-black text-slate-800">Welcome to</h2>
+        <p class="mt-1 text-sm font-black text-indigo-600 uppercase tracking-widest animate-pulse">Geo Study Point</p>
+    </div>
 
     <!-- 📢 Announcement Ticker -->
     <div class="w-full bg-indigo-600 text-white text-[11px] sm:text-xs font-bold py-2 overflow-hidden shadow-md relative z-[150]">
         <div class="animate-marquee tracking-wide">🚀 Welcome to Geo Study Point! 🌟 Military-Grade Security, AI Mentorship, and Smart Exam Systems.</div>
     </div>
 
-    <!-- 🌍 Animated Premium GTranslate Widget (Highly Visible) -->
-    <div class="fixed top-12 right-4 sm:top-14 sm:right-6 z-[999] group">
-        <!-- Glowing Background Effect -->
+    <!-- 🌍 Animated Premium GTranslate Widget -->
+    <div class="fixed top-12 right-4 sm:top-14 sm:right-6 z-[9999] group overflow-visible">
         <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
-        
-        <!-- Main Button -->
         <div class="relative bg-white/95 backdrop-blur-xl border border-slate-200 shadow-2xl rounded-full px-4 py-2 flex items-center gap-3 cursor-pointer transform hover:scale-105 transition-all">
             <span class="text-indigo-600 text-xl spin-slow"><i class="fa-solid fa-earth-americas"></i></span>
             <div class="gtranslate_wrapper"></div>
-            
-            <!-- Tooltip indicating purpose -->
-            <span class="absolute -bottom-10 right-0 bg-slate-900 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg flex items-center gap-1">
-                <i class="fa-solid fa-language"></i> Change Language
-            </span>
         </div>
     </div>
     <script>
@@ -70,136 +80,191 @@
     <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
 
     <!-- 🌟 HERO SECTION -->
-    <section class="hero-bg w-full pt-16 pb-16 lg:pt-24 lg:pb-24 px-4 sm:px-6 lg:px-8 flex-grow flex items-center relative overflow-hidden">
-        
-        <!-- Decorative Background Circles -->
+    <section class="hero-bg w-full pt-20 pb-16 lg:pt-28 lg:pb-24 px-4 sm:px-6 lg:px-8 flex-grow flex items-center relative overflow-hidden">
         <div class="absolute top-10 left-10 w-32 h-32 bg-blue-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse"></div>
         <div class="absolute bottom-10 right-10 w-32 h-32 bg-emerald-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse" style="animation-delay: 1s;"></div>
 
-        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+        <div class="max-w-6xl mx-auto w-full text-center relative z-10 space-y-12">
             
-            <!-- Left Text Content (High Contrast for Readability) -->
-            <div class="space-y-6 text-center lg:text-left">
-                <div class="inline-flex items-center gap-2 bg-indigo-100 border border-indigo-200 text-indigo-800 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest mb-2 shadow-sm">
+            <div class="space-y-6">
+                <div class="inline-flex items-center gap-2 bg-indigo-100 border border-indigo-200 text-indigo-800 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest mx-auto shadow-sm">
                     <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span></span>
                     BETA v0.1 | Operational
                 </div>
                 
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 leading-tight tracking-tight drop-shadow-sm">
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 leading-tight tracking-tight drop-shadow-sm">
                     Welcome to <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-emerald-600">Geo Study Point</span>
                 </h1>
                 
-                <p class="text-base sm:text-lg lg:text-xl text-slate-700 font-bold max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                <p class="text-base sm:text-lg lg:text-xl text-slate-700 font-bold max-w-2xl mx-auto leading-relaxed">
                     An AI-Powered Educational Practice & Examination Platform. Education is Free, Learning Comes First, and Support is Voluntary.
                 </p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-                    <button onclick="window.location.href='dashboard.html'" class="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-black py-4 px-8 rounded-2xl shadow-xl transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 text-sm sm:text-base border-2 border-indigo-400">
-                        <span class="text-xl animate-bounce">🚀</span> Enter Student Portal
-                    </button>
-                    <button onclick="window.location.href='teacher_panel.html'" class="bg-white border-2 border-slate-300 hover:border-slate-800 text-slate-800 font-black py-4 px-8 rounded-2xl shadow-md transition-all flex items-center justify-center gap-3 text-sm sm:text-base">
-                        <span class="text-xl">👨‍🏫</span> Admin Access
-                    </button>
-                </div>
             </div>
 
-            <!-- Right Graphic / Colorful Features Box -->
-            <div class="glass-panel p-8 sm:p-10 rounded-[2.5rem] relative">
-                <h3 class="text-2xl font-black text-slate-900 mb-6 border-b-2 border-slate-200 pb-4 flex items-center gap-3">
-                    <i class="fa-solid fa-bolt text-amber-500"></i> Platform Features
-                </h3>
-                <ul class="space-y-6">
-                    <li class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-2xl transition-colors">
-                        <div class="bg-emerald-100 text-emerald-600 p-4 rounded-2xl shadow-inner text-2xl flex-shrink-0 animate-pulse">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-black text-slate-900 text-lg">Military-Grade Security</h4>
-                            <p class="text-sm font-semibold text-slate-600 leading-relaxed mt-1">Anti-copy, anti-tab switch, and QR verification systems.</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-2xl transition-colors">
-                        <div class="bg-blue-100 text-blue-600 p-4 rounded-2xl shadow-inner text-2xl flex-shrink-0 hover:rotate-12 transition-transform">
-                            <i class="fa-solid fa-robot"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-black text-slate-900 text-lg">AI Mentor Integration</h4>
-                            <p class="text-sm font-semibold text-slate-600 leading-relaxed mt-1">Gemini Flash AI for post-result evaluation & help.</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-2xl transition-colors">
-                        <div class="bg-purple-100 text-purple-600 p-4 rounded-2xl shadow-inner text-2xl flex-shrink-0 animate-bounce">
-                            <i class="fa-solid fa-file-pdf"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-black text-slate-900 text-lg">Automated Results</h4>
-                            <p class="text-sm font-semibold text-slate-600 leading-relaxed mt-1">Instant server-side grading and secure PDF Marksheets.</p>
-                        </div>
-                    </li>
-                </ul>
+            <!-- Access Boxes -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto pt-4">
+                <div onclick="window.location.href='dashboard.html'" class="glass-panel p-8 rounded-[2rem] cursor-pointer transform hover:-translate-y-2 transition-all border-t-8 border-t-indigo-500 hover:shadow-2xl group flex flex-col items-center text-center">
+                    <div class="bg-indigo-100 text-indigo-600 w-20 h-20 rounded-full flex items-center justify-center text-4xl mb-6 group-hover:scale-110 transition-transform shadow-inner">🎓</div>
+                    <h2 class="text-2xl font-black text-slate-900 mb-3">Student Portal</h2>
+                    <p class="text-sm font-semibold text-slate-600 leading-relaxed">Access your dashboard, take secure exams, and download verified result marksheets.</p>
+                    <div class="mt-6 bg-indigo-600 text-white font-bold py-3 px-6 rounded-xl w-full flex justify-center items-center gap-2 group-hover:bg-indigo-700 transition-colors shadow-md">
+                        Enter Dashboard <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <div onclick="window.location.href='teacher_panel.html'" class="glass-panel p-8 rounded-[2rem] cursor-pointer transform hover:-translate-y-2 transition-all border-t-8 border-t-emerald-500 hover:shadow-2xl group flex flex-col items-center text-center">
+                    <div class="bg-emerald-100 text-emerald-600 w-20 h-20 rounded-full flex items-center justify-center text-4xl mb-6 group-hover:scale-110 transition-transform shadow-inner">👨‍🏫</div>
+                    <h2 class="text-2xl font-black text-slate-900 mb-3">Admin Access</h2>
+                    <p class="text-sm font-semibold text-slate-600 leading-relaxed">Manage databases, evaluate subjective answers, and configure dynamic site policies.</p>
+                    <div class="mt-6 bg-emerald-600 text-white font-bold py-3 px-6 rounded-xl w-full flex justify-center items-center gap-2 group-hover:bg-emerald-700 transition-colors shadow-md">
+                        Teacher Panel <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
             </div>
-            
         </div>
     </section>
 
     <!-- 🌐 MASTER FOOTER -->
-    <footer class="bg-slate-900 text-slate-300 py-12 px-4 sm:px-6 lg:px-8 w-full mt-auto border-t-4 border-indigo-500">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-            <div class="col-span-1 md:col-span-2">
-                <h2 class="text-2xl font-black text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-graduation-cap text-indigo-400"></i> Geo Study Point</h2>
-                <p class="text-sm text-slate-400 mb-4 max-w-md font-medium leading-relaxed">Developed & Maintained by <strong>Swastik Halder</strong>. <br> Pratapnagar, Arambagh, Hooghly, West Bengal, India.</p>
-                <div class="flex gap-4">
-                    <a href="#" class="w-12 h-12 bg-slate-800 text-blue-500 hover:bg-blue-600 hover:text-white rounded-full flex items-center justify-center transition-all text-xl shadow-lg"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="w-12 h-12 bg-slate-800 text-rose-500 hover:bg-rose-600 hover:text-white rounded-full flex items-center justify-center transition-all text-xl shadow-lg"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="mailto:geograpystudypoint.edu@gmail.com" class="w-12 h-12 bg-slate-800 text-emerald-500 hover:bg-emerald-600 hover:text-white rounded-full flex items-center justify-center transition-all text-xl shadow-lg"><i class="fa-solid fa-envelope"></i></a>
+    <footer class="glass-panel w-full mt-auto border-t-4 border-indigo-500 relative z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                
+                <!-- Brand & Dev Info -->
+                <div class="flex flex-col justify-center text-center lg:text-left">
+                    <h2 class="text-2xl font-black text-slate-900 mb-3 flex items-center justify-center lg:justify-start gap-2"><i class="fa-solid fa-graduation-cap text-indigo-600"></i> Geo Study Point</h2>
+                    <p class="text-sm text-slate-600 font-semibold leading-relaxed">Developed & Maintained by <br><strong class="text-indigo-700">Swastik Halder</strong>. <br> Pratapnagar, Arambagh, Hooghly, West Bengal, India.</p>
                 </div>
+
+                <!-- 🛟 Help & Support Box (FIXED & CENTERED) -->
+                <div class="col-span-1 lg:col-span-1">
+                    <div class="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-xl w-full max-w-sm mx-auto">
+                        <h3 class="font-black text-slate-900 uppercase tracking-widest mb-4 flex items-center justify-center gap-2 border-b-2 border-slate-100 pb-3"><i class="fa-solid fa-headset text-indigo-500 text-lg"></i> Help & Support</h3>
+                        
+                        <div class="space-y-4">
+                            <!-- Contact Person (WhatsApp) -->
+                            <div class="flex items-center gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-100 shadow-sm">
+                                <div class="bg-indigo-100 text-indigo-600 w-10 h-10 rounded-full flex justify-center items-center text-lg flex-shrink-0"><i class="fa-solid fa-user-tie"></i></div>
+                                <div class="flex-grow">
+                                    <p class="font-black text-slate-900 text-sm">Mr. Subhasish Maity</p>
+                                    <p class="text-[10px] font-bold text-slate-500">Coordinator</p>
+                                </div>
+                                <a href="https://wa.me/918670636716" target="_blank" class="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-[#25D366] hover:bg-[#1DA851] text-white rounded-full transition-colors shadow-md">
+                                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                                </a>
+                            </div>
+                            
+                            <!-- Email -->
+                            <a href="mailto:geograpystudypoint.edu@gmail.com" class="flex items-center gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-100 shadow-sm hover:border-indigo-300 transition-colors w-full">
+                                <div class="bg-indigo-50 text-indigo-500 w-10 h-10 rounded-full flex justify-center items-center flex-shrink-0"><i class="fa-solid fa-envelope"></i></div>
+                                <p class="font-bold text-slate-800 text-[11px] sm:text-xs truncate w-full">geograpystudypoint.edu@gmail.com</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="flex flex-col justify-center items-center lg:items-start text-center lg:text-left pl-0 lg:pl-6">
+                    <h3 class="font-black text-slate-900 uppercase tracking-widest mb-4 border-b-2 border-slate-100 pb-2 inline-block">Quick Links</h3>
+                    <ul class="space-y-3 text-sm font-bold text-slate-700 w-full max-w-[200px]">
+                        <li><a href="dashboard.html" class="hover:text-indigo-600 transition flex items-center justify-center lg:justify-start gap-2"><i class="fa-solid fa-angle-right text-indigo-500"></i> Student Dashboard</a></li>
+                        <li><a href="result.html" class="hover:text-indigo-600 transition flex items-center justify-center lg:justify-start gap-2"><i class="fa-solid fa-angle-right text-indigo-500"></i> Verify Result</a></li>
+                        <li><a href="policy.html" class="hover:text-indigo-600 transition flex items-center justify-center lg:justify-start gap-2"><i class="fa-solid fa-scale-balanced text-indigo-500"></i> Legal & Policies</a></li>
+                    </ul>
+                </div>
+
             </div>
-            <div>
-                <h3 class="font-bold text-white uppercase tracking-widest mb-4 border-b border-slate-700 pb-2">Quick Links</h3>
-                <ul class="space-y-3 text-sm font-semibold">
-                    <li><a href="dashboard.html" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-angle-right text-indigo-500"></i> Student Dashboard</a></li>
-                    <li><a href="result.html" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-angle-right text-indigo-500"></i> Verify Result</a></li>
-                    <li><a href="support_initiative.html" class="hover:text-emerald-400 transition flex items-center gap-2 text-emerald-400"><i class="fa-solid fa-heart text-emerald-500 animate-pulse"></i> Voluntary Support</a></li>
-                </ul>
+            
+            <div class="mt-10 border-t-2 border-slate-200 pt-6 text-center text-xs text-slate-500">
+                <p class="font-black uppercase tracking-widest mb-1 text-indigo-600">Education is Free • Support is Voluntary • Learning Comes First</p>
+                <p class="font-semibold">© 2026 Geo Study Point. All Rights Reserved.</p>
             </div>
-            <div>
-                <h3 class="font-bold text-white uppercase tracking-widest mb-4 border-b border-slate-700 pb-2">Legal & Policies</h3>
-                <ul class="space-y-3 text-sm font-semibold">
-                    <li><a href="policy.html" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-lock text-slate-500"></i> Privacy Policy</a></li>
-                    <li><a href="policy.html" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-copyright text-slate-500"></i> Copyright & IP</a></li>
-                    <li><a href="policy.html" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-scale-balanced text-slate-500"></i> Terms of Use</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto border-t border-slate-800 pt-8 text-center text-xs text-slate-500">
-            <p class="font-bold uppercase tracking-widest mb-2 text-indigo-400">Education is Free • Support is Voluntary • Learning Comes First</p>
-            <p class="font-medium">© 2026 Geo Study Point. All Rights Reserved. Independent Educational Technology Platform.</p>
         </div>
     </footer>
 
+    <!-- 💖 VOLUNTARY SUPPORT MODAL (Pops up automatically) -->
+    <div id="supportModal" class="fixed inset-0 z-[50000] bg-slate-900/60 backdrop-blur-sm hidden flex-col items-center justify-center p-4 transition-opacity duration-300 opacity-0">
+        <div id="supportModalContent" class="bg-white p-8 rounded-[2rem] shadow-2xl max-w-sm w-full text-center relative transform scale-95 transition-transform duration-300">
+            <!-- Close Button -->
+            <button onclick="closeSupportModal()" class="absolute top-4 right-5 text-slate-400 hover:text-rose-500 text-3xl font-black transition-colors">&times;</button>
+            
+            <div class="text-5xl text-emerald-500 mb-4 animate-bounce"><i class="fa-solid fa-hand-holding-heart"></i></div>
+            <h3 class="text-xl font-black text-slate-900 mb-2 uppercase tracking-wide">Voluntary Support</h3>
+            <p class="text-sm text-slate-600 font-semibold mb-6 leading-relaxed">This platform runs 100% free for students. A small voluntary contribution helps us maintain server and AI costs.</p>
+            
+            <button onclick="window.location.href='support_initiative.html'" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-black py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 uppercase tracking-widest text-sm">
+                <i class="fa-solid fa-heart"></i> Support Platform
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts (Preloader & Auto-Modal Logic) -->
+    <script>
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            
+            // 1. Hide preloader after a short delay (0.5s)
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                
+                setTimeout(() => {
+                    preloader.style.visibility = 'hidden';
+                    
+                    // 2. Show Support Modal EXACTLY 4.5 seconds after preloader hides
+                    setTimeout(() => {
+                        const modal = document.getElementById('supportModal');
+                        const modalContent = document.getElementById('supportModalContent');
+                        
+                        modal.classList.remove('hidden');
+                        modal.classList.add('flex');
+                        
+                        // Small delay to allow CSS to render before animating
+                        setTimeout(() => {
+                            modal.classList.remove('opacity-0');
+                            modalContent.classList.remove('scale-95');
+                            modalContent.classList.add('scale-100');
+                        }, 50);
+                        
+                    }, 4500); // 4.5 seconds timer
+                    
+                }, 500); // Wait for fade-out animation to finish
+            }, 500);
+        });
+
+        // Function to close the Support Modal safely
+        function closeSupportModal() {
+            const modal = document.getElementById('supportModal');
+            const modalContent = document.getElementById('supportModalContent');
+            
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 300); // Wait for transition before hiding element
+        }
+    </script>
+    
     <script src="security.js"></script> 
     <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-analytics.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBaL3PG34Ab9I_qIUwmcrdvWjVuvliAtI",
+            authDomain: "geostudypoint-b9da4.firebaseapp.com",
+            projectId: "geostudypoint-b9da4",
+            storageBucket: "geostudypoint-b9da4.firebasestorage.app",
+            messagingSenderId: "343905708138",
+            appId: "1:343905708138:web:78c9f4e8c3c1bdacca4213",
+            measurementId: "G-5FBY9JR0HR"
+        };
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyCBaL3PG34Ab9I_qIUwmcrdvWjVuvliAtI",
-    authDomain: "geostudypoint-b9da4.firebaseapp.com",
-    projectId: "geostudypoint-b9da4",
-    storageBucket: "geostudypoint-b9da4.firebasestorage.app",
-    messagingSenderId: "343905708138",
-    appId: "1:343905708138:web:78c9f4e8c3c1bdacca4213",
-    measurementId: "G-5FBY9JR0HR"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
     </script>
- </body>
-</html>
+</body>
+    </html>
+    
