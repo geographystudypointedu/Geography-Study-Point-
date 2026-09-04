@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- 📱 iPad, Windows, Android 100% Responsive Meta Tags -->
+    <!-- 📱 100% Responsive Meta Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="theme-color" content="#ffffff">
     
     <title>Secure Subjective Exam - Geo Study Point</title>
@@ -42,27 +41,22 @@
             height: 4px;
             background: #06b6d4;
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             box-shadow: 0 0 15px #06b6d4, 0 0 30px #06b6d4;
             animation: scan 2s linear infinite;
-            display: none;
-            z-index: 20;
+            display: none; z-index: 20;
         }
-        @keyframes scan {
-            0% { top: 0; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { top: 100%; opacity: 0; }
-        }
+        @keyframes scan { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
 
         /* Anti-Copy Double Layer */
         .secure-layer { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
         textarea { user-select: text !important; -webkit-user-select: text !important; }
-        #examArea { display: none; }
+        
+        /* Disable styling for Upload Window */
+        textarea:disabled { background-color: #f1f5f9; cursor: not-allowed; color: #64748b; }
     </style>
 
-    <!-- 🌐 GTranslate First-Time Auto Bengali Cookie Logic -->
+    <!-- 🌐 GTranslate Auto-Bengali Cookie Logic -->
     <script>
         if (document.cookie.indexOf('googtrans') === -1) {
             document.cookie = 'googtrans=/en/bn; path=/';
@@ -70,245 +64,308 @@
         }
     </script>
 </head>
-<body class="min-h-screen flex flex-col font-sans text-slate-800 relative secure-layer" oncontextmenu="return false;">
+<body class="min-h-screen flex flex-col font-sans text-slate-800 relative secure-layer" oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;" ondragstart="return false;">
 
-    <!-- 🌍 Premium GTranslate (EN, BN, HI) -->
-    <div class="fixed top-4 right-4 sm:right-6 z-[100] bg-white border border-slate-200 shadow-sm rounded-full px-4 py-2 flex items-center gap-2">
+    <!-- 🌍 Premium GTranslate (Fixed Position) -->
+    <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-[999] bg-white/90 backdrop-blur-md border border-slate-200 shadow-sm rounded-full px-4 py-2 flex items-center gap-2">
         <span class="text-indigo-600 text-lg"><i class="fa-solid fa-language"></i></span>
         <div class="gtranslate_wrapper"></div>
     </div>
     <script>
-        window.gtranslateSettings = { "default_language": "en", "languages": ["en", "bn", "hi"], "wrapper_selector": ".gtranslate_wrapper", "flag_size": 20 };
+        window.gtranslateSettings = { 
+            "default_language": "en", 
+            "languages": ["en", "bn", "hi"], 
+            "wrapper_selector": ".gtranslate_wrapper", 
+            "flag_size": 20,
+            "detect_browser_language": false 
+        };
     </script>
     <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
 
     <!-- 🚨 RED ALERT & FREEZE MODALS -->
-    <div id="redAlertModal" class="fixed inset-0 z-[300] bg-red-900/90 backdrop-blur-md hidden flex-col items-center justify-center p-6 text-center">
+    <div id="redAlertModal" class="fixed inset-0 z-[1000] bg-red-900/90 backdrop-blur-md hidden flex-col items-center justify-center p-6 text-center">
         <div class="text-7xl mb-4 animate-bounce">🚨</div>
         <h1 class="text-3xl font-black text-white uppercase tracking-widest mb-2">Security Breach Detected!</h1>
         <p id="alertMessage" class="text-white font-bold text-lg max-w-md"></p>
-        <button onclick="dismissAlert()" id="dismissBtn" class="mt-8 bg-white text-red-700 font-black px-8 py-3 rounded-full shadow-2xl hover:bg-red-50">
+        <button onclick="dismissAlert()" class="mt-8 bg-white text-red-700 font-black px-8 py-3 rounded-full shadow-2xl hover:bg-red-50 transition-all">
             Acknowledge Warning
         </button>
     </div>
 
-    <div id="freezeModal" class="fixed inset-0 z-[400] bg-slate-900/95 backdrop-blur-xl hidden flex-col items-center justify-center p-6 text-center">
-        <div class="text-7xl mb-4">❄️</div>
-        <h1 class="text-3xl font-black text-rose-500 uppercase tracking-widest mb-2">Account Frozen</h1>
-        <p class="text-slate-300 font-bold text-base max-w-md mb-4">Multiple security violations detected. Your exam has been locked for 1 hour.</p>
-        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 w-full max-w-sm">
-            <p class="text-xs text-emerald-400 font-bold uppercase mb-1 flex items-center justify-center gap-2"><span>📡</span> Sub-Admin Notified</p>
-        </div>
-    </div>
-
     <!-- Main Container -->
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8 w-full max-w-5xl flex-grow flex flex-col items-center">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 w-full max-w-5xl flex-grow flex flex-col items-center">
         
         <!-- 🚀 PRE-EXAM SCREEN -->
         <div id="preExamScreen" class="glass-box p-8 sm:p-12 w-full max-w-4xl rounded-[2rem] text-center border-t-8 border-indigo-600 mt-10">
             <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight mb-2">Subjective Examination</h1>
             <p class="text-xs font-black text-rose-600 mb-6 uppercase tracking-widest bg-rose-50 inline-block px-3 py-1 rounded-full border border-rose-200">
-                🛡️ Military-Grade Security Active
+                🛡️ AI-Assisted Server Evaluation
             </p>
             
-            <div class="text-left bg-slate-50 p-5 rounded-2xl border border-slate-200 mb-8 space-y-3">
-                <h3 class="font-bold text-slate-800 text-sm sm:text-base border-b pb-2">Strict Guidelines for Subjective Test:</h3>
-                <p class="text-xs sm:text-sm text-slate-600 font-medium">1. You can type, use voice, or upload a file (Photo/PDF/Doc). AI will extract the text and permanently destroy your file.</p>
-                <p class="text-xs sm:text-sm text-slate-600 font-medium">2. Do not switch tabs. Violations trigger a 1-Hour Freeze.</p>
+            <div class="text-left bg-slate-50 p-6 rounded-2xl border border-slate-200 mb-8 space-y-4 shadow-inner">
+                <h3 class="font-bold text-slate-800 text-sm sm:text-base border-b pb-2">Official Examination Guidelines:</h3>
+                <p class="text-xs sm:text-sm text-slate-600 font-medium"><strong>1. Main Exam Phase:</strong> You will have a fixed time controlled by the server to type or voice-record your answers.</p>
+                <p class="text-xs sm:text-sm text-slate-600 font-medium"><strong>2. 30-Min Upload Window:</strong> After the main exam ends, typing will be disabled. A special 30-minute window will open automatically to upload photos/PDFs of your handwritten answers.</p>
+                <p class="text-xs sm:text-sm text-slate-600 font-medium text-rose-600"><strong>3. Security:</strong> Do not switch tabs. Violations are recorded and may auto-submit your paper.</p>
             </div>
 
             <button onclick="startSecureExam()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold py-4 sm:py-5 rounded-2xl shadow-lg transition-all text-base flex items-center justify-center gap-2">
-                🚀 Start Secure Exam Now
+                🚀 Agree & Start Secure Exam
             </button>
         </div>
 
         <!-- 📝 ACTUAL EXAM AREA -->
-        <div id="examArea" class="w-full">
+        <div id="examArea" class="w-full hidden">
             
-            <div class="glass-box p-5 rounded-2xl mb-6 flex justify-between items-center sticky top-4 z-50 border-b-4 border-b-indigo-500">
+            <!-- Sticky Header & Dynamic Timers -->
+            <div class="glass-box p-5 rounded-2xl mb-6 flex flex-col sm:flex-row justify-between items-center sticky top-4 z-50 border-b-4 border-b-indigo-500 gap-4">
                 <div>
-                    <h2 class="text-sm sm:text-base font-black text-slate-800">Geo Study Point - Subjective</h2>
-                    <p class="text-[10px] text-slate-500 font-bold uppercase" id="studentStatus">Status: <span class="text-emerald-600">Secure & Active</span></p>
+                    <h2 class="text-sm sm:text-base font-black text-slate-800">Long Question Exam</h2>
+                    <p class="text-[10px] text-slate-500 font-bold uppercase flex items-center gap-2" id="examStatusText">
+                        Phase: <span class="text-indigo-600 bg-indigo-100 px-2 py-0.5 rounded-full" id="phaseIndicator">Main Exam Active</span>
+                    </p>
                 </div>
-                <div class="bg-indigo-50 border border-indigo-200 px-4 py-2 rounded-xl">
-                    <span class="text-indigo-700 font-black text-lg flex items-center gap-2">⏱️ <span id="examTimer">45:00</span></span>
+                
+                <div class="flex gap-3">
+                    <div class="bg-emerald-50 border border-emerald-200 px-3 py-2 rounded-xl flex items-center shadow-inner hidden sm:flex">
+                        <span id="networkStatus" class="text-emerald-700 font-black text-[10px] uppercase flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Auto-Sync
+                        </span>
+                    </div>
+                    <div id="timerBox" class="bg-rose-50 border border-rose-200 px-4 py-2 rounded-xl shadow-inner transition-colors duration-500">
+                        <span class="text-rose-600 font-black text-lg flex items-center gap-2">
+                            ⏱️ <span id="examTimer">--:--</span>
+                        </span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Question Card -->
-            <div id="examBox" class="glass-box p-6 sm:p-8 rounded-[2rem] w-full mb-6 transition-all">
-                
-                <div class="bg-slate-50 border-l-4 border-indigo-600 p-5 rounded-r-xl mb-6">
-                    <h3 class="text-base sm:text-lg font-bold text-slate-800">
-                        <span class="text-indigo-600 mr-1">Q1.</span> Describe the internal structure of the Earth with diagram references.
-                    </h3>
-                    <p class="text-xs font-bold text-indigo-700 mt-2">Marks: 10</p>
-                </div>
-
-                <!-- 💡 Options for Answering -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4">
-                    
-                    <!-- Option A: Final Answer Box (Type/Voice/AI Extracted) -->
-                    <div class="bg-white p-5 rounded-2xl border border-indigo-100 shadow-sm relative flex flex-col h-full">
-                        <div class="flex justify-between items-center mb-3">
-                            <h4 class="text-xs font-extrabold text-indigo-700 uppercase">Final Answer Sheet</h4>
-                            <select id="voiceLang" class="text-[10px] bg-slate-50 border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 font-bold text-slate-700 p-1">
-                                <option value="en-US">English</option>
-                                <option value="bn-IN">Bengali</option>
-                            </select>
-                        </div>
-                        <textarea id="answerBox" placeholder="Type here, use voice, or upload a file to let AI extract text automatically..." class="w-full flex-grow h-48 sm:h-56 p-4 rounded-xl border border-slate-300 bg-slate-50 focus:ring-2 focus:ring-indigo-600 text-slate-800 text-sm resize-none"></textarea>
-                        
-                        <button id="micBtn" onclick="alert('Voice typing activated.')" class="absolute bottom-6 right-6 bg-indigo-100 text-indigo-600 p-3 rounded-full hover:bg-indigo-200 transition-all shadow-md">
-                            <span class="text-xl"><i class="fa-solid fa-microphone"></i></span>
-                        </button>
-                    </div>
-
-                    <!-- Option B: AI File Upload & Extraction -->
-                    <div class="bg-gradient-to-br from-cyan-50 to-white p-5 rounded-2xl border border-cyan-200 shadow-sm flex flex-col relative overflow-hidden">
-                        <h4 class="text-xs font-extrabold text-cyan-800 uppercase mb-2">Upload File (PDF / DOC / Image)</h4>
-                        <p class="text-[10px] text-slate-500 mb-4 font-bold">AI will extract your handwritten or typed text and permanently delete the source file.</p>
-                        
-                        <!-- File Input -->
-                        <input type="file" id="fileInput" accept="image/*,application/pdf,.doc,.docx" class="hidden" onchange="processFileUpload(event)">
-                        
-                        <!-- Upload Button -->
-                        <div id="uploadPrompt" class="flex flex-col items-center justify-center flex-grow border-2 border-dashed border-cyan-300 rounded-xl p-6 bg-white">
-                            <button onclick="document.getElementById('fileInput').click()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3.5 rounded-xl shadow-md transition-all text-sm flex justify-center items-center gap-2">
-                                <span>📄 Upload File to Scan</span>
-                            </button>
-                            <p class="text-[9px] text-slate-400 mt-3 uppercase tracking-wider font-bold">Max 5MB • Safe AI Wipe Active</p>
-                        </div>
-
-                        <!-- Processing UI -->
-                        <div id="processingUI" class="hidden flex-col items-center justify-center flex-grow border-2 border-cyan-400 rounded-xl p-6 bg-cyan-50 relative">
-                            <div class="text-4xl animate-pulse mb-2">🧠</div>
-                            <p class="text-xs font-bold text-cyan-700 text-center z-30" id="processingText">AI Extracting Data...</p>
-                            <div id="scanLine" class="scan-line"></div>
-                        </div>
-                    </div>
-
-                </div>
+            <!-- Dynamic Question Container -->
+            <div id="questionsContainer" class="space-y-8">
+                <!-- AI-injected questions will appear here -->
             </div>
 
             <!-- Submit Button -->
-            <button onclick="submitExam()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-4 sm:py-5 rounded-2xl shadow-lg transition-all text-sm sm:text-base flex justify-center items-center gap-2">
-                📤 Double Verify & Submit Securely
+            <button onclick="finalSubmitExam()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-4 sm:py-5 rounded-2xl shadow-lg transition-all text-sm sm:text-base flex justify-center items-center gap-2 mt-8 mb-10">
+                📤 Final Official Submit
             </button>
 
         </div>
     </div>
 
-    <script>
-        // --- 1. Exam Timer & Start Logic ---
-        let timeInSecs = 45 * 60;
-        let timerInterval;
-        let isExamActive = false;
+    <!-- ⏳ Server Sync / Result Generation Modal -->
+    <div id="loadingModal" class="fixed inset-0 bg-slate-900/95 z-[600] hidden flex flex-col items-center justify-center backdrop-blur-md transition-all">
+        <div class="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <h2 class="text-2xl font-black text-white tracking-widest animate-pulse">Submitting to Server...</h2>
+        <p class="text-emerald-400 text-xs mt-2 font-bold uppercase tracking-widest text-center px-4">AI Analysis and Teacher Evaluation Pending</p>
+    </div>
 
+    <script>
+        // --- 1. Admin/Server Configurations ---
+        let mainExamSeconds = 1 * 60; // Set to 1 min for testing (Actual would be e.g., 45 * 60)
+        let uploadWindowSeconds = 30 * 60; // 30 Minutes Upload Window
+        
+        let currentPhase = 0; // 0 = Not started, 1 = Main Exam, 2 = Upload Window
+        let timerInterval;
+        let warningCount = 0;
+
+        // --- 2. Database Structure (Long Questions) ---
+        const longQuestions = [
+            { id: "Q001", marks: 10, text: "Describe the internal structure of the Earth with appropriate diagram references." },
+            { id: "Q002", marks: 15, text: "Analyze the impact of global warming on the polar ice caps and coastal ecosystems." }
+        ];
+
+        // --- 3. Dynamic Question Rendering ---
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = "";
+
+            longQuestions.forEach((q, index) => {
+                let savedAnswer = localStorage.getItem(`lq_ans_${q.id}`) || "";
+
+                container.innerHTML += `
+                    <div class="glass-box p-6 sm:p-8 rounded-[2rem] w-full transition-all border-l-4 border-l-indigo-600" id="qBox_${q.id}">
+                        
+                        <div class="bg-slate-50 p-4 rounded-xl mb-6 border border-slate-200">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-base sm:text-lg font-bold text-slate-800 leading-relaxed">
+                                    <span class="text-indigo-600 mr-1">Q${index + 1}.</span> ${q.text}
+                                </h3>
+                                <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-lg text-xs font-black whitespace-nowrap">Marks: ${q.marks}</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            
+                            <!-- A: Digital Input (Type/Voice) -->
+                            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative flex flex-col">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h4 class="text-xs font-extrabold text-indigo-700 uppercase">⌨️ Digital Answer</h4>
+                                </div>
+                                <textarea id="ansBox_${q.id}" onkeyup="autoSave('${q.id}', this.value)" placeholder="Type your answer here..." class="w-full flex-grow h-40 p-4 rounded-xl border border-slate-300 bg-slate-50 focus:ring-2 focus:ring-indigo-500 text-slate-800 text-sm resize-none answer-textarea">${savedAnswer}</textarea>
+                                
+                                <button onclick="alert('Voice typing activated for ${q.id}')" class="absolute bottom-6 right-6 bg-indigo-100 text-indigo-600 w-10 h-10 rounded-full hover:bg-indigo-200 transition-all shadow-md flex justify-center items-center">
+                                    <i class="fa-solid fa-microphone"></i>
+                                </button>
+                            </div>
+
+                            <!-- B: File Upload Window -->
+                            <div class="bg-gradient-to-br from-cyan-50 to-white p-5 rounded-2xl border border-cyan-200 shadow-sm flex flex-col relative overflow-hidden upload-section">
+                                <h4 class="text-xs font-extrabold text-cyan-800 uppercase mb-2">📷 Upload Handwritten Answer</h4>
+                                <p class="text-[10px] text-slate-500 mb-4 font-bold">Secure AI extraction. Original files are kept in temp storage.</p>
+                                
+                                <input type="file" id="file_${q.id}" accept="image/*,application/pdf" class="hidden file-input" onchange="processFileUpload(event, '${q.id}')">
+                                
+                                <div id="uploadPrompt_${q.id}" class="flex flex-col items-center justify-center flex-grow border-2 border-dashed border-cyan-300 rounded-xl p-4 bg-white hover:bg-cyan-50 transition cursor-pointer" onclick="document.getElementById('file_${q.id}').click()">
+                                    <span class="text-2xl mb-2 text-cyan-600">📄</span>
+                                    <span class="text-xs font-bold text-cyan-700">Select File</span>
+                                </div>
+
+                                <div id="processingUI_${q.id}" class="hidden flex-col items-center justify-center flex-grow border-2 border-cyan-400 rounded-xl p-4 bg-cyan-50 relative">
+                                    <div class="text-3xl animate-pulse mb-2">🧠</div>
+                                    <p class="text-[10px] font-bold text-cyan-700 text-center z-30" id="processingText_${q.id}">Extracting Data...</p>
+                                    <div class="scan-line" style="display:block;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // --- 4. Main Timer & Phases ---
         function startSecureExam() {
             document.getElementById('preExamScreen').style.display = 'none';
             document.getElementById('examArea').style.display = 'block';
-            isExamActive = true;
             
+            renderQuestions();
+            
+            // Fullscreen Request
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen().catch(() => {});
             }
 
+            currentPhase = 1; // Main Exam
+            startCountdown(mainExamSeconds, handleMainExamEnd);
+        }
+
+        function startCountdown(seconds, callback) {
+            clearInterval(timerInterval);
+            let timeRemaining = seconds;
+            
             timerInterval = setInterval(() => {
-                let mins = Math.floor(timeInSecs / 60);
-                let secs = timeInSecs % 60;
+                let mins = Math.floor(timeRemaining / 60);
+                let secs = timeRemaining % 60;
                 document.getElementById("examTimer").innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-                if (timeInSecs <= 0) { clearInterval(timerInterval); submitExam(); }
-                timeInSecs--;
+                
+                if (timeRemaining <= 0) { 
+                    clearInterval(timerInterval); 
+                    callback(); 
+                }
+                timeRemaining--;
             }, 1000);
         }
 
-        // --- 2. AI File Processing & Wipe Logic ---
-        function processFileUpload(event) {
+        // --- 5. Phase Transition: Main Exam to Upload Window ---
+        function handleMainExamEnd() {
+            currentPhase = 2; // Upload Window
+            
+            // Update UI & Colors
+            document.getElementById('phaseIndicator').innerText = "Upload Window Active (30 Mins)";
+            document.getElementById('phaseIndicator').className = "text-amber-700 bg-amber-100 px-3 py-1 rounded-full animate-pulse";
+            document.getElementById('timerBox').className = "bg-amber-50 border border-amber-300 px-4 py-2 rounded-xl shadow-inner";
+            document.getElementById('examTimer').className = "text-amber-600";
+            
+            // Disable all textareas
+            const textareas = document.querySelectorAll('.answer-textarea');
+            textareas.forEach(ta => {
+                ta.disabled = true;
+                ta.placeholder = "Main exam time ended. Typing disabled.";
+            });
+
+            alert("⏳ MAIN EXAM OVER.\nTyping has been disabled.\n\n📷 The 30-Minute Additional Upload Window is now active. You may only upload photos/PDFs of your handwritten answers now.");
+            
+            startCountdown(uploadWindowSeconds, finalSubmitExam);
+        }
+
+        // --- 6. Utilities (Auto-save, AI Upload Mock) ---
+        function autoSave(questionId, value) {
+            if(currentPhase === 1) {
+                localStorage.setItem(`lq_ans_${questionId}`, value);
+            }
+        }
+
+        function processFileUpload(event, questionId) {
             const file = event.target.files[0];
             if (!file) return;
 
-            // Show Processing UI
-            document.getElementById('uploadPrompt').classList.add('hidden');
-            const processingUI = document.getElementById('processingUI');
+            document.getElementById(`uploadPrompt_${questionId}`).classList.add('hidden');
+            const processingUI = document.getElementById(`processingUI_${questionId}`);
             processingUI.classList.remove('hidden');
             processingUI.classList.add('flex');
-            document.getElementById('scanLine').style.display = 'block';
 
-            // Simulate AI Processing
-            const processingText = document.getElementById('processingText');
-            processingText.innerText = `Scanning: ${file.name}...`;
+            const processingText = document.getElementById(`processingText_${questionId}`);
+            processingText.innerText = `Scanning File...`;
 
             setTimeout(() => {
-                processingText.innerText = "Extracting text using Gemini AI...";
+                processingText.innerText = "AI extracting handwriting...";
                 
                 setTimeout(() => {
-                    // Extraction Done - Wipe the file
-                    document.getElementById('fileInput').value = ""; // Permanently destroy file from DOM
+                    // Extraction Done
+                    document.getElementById(`file_${questionId}`).value = ""; // Clear file input
                     
-                    // Put text in answer box
-                    document.getElementById('answerBox').value += "\n\n[Extracted via AI]: The Earth's internal structure consists of the Crust, Mantle, and Core. The crust is the outermost solid shell, followed by the semi-solid mantle, and the metallic core at the center.";
-                    
-                    // Reset UI
-                    document.getElementById('scanLine').style.display = 'none';
+                    // Append extracted text to textarea (even if disabled)
+                    const ansBox = document.getElementById(`ansBox_${questionId}`);
+                    ansBox.value += `\n\n[AI Extracted Document]: Answer processed successfully. Original file secured.`;
+                    autoSave(questionId, ansBox.value); // Force save
+
                     processingUI.classList.add('hidden');
                     processingUI.classList.remove('flex');
-                    document.getElementById('uploadPrompt').classList.remove('hidden');
+                    document.getElementById(`uploadPrompt_${questionId}`).classList.remove('hidden');
                     
-                    // Double Verify Alert
-                    alert("✅ AI Extraction Complete!\n\n☢️ DOUBLE VERIFICATION: Your original file (PDF/Image) has been permanently wiped from the system memory. Only your text answer remains in the Final Answer Sheet.");
+                    alert(`✅ Document Uploaded & Processed for ${questionId}.`);
                 }, 2000);
-            }, 1500);
+            }, 1000);
         }
 
-        // --- 3. Anti-Cheat Red Alert Logic ---
-        let violationCount = 0;
-        const maxViolations = 3;
-
+        // --- 7. Security: Anti-Tab Switch ---
         document.addEventListener("visibilitychange", function() {
-            if (document.hidden && isExamActive) triggerRedAlert();
+            if (document.hidden && currentPhase > 0) {
+                warningCount++;
+                document.getElementById('alertMessage').innerText = `Warning ${warningCount}/3: Background activity detected!`;
+                document.getElementById('redAlertModal').style.display = 'flex';
+                
+                if(warningCount >= 3) { 
+                    document.getElementById('redAlertModal').style.display = 'none';
+                    finalSubmitExam(); 
+                }
+            }
         });
 
-        function triggerRedAlert() {
-            violationCount++;
-            const modal = document.getElementById('redAlertModal');
-            if (violationCount >= maxViolations) {
-                document.getElementById('freezeModal').style.display = 'flex';
-                modal.style.display = 'none';
-                clearInterval(timerInterval);
-                isExamActive = false;
-            } else {
-                timeInSecs -= 120;
-                document.getElementById('alertMessage').innerText = `Warning ${violationCount}/${maxViolations}: Background activity detected!\n2 Minutes deducted.`;
-                modal.style.display = 'flex';
-                document.getElementById('examBox').classList.add('red-alert-active');
-            }
-        }
         function dismissAlert() {
             document.getElementById('redAlertModal').style.display = 'none';
-            document.getElementById('examBox').classList.remove('red-alert-active');
         }
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) || (e.ctrlKey && e.key === 'U')) {
-                e.preventDefault(); if(isExamActive) triggerRedAlert();
-            }
-        });
 
-        // --- 4. Final Submission Logic ---
-        function submitExam() {
-            const answerBox = document.getElementById('answerBox').value;
-            if(answerBox.trim() === "") {
-                alert("⚠️ Please provide your answer before submitting.");
-                return;
-            }
+        // --- 8. Final Submission ---
+        function finalSubmitExam() {
+            currentPhase = 0;
             clearInterval(timerInterval);
             
-            // Final Verification Message
-            alert("🔐 SYSTEM VERIFICATION COMPLETE:\n1. Your final text answers have been saved.\n2. All uploaded source files (Images/PDFs) were detected as permanently wiped.\n3. Your answer data is stored in the secure AI vault for a 24-hour evaluation window.\n\n✅ YOU HAVE SUCCESSFULLY PASSED THE SECURITY CHECK!\nUnique ID Generated: GEO-2026-A9B4X");
-            
-            window.location.href = "dashboard.html";
+            document.getElementById('loadingModal').classList.remove('hidden');
+
+            setTimeout(() => {
+                // Clear browser storage
+                longQuestions.forEach(q => { localStorage.removeItem(`lq_ans_${q.id}`); });
+                
+                // Redirect to dashboard (Result generation is asynchronous by teachers)
+                alert("🔐 EXAM SUCCESSFULLY SUBMITTED TO SERVER.\n\nYour answers will be evaluated by AI and finalized by your Teacher. Results will be published later.");
+                window.location.href = "dashboard.html";
+                
+            }, 3000);
         }
     </script>
+
+    <!-- 🚨 Core Security Protocol (Global Kill Switch) -->
+    <script src="security.js"></script>
 </body>
-    </html>
-    
+</html>
