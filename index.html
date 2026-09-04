@@ -41,7 +41,7 @@
         .animate-marquee {
             display: inline-block;
             white-space: nowrap;
-            animation: scroll-left 20s linear infinite; /* 20s for smooth readable speed */
+            animation: scroll-left 20s linear infinite; 
         }
     </style>
 
@@ -61,6 +61,21 @@
             🚀 Welcome to Geo Study Point — The Next-Generation AI EdTech Platform! 🌟 Experience Military-Grade Security, AI Mentorship, and Smart Exam Systems. Admissions are now open! 🎓
         </div>
     </div>
+
+    <!-- 🌍 Premium GTranslate (EN, BN, HI) - Z-index Fixed to 999 -->
+    <div class="fixed top-4 right-4 sm:top-12 sm:right-6 z-[999] bg-white/90 backdrop-blur-md border border-slate-200 shadow-sm rounded-full px-4 py-2 flex items-center gap-2 transition-all hover:shadow-md">
+        <span class="text-indigo-600 text-lg"><i class="fa-solid fa-language"></i></span>
+        <div class="gtranslate_wrapper"></div>
+    </div>
+    <script>
+        window.gtranslateSettings = { 
+            "default_language": "en", 
+            "languages": ["en", "bn", "hi"], 
+            "wrapper_selector": ".gtranslate_wrapper", 
+            "flag_size": 20 
+        };
+    </script>
+    <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
 
     <!-- 🌟 Welcome Screen Modal -->
     <div id="welcomeScreen" class="fixed inset-0 z-[200] bg-white/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 sm:p-10 transition-all duration-700">
@@ -97,14 +112,6 @@
         </div>
     </div>
 
-    <!-- 🌍 Premium GTranslate -->
-    <div class="absolute top-12 right-4 sm:right-6 z-[100] bg-white/90 backdrop-blur-md border border-slate-200 shadow-sm rounded-full px-4 py-2 flex items-center gap-2 transition-all hover:shadow-md">
-        <span class="text-indigo-600 text-lg"><i class="fa-solid fa-language"></i></span>
-        <div class="gtranslate_wrapper"></div>
-    </div>
-    <script>window.gtranslateSettings = { "default_language": "en", "languages": ["en", "bn", "hi"], "wrapper_selector": ".gtranslate_wrapper", "flag_size": 20 };</script>
-    <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
-
     <!-- 🔐 Main Login / Landing Page Content -->
     <div class="container mx-auto flex flex-col items-center justify-center flex-grow p-4 z-10 w-full max-w-md mt-10 mb-10">
         <div class="glass-box p-8 md:p-10 rounded-[2.5rem] w-full text-center transform transition-all hover:scale-[1.02] border-t-8 border-indigo-600 shadow-xl">
@@ -135,11 +142,23 @@
                 <button onclick="window.location.href='mailto:geograpystudypoint.edu@gmail.com'" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-8 rounded-full text-xs sm:text-sm shadow-md flex items-center justify-center gap-2 transition-all">✉️ Email Support</button>
                 <a href="tel:+918670636716" class="text-xs text-slate-600 font-bold hover:text-indigo-600 transition-all">📞 Helpline: +91 86706 36716</a>
             </div>
-            <div class="flex gap-4 pt-2">
-                <a href="https://www.facebook.com/share/1Bz6MtVnVS/" target="_blank" class="w-12 h-12 bg-slate-100 text-slate-700 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all shadow-sm text-lg"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/subhasish4031?igsi=MTdpbGk2NXlieG9xYg==" target="_blank" class="w-12 h-12 bg-slate-100 text-slate-700 rounded-full flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all shadow-sm text-lg"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://wa.me/918670636716" target="_blank" class="w-12 h-12 bg-slate-100 text-slate-700 rounded-full flex items-center justify-center hover:bg-green-500 hover:text-white transition-all shadow-sm text-lg"><i class="fa-brands fa-whatsapp"></i></a>
+            
+            <!-- 🌟 Official Social Media Icons -->
+            <div class="flex gap-5 pt-2">
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/share/1Bz6MtVnVS/" target="_blank" class="w-12 h-12 bg-[#1877F2] text-white rounded-full flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all text-xl shadow-md">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/subhasish4031?igsi=MTdpbGk2NXlieG9xYg==" target="_blank" class="w-12 h-12 bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white rounded-full flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all text-xl shadow-md">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <!-- WhatsApp -->
+                <a href="https://wa.me/918670636716" target="_blank" class="w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all text-xl shadow-md">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
             </div>
+
             <div class="w-full pt-2">
                 <button onclick="window.location.href='teacher_panel.html'" class="text-xs text-slate-500 hover:text-indigo-600 font-bold transition-all flex items-center justify-center gap-1 mx-auto">🔒 Authorized Admin Panel</button>
             </div>
@@ -169,6 +188,7 @@
         </div>
     </div>
 
+    <!-- Script updated to DOMContentLoaded to prevent conflict with security.js -->
     <script>
         let timeLeft = 9;
         const countdownEl = document.getElementById('countdownTimer');
@@ -182,7 +202,7 @@
             welcomeScreen.classList.add('fade-out');
         }
 
-        window.onload = () => {
+        document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 introAnimation.style.opacity = '0';
                 setTimeout(() => {
@@ -197,7 +217,7 @@
                 if(timeLeft >= 0) countdownEl.innerText = timeLeft;
                 if (timeLeft <= 0) skipWelcomeScreen();
             }, 1000);
-        };
+        });
 
         function simulateGoogleLogin() {
             const status = document.getElementById('loadingStatus');
