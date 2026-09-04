@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- 📱 100% Responsive for Mobile, iPad, Windows Desktop, 8K & Super Computers -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta name="theme-color" content="#ffffff">
     
     <title>Short Question Examination - Geo Study Point</title>
@@ -16,18 +13,33 @@
     
     <style>
         html { scroll-behavior: smooth; }
-        body { padding-bottom: env(safe-area-inset-bottom); background-color: #f8fafc; user-select: none; -webkit-user-select: none; }
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f1f5f9; padding-bottom: env(safe-area-inset-bottom); }
         
-        .glass-box {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        /* 🪟 Premium Light Glassmorphism */
+        .glass-box { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.6); 
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); 
         }
-        textarea { user-select: text !important; -webkit-user-select: text !important; }
+
+        /* 🚨 Security Red Alert */
+        @keyframes red-alert-flash {
+            0% { box-shadow: inset 0 0 0px rgba(239, 68, 68, 0); background-color: #ffffff; }
+            50% { box-shadow: inset 0 0 100px rgba(239, 68, 68, 0.8); background-color: #fef2f2; }
+            100% { box-shadow: inset 0 0 0px rgba(239, 68, 68, 0); background-color: #ffffff; }
+        }
+        .red-alert-active { animation: red-alert-flash 0.8s infinite; border: 4px solid #ef4444 !important; }
+
+        /* Animations */
+        .spin-slow { animation: spin 4s linear infinite; }
+        
+        /* Anti-Copy Layer */
+        .secure-layer { user-select: none; -webkit-user-select: none; }
+        textarea, input { user-select: text !important; -webkit-user-select: text !important; }
     </style>
 
-    <!-- 🌐 GTranslate Auto-Bengali Logic -->
+    <!-- 🌐 Default Bengali Cookie -->
     <script>
         if (document.cookie.indexOf('googtrans') === -1) {
             document.cookie = 'googtrans=/en/bn; path=/';
@@ -35,62 +47,77 @@
         }
     </script>
 </head>
-<body class="min-h-screen flex flex-col font-sans text-slate-800 relative">
+<body class="min-h-screen flex flex-col text-slate-900 relative secure-layer" oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;">
 
-    <!-- 🌍 Premium GTranslate (EN, BN, HI) -->
-    <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-[999] bg-white border border-slate-200 shadow-sm rounded-full px-4 py-2 flex items-center gap-2">
-        <span class="text-indigo-600 text-lg"><i class="fa-solid fa-language"></i></span>
-        <div class="gtranslate_wrapper"></div>
+    <!-- 🌍 FIXED GTRANSLATE WIDGET (Top Priority Layer) -->
+    <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-[9999] group overflow-visible">
+        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+        <div class="relative bg-white/95 backdrop-blur-xl border border-slate-200 shadow-2xl rounded-full px-3 py-2 flex items-center gap-2 hover:scale-105 transition-transform">
+            <span class="text-indigo-600 text-lg spin-slow"><i class="fa-solid fa-earth-americas"></i></span>
+            <div class="gtranslate_wrapper"></div>
+            <span class="absolute -bottom-10 right-0 bg-slate-900 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg flex items-center gap-1">
+                <i class="fa-solid fa-language"></i> Translate
+            </span>
+        </div>
     </div>
     <script>
-        window.gtranslateSettings = { "default_language": "en", "languages": ["en", "bn", "hi"], "wrapper_selector": ".gtranslate_wrapper", "flag_size": 20 };
+        window.gtranslateSettings = { "default_language": "en", "languages": ["en", "bn", "hi"], "wrapper_selector": ".gtranslate_wrapper", "detect_browser_language": false };
     </script>
     <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
 
-    <!-- Main Container (Optimized for all screens up to 8K/Supercomputers) -->
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 w-full max-w-4xl xl:max-w-5xl 2xl:max-w-6xl flex-grow flex flex-col items-center">
+    <!-- 🚨 RED ALERT MODAL (z-[10000]) -->
+    <div id="redAlertModal" class="fixed inset-0 z-[10000] bg-red-900/95 backdrop-blur-md hidden flex-col items-center justify-center p-6 text-center">
+        <div class="text-6xl mb-4 animate-bounce"><i class="fa-solid fa-triangle-exclamation text-yellow-400"></i></div>
+        <h1 class="text-2xl sm:text-3xl font-black text-white uppercase tracking-widest mb-3">Security Breach Detected!</h1>
+        <p id="alertMessage" class="text-white font-bold text-base sm:text-lg max-w-md bg-red-800 p-4 rounded-xl"></p>
+        <button onclick="dismissAlert()" class="mt-8 bg-white text-red-700 font-black px-8 py-4 rounded-xl shadow-2xl hover:bg-red-50 transition-all flex items-center gap-2 uppercase tracking-widest">
+            Acknowledge Warning
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 w-full max-w-4xl flex-grow flex flex-col items-center">
         
         <!-- Header -->
         <div class="text-center mb-8">
-            <div class="inline-block p-3 bg-indigo-50 rounded-2xl mb-3 border border-indigo-100 shadow-sm">
-                <span class="text-3xl sm:text-4xl">✍️</span>
+            <div class="inline-block bg-white p-4 rounded-full mb-4 shadow-lg border border-slate-200 text-4xl text-indigo-600 animate-bounce">
+                <i class="fa-solid fa-stopwatch-20"></i>
             </div>
-            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900">Short Question Examination</h1>
-            <p class="text-xs sm:text-sm text-slate-500 font-bold mt-1 uppercase tracking-wider">Geo Study Point — Secure Evaluation Engine</p>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-slate-900">Short Question Examination</h1>
+            <p class="text-xs sm:text-sm text-slate-600 font-bold mt-2 uppercase tracking-wider">Secure Evaluation Engine</p>
         </div>
 
-        <!-- 🎓 1. Student Identification & Exam Setup Screen -->
-        <div id="idSection" class="glass-box p-6 sm:p-10 rounded-[2.5rem] w-full max-w-2xl shadow-xl border-t-8 border-t-indigo-600 mb-8">
-            <div class="text-center mb-6">
-                <span class="text-4xl">📋</span>
-                <h2 class="text-xl font-black mt-2 text-slate-800">Candidate Verification</h2>
-                <p class="text-xs text-slate-500 mt-1 font-bold">Please fill in your details to generate Exam Attempt ID</p>
+        <!-- 🎓 1. Student Identification Screen -->
+        <div id="idSection" class="glass-box p-8 sm:p-10 rounded-[2.5rem] w-full shadow-xl border-t-8 border-t-indigo-600 mb-8 transform transition-all hover:scale-[1.01]">
+            <div class="text-center mb-8">
+                <h2 class="text-xl sm:text-2xl font-black text-slate-800 flex justify-center items-center gap-3">
+                    <i class="fa-solid fa-id-card-clip text-indigo-500"></i> Candidate Verification
+                </h2>
+                <p class="text-xs text-slate-500 mt-2 font-bold uppercase">Generate Exam Attempt ID</p>
             </div>
             
-            <div class="space-y-4">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                         <label class="text-[11px] font-extrabold uppercase text-slate-600 mb-1 block">Full Name *</label>
-                        <input type="text" id="stdName" placeholder="e.g., Swastik Halder" class="w-full p-3.5 rounded-xl border border-slate-300 font-bold text-slate-700 text-sm focus:ring-2 focus:ring-indigo-500 bg-white shadow-sm" required>
+                        <input type="text" id="stdName" placeholder="e.g., Swastik Halder" class="w-full p-4 rounded-xl border border-slate-300 font-bold text-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 bg-slate-50 shadow-inner outline-none" required>
                     </div>
                     <div>
                         <label class="text-[11px] font-extrabold uppercase text-slate-600 mb-1 block">Email or Phone *</label>
-                        <input type="text" id="stdContact" placeholder="email@example.com / Phone" class="w-full p-3.5 rounded-xl border border-slate-300 font-bold text-slate-700 text-sm focus:ring-2 focus:ring-indigo-500 bg-white shadow-sm" required>
+                        <input type="text" id="stdContact" placeholder="email@example.com / Phone" class="w-full p-4 rounded-xl border border-slate-300 font-bold text-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 bg-slate-50 shadow-inner outline-none" required>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                         <label class="text-[11px] font-extrabold uppercase text-slate-600 mb-1 block">Address *</label>
-                        <input type="text" id="stdAddress" placeholder="Village/Town, District" class="w-full p-3.5 rounded-xl border border-slate-300 font-bold text-slate-700 text-sm focus:ring-2 focus:ring-indigo-500 bg-white shadow-sm" required>
+                        <input type="text" id="stdAddress" placeholder="Village/Town, District" class="w-full p-4 rounded-xl border border-slate-300 font-bold text-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 bg-slate-50 shadow-inner outline-none" required>
                     </div>
                     <div>
                         <label class="text-[11px] font-extrabold uppercase text-slate-600 mb-1 block">Class / Course *</label>
-                        <select id="stdClass" class="w-full p-3.5 rounded-xl border border-slate-300 font-bold text-slate-700 text-sm focus:ring-2 focus:ring-indigo-500 bg-white shadow-sm cursor-pointer">
-                            <option value="Class 9">Class 9</option>
-                            <option value="Class 10">Class 10 (Madhyamik)</option>
-                            <option value="Class 11">Class 11</option>
+                        <select id="stdClass" class="w-full p-4 rounded-xl border border-slate-300 font-bold text-slate-800 text-sm focus:ring-2 focus:ring-indigo-500 bg-slate-50 shadow-inner outline-none cursor-pointer">
                             <option value="Class 12" selected>Class 12 (Higher Secondary)</option>
+                            <option value="Class 11">Class 11</option>
                             <option value="University">University Level</option>
                         </select>
                     </div>
@@ -98,74 +125,73 @@
 
                 <div>
                     <label class="text-[11px] font-extrabold uppercase text-slate-600 mb-1 block">Examination Type *</label>
-                    <input type="text" id="examType" value="Geography Short Question Test (Unit-1)" class="w-full p-3.5 rounded-xl border border-slate-300 font-bold text-slate-700 text-sm bg-slate-100 shadow-sm" readonly>
+                    <input type="text" id="examType" value="Geography Short Question Test (Unit-1)" class="w-full p-4 rounded-xl border border-slate-300 font-black text-indigo-900 text-sm bg-indigo-50 shadow-inner outline-none" readonly>
                 </div>
 
-                <button onclick="initializeExamSession()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold py-4 rounded-xl shadow-lg text-sm transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 mt-4">
-                    <span>🚀</span> Initialize Exam Attempt & Start
+                <button onclick="initializeExamSession()" class="w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-black py-4 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 mt-4 uppercase tracking-widest text-sm">
+                    <i class="fa-solid fa-rocket"></i> Initialize & Start Exam
                 </button>
             </div>
         </div>
 
-        <!-- 📝 2. Actual Exam Interface (Hidden initially) -->
-        <div id="examInterface" class="w-full space-y-6 hidden">
+        <!-- 📝 2. Actual Exam Interface -->
+        <div id="examInterface" class="w-full space-y-6 hidden animate-[popIn_0.5s_ease-out]">
             
             <!-- Sticky Timer & Status Bar -->
-            <div class="glass-box p-4 sm:p-5 rounded-2xl flex flex-col sm:flex-row justify-between items-center sticky top-4 z-40 border-b-4 border-indigo-600 gap-3">
-                <div>
-                    <h2 class="text-sm sm:text-base font-black text-slate-800">Subject: Geography (Short Questions)</h2>
-                    <p class="text-[10px] text-emerald-600 font-bold uppercase tracking-wider flex items-center gap-1.5 mt-0.5">
+            <div class="glass-box p-4 sm:p-5 rounded-2xl flex flex-col sm:flex-row justify-between items-center sticky top-4 z-[900] border-b-4 border-indigo-600 gap-4 shadow-md">
+                <div class="text-center sm:text-left">
+                    <h2 class="text-sm sm:text-base font-black text-slate-900">Geography (Short Questions)</h2>
+                    <p class="text-[10px] text-emerald-700 font-black uppercase tracking-widest flex items-center justify-center sm:justify-start gap-2 mt-1 bg-emerald-100 px-3 py-1 rounded-md inline-flex">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> <span id="autoSaveStatus">Auto-Saved to Server</span>
                     </p>
                 </div>
-                <div class="flex items-center gap-4">
-                    <div class="bg-indigo-50 border border-indigo-200 px-4 py-2 rounded-xl text-center">
-                        <span class="text-[10px] font-extrabold text-indigo-700 uppercase block">Attempt ID</span>
-                        <span id="displayAttemptId" class="text-xs font-mono font-bold text-slate-700">ATT-2026-X99</span>
+                <div class="flex items-center gap-3">
+                    <div class="bg-indigo-50 border border-indigo-200 px-3 py-2 rounded-xl text-center shadow-inner">
+                        <span class="text-[9px] font-black text-indigo-700 uppercase block tracking-widest">Attempt ID</span>
+                        <span id="displayAttemptId" class="text-xs font-mono font-bold text-slate-800">ATT-2026-X99</span>
                     </div>
-                    <div class="bg-rose-50 border border-rose-200 px-4 py-2 rounded-xl text-center">
-                        <span class="text-[10px] font-extrabold text-rose-700 uppercase block">Remaining Time</span>
-                        <span id="examTimer" class="text-lg font-black text-rose-600">45:00</span>
+                    <div class="bg-rose-50 border border-rose-200 px-4 py-2 rounded-xl text-center shadow-inner min-w-[100px]">
+                        <span class="text-[9px] font-black text-rose-700 uppercase block tracking-widest">Time Left</span>
+                        <span id="examTimer" class="text-lg font-black text-rose-600 flex items-center justify-center gap-2"><i class="fa-solid fa-stopwatch animate-pulse"></i> 45:00</span>
                     </div>
                 </div>
             </div>
 
             <!-- Question Papers Container -->
-            <div id="questionsContainer" class="space-y-6">
+            <div id="questionsContainer" class="space-y-8">
                 <!-- Dynamically injected short questions -->
             </div>
 
             <!-- Final Submission Button -->
-            <div class="pt-4">
-                <button onclick="confirmFinalSubmission()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-4 rounded-2xl shadow-xl transition-all uppercase text-sm tracking-wider flex items-center justify-center gap-2">
-                    <span>📤</span> Final Submit Examination
+            <div class="pt-6 pb-10">
+                <button onclick="confirmFinalSubmission()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-black py-4 rounded-xl shadow-xl transition-all uppercase tracking-widest text-sm flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-paper-plane"></i> Final Submit Examination
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- 🔄 Evaluation Pipeline Modal (As requested in requirement #14) -->
-    <div id="evaluationModal" class="fixed inset-0 z-[1000] bg-slate-900/95 backdrop-blur-xl hidden flex-col items-center justify-center p-6 text-center">
+    <!-- 🔄 Evaluation Pipeline Modal -->
+    <div id="evaluationModal" class="fixed inset-0 z-[10000] bg-slate-900/95 backdrop-blur-md hidden flex-col items-center justify-center p-6 text-center">
         <div class="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-6"></div>
         <div id="evalStatusText" class="text-2xl sm:text-3xl font-black text-white tracking-wide uppercase animate-pulse">
-            🔄 Your answers are being evaluated...
+            <i class="fa-solid fa-arrows-rotate"></i> Evaluating Answers...
         </div>
-        <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-3">Running Server-Side Authoritative Verification & Grading Pipeline</p>
+        <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-4">Running Server-Side Authoritative Verification Pipeline</p>
     </div>
 
-    <!-- Core Script Logic implementing all 20 Rules -->
     <script>
         let examTimerInterval;
-        let remainingSeconds = 45 * 60; // Default 45 Minutes from Admin config
+        let remainingSeconds = 45 * 60; // 45 Minutes Default
         let attemptId = "";
+        let warningCount = 0;
+        let isExamActive = false;
 
-        // Sample Short Questions (Admin Configurable)
         const shortQuestions = [
             { id: "Q1", num: 1, text: "Define Ocean Tides and state its primary cause.", maxMarks: 2 },
             { id: "Q2", num: 2, text: "What is the significance of the continental shelf in geography?", maxMarks: 2 },
             { id: "Q3", num: 3, text: "Differentiate between Weather and Climate with examples.", maxMarks: 2 },
-            { id: "Q4", num: 4, text: "Explain the formation of Ox-bow lakes in river valleys.", maxMarks: 2 },
-            { id: "Q5", num: 5, text: "What are the major factors affecting the temperature of a place?", maxMarks: 2 }
+            { id: "Q4", num: 4, text: "Explain the formation of Ox-bow lakes in river valleys.", maxMarks: 2 }
         ];
 
         function initializeExamSession() {
@@ -174,25 +200,20 @@
             const address = document.getElementById('stdAddress').value.trim();
 
             if(!name || !contact || !address) {
-                alert("⚠️ Please fill in all mandatory candidate details (Name, Email/Phone, Address).");
+                alert("⚠️ Please fill in all mandatory candidate details.");
                 return;
             }
 
-            // Generate Unique Attempt ID on Server-side simulation
             attemptId = "ATT-" + Math.random().toString(36).substring(2, 9).toUpperCase();
             document.getElementById('displayAttemptId').innerText = attemptId;
 
-            // Switch UI screens
             document.getElementById('idSection').style.display = 'none';
             document.getElementById('examInterface').style.display = 'block';
 
-            // Render Questions
             renderQuestions();
-
-            // Start Server-side authoritative timer simulation
+            isExamActive = true;
             startServerTimer();
 
-            // Fullscreen mode for exam security
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen().catch(() => {});
             }
@@ -206,43 +227,42 @@
                 let savedAns = localStorage.getItem(`short_ans_${attemptId}_${q.id}`) || "";
                 
                 container.innerHTML += `
-                    <div class="glass-box p-6 sm:p-8 rounded-[2rem] border-t-4 border-indigo-500 shadow-sm space-y-4">
-                        <div class="flex justify-between items-center">
-                            <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-black uppercase">Question ${q.num}</span>
-                            <span class="text-xs font-extrabold text-slate-500 uppercase">Maximum Marks: ${q.maxMarks}</span>
+                    <div class="glass-box p-6 sm:p-8 rounded-[2rem] border-l-8 border-l-indigo-500 shadow-md space-y-5">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <h3 class="text-base sm:text-lg font-black text-slate-800 leading-relaxed">
+                                <span class="text-indigo-600 mr-2">Q${q.num}.</span> ${q.text}
+                            </h3>
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase whitespace-nowrap border border-indigo-200 shadow-sm">
+                                <i class="fa-solid fa-star text-amber-500 mr-1"></i> Marks: ${q.maxMarks}
+                            </span>
                         </div>
-                        <h3 class="text-base sm:text-lg font-bold text-slate-800">${q.text}</h3>
                         <div>
-                            <textarea id="ans_${q.id}" oninput="triggerAutoSave('${q.id}')" placeholder="Type your descriptive answer here..." class="w-full h-32 p-4 rounded-xl border border-slate-300 text-sm font-medium text-slate-700 bg-white focus:ring-2 focus:ring-indigo-500 resize-y shadow-inner">${savedAns}</textarea>
+                            <textarea id="ans_${q.id}" oninput="triggerAutoSave('${q.id}')" placeholder="Type your descriptive answer here..." class="w-full h-32 p-5 rounded-xl border border-slate-300 text-sm font-semibold text-slate-800 bg-white focus:ring-2 focus:ring-indigo-500 resize-y shadow-inner outline-none leading-relaxed">${savedAns}</textarea>
                         </div>
                     </div>
                 `;
             });
         }
 
-        // Auto Save function (Rule #6 & #8)
         function triggerAutoSave(qId) {
             const ansText = document.getElementById(`ans_${qId}`).value;
             localStorage.setItem(`short_ans_${attemptId}_${qId}`, ansText);
             
-            // Visual feedback
             const statusEl = document.getElementById('autoSaveStatus');
             statusEl.innerText = "Syncing with Server...";
-            setTimeout(() => {
-                statusEl.innerText = "Auto-Saved to Server";
-            }, 600);
+            setTimeout(() => { statusEl.innerText = "Auto-Saved to Server"; }, 600);
         }
 
         function startServerTimer() {
             examTimerInterval = setInterval(() => {
                 let mins = Math.floor(remainingSeconds / 60);
                 let secs = remainingSeconds % 60;
-                document.getElementById('examTimer').innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                document.getElementById('examTimer').innerHTML = `<i class="fa-solid fa-stopwatch animate-pulse"></i> ${mins}:${secs < 10 ? '0' : ''}${secs}`;
 
                 if (remainingSeconds <= 0) {
                     clearInterval(examTimerInterval);
                     alert("⏱️ Examination time is up! System is auto-submitting your answers.");
-                    executeFinalSubmission("Auto Submit — Time Expired");
+                    executeFinalSubmission();
                 }
                 remainingSeconds--;
             }, 1000);
@@ -250,40 +270,44 @@
 
         function confirmFinalSubmission() {
             if(confirm("Are you sure you want to final submit your examination? Once submitted, answers cannot be modified.")) {
-                executeFinalSubmission("Manual Submit");
+                executeFinalSubmission();
             }
         }
 
-        // Automatic 4-Second Result Generation Pipeline (Rule #14)
-        function executeFinalSubmission(subType) {
+        function executeFinalSubmission() {
+            isExamActive = false;
             clearInterval(examTimerInterval);
             
-            // Show Evaluation Modal with Status
-            const modal = document.getElementById('evaluationModal');
-            const statusText = document.getElementById('evalStatusText');
-            modal.style.display = 'flex';
+            document.getElementById('evaluationModal').classList.remove('hidden');
+            document.getElementById('evaluationModal').classList.add('flex');
 
-            // Pipeline sequence simulation (~4 seconds)
             setTimeout(() => {
-                statusText.innerText = "✅ Result Generated Successfully";
-                
+                document.getElementById('evalStatusText').innerHTML = '<i class="fa-solid fa-check-double"></i> Result Generated Successfully';
                 setTimeout(() => {
-                    // Redirect to official Result & Verification Portal with Attempt ID
+                    // Pass the attemptId parameter back to result page
                     window.location.href = `result.html?attempt=${attemptId}&type=short`;
                 }, 1500);
-
             }, 2500);
         }
 
-        // Anti-Cheat: Tab switching warning
+        // --- Anti-Cheat Tab Switch ---
         document.addEventListener("visibilitychange", function() {
-            if (document.hidden) {
-                console.warn("Security warning: Student switched tabs.");
+            if (document.hidden && isExamActive) {
+                warningCount++;
+                document.getElementById('alertMessage').innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Warning ${warningCount}/3: Background activity detected! Do not switch tabs.`;
+                document.getElementById('redAlertModal').style.display = 'flex';
+                
+                if(warningCount >= 3) { 
+                    document.getElementById('redAlertModal').style.display = 'none';
+                    executeFinalSubmission(); 
+                }
             }
         });
+
+        function dismissAlert() { document.getElementById('redAlertModal').style.display = 'none'; }
     </script>
 
-    <!-- 🚨 Core Security Protocol (Global Kill Switch) -->
+    <!-- Security Script -->
     <script src="security.js"></script>
 </body>
 </html>
