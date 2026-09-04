@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff">
+    
+    <title>Voluntary Support - Geo Study Point</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: rgba(15, 23, 42, 0.9); 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            user-select: none; 
+            -webkit-user-select: none;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-top: 8px solid #2E7D32;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        img { pointer-events: none; -webkit-user-drag: none; }
+    </style>
+
+    <!-- 🌐 GTranslate Auto-Bengali Cookie Logic -->
+    <script>
+        if (document.cookie.indexOf('googtrans') === -1) {
+            document.cookie = 'googtrans=/en/bn; path=/';
+            document.cookie = 'googtrans=/en/bn; domain=' + window.location.hostname + '; path=/';
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 font-sans relative overflow-y-auto" oncontextmenu="return false;" oncopy="return false;" oncut="return false;" onpaste="return false;">
+
+    <!-- 🌍 Premium GTranslate -->
+    <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-[999] bg-white/90 backdrop-blur-md border border-slate-200 shadow-sm rounded-full px-4 py-2 flex items-center gap-2">
+        <span class="text-[#2E7D32] text-lg"><i class="fa-solid fa-language"></i></span>
+        <div class="gtranslate_wrapper"></div>
+    </div>
+    <script>
+        window.gtranslateSettings = { 
+            "default_language": "en", 
+            "languages": ["en", "bn", "hi"], 
+            "wrapper_selector": ".gtranslate_wrapper", 
+            "flag_size": 20,
+            "detect_browser_language": false 
+        };
+    </script>
+    <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
+
+    <!-- Main Popup Container -->
+    <div id="supportBanner" class="glass-card w-full max-w-[95%] sm:max-w-2xl lg:max-w-3xl rounded-[2rem] overflow-hidden relative transform transition-all scale-95 opacity-0 duration-500 ease-out my-10 flex flex-col">
+        
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-6 sm:p-8 border-b border-green-100 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+            <div class="bg-[#2E7D32] text-white p-4 rounded-2xl shadow-lg text-2xl">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div>
+                <h1 class="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">Geo Study Point</h1>
+                <p class="text-[10px] sm:text-xs text-[#2E7D32] font-black tracking-widest uppercase mt-1">Education For All • Non-Commercial</p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="p-6 sm:p-8 space-y-6 text-slate-700 flex-grow">
+            
+            <p class="font-black text-lg sm:text-xl text-slate-900 text-center mb-2">Dear Students & Guardians,</p>
+            
+            <p class="text-sm sm:text-base font-medium text-justify sm:text-center leading-relaxed">
+                As a student myself, I have built and maintained this platform with my own time and effort so that rural students can practice for exams completely free of cost from their homes.
+            </p>
+            
+            <div class="bg-indigo-50 border border-indigo-200 p-5 rounded-2xl shadow-inner">
+                <p class="text-xs sm:text-sm text-justify sm:text-center font-semibold text-indigo-900 leading-relaxed">
+                    This is a 100% Non-Commercial initiative. However, maintaining the servers, Gemini/AI API Tokens, Firebase Databases, and Secure Storage incurs ongoing technical costs. If you wish, a small voluntary support of <strong>₹5, ₹10, or ₹20</strong> will greatly help in keeping this platform alive and ad-free.
+                </p>
+            </div>
+
+            <!-- QR Code Section -->
+            <div class="mt-8 flex flex-col items-center">
+                <div class="bg-white p-6 rounded-3xl border-2 border-dashed border-[#5f259f] shadow-xl relative group">
+                    <h3 class="text-center font-black text-[#5f259f] mb-4 tracking-wider uppercase text-xs sm:text-sm">Scan to Pay via PhonePe/GPay</h3>
+                    
+                    <!-- QR Image Placeholder -->
+                    <div class="bg-slate-100 w-40 h-40 sm:w-48 sm:h-48 rounded-xl flex items-center justify-center overflow-hidden mb-4 border border-slate-200 p-2 shadow-inner mx-auto">
+                         <img src="1000095558.jpg" alt="Official QR Code" class="w-full h-full object-contain pointer-events-none select-none">
+                    </div>
+
+                    <div class="text-center">
+                        <p class="text-xs text-rose-500 font-bold mb-1 uppercase tracking-widest">Verify Name Before Payment</p>
+                        <p class="text-sm sm:text-base font-black text-slate-900 uppercase">SWASTIK HALDER</p>
+                        <p class="text-[10px] sm:text-xs text-slate-600 font-mono mt-2 bg-slate-100 border border-slate-200 inline-block px-3 py-1.5 rounded-lg font-bold">UPI: 7864911070-3@ybl</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-[9px] sm:text-[10px] text-center text-slate-400 font-bold uppercase tracking-widest mt-4">
+                ⚠️ Do not pay cash or use any other unverified scanner. Support is completely optional.
+            </p>
+        </div>
+
+        <!-- 🚀 Dynamic Skip Button Area -->
+        <div class="bg-slate-50 p-4 border-t border-slate-200 flex flex-col items-center">
+            <p id="timerMessage" class="text-[10px] text-indigo-600 font-bold uppercase tracking-widest mb-2 h-4"></p>
+            <button id="skipBtn" onclick="proceedToNext()" class="w-full sm:w-auto min-w-[200px] bg-slate-800 text-white font-black py-4 px-8 rounded-xl shadow-lg transition-all text-sm uppercase tracking-wider flex items-center justify-center gap-2">
+                Loading...
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Core Logic (24-Hour Tracking & 10s Timer) -->
+    <script>
+        const COOLDOWN_HOURS = 24;
+        const WAIT_SECONDS = 10;
+        
+        // Extract where to go next from URL (e.g., ?next=exam.html)
+        const urlParams = new URLSearchParams(window.location.search);
+        const nextUrl = urlParams.get('next') || 'dashboard.html'; // Defaults to dashboard if no parameter
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const lastSeen = localStorage.getItem('geoSupportLastSeen');
+            const now = new Date().getTime();
+            let isFirstTime = true;
+
+            // Check if user has seen this within the last 24 hours
+            if (lastSeen) {
+                const hoursDiff = (now - parseInt(lastSeen)) / (1000 * 60 * 60);
+                if (hoursDiff < COOLDOWN_HOURS) {
+                    isFirstTime = false;
+                }
+            }
+
+            const skipBtn = document.getElementById('skipBtn');
+            const timerMsg = document.getElementById('timerMessage');
+
+            // Show Banner Animation
+            setTimeout(() => {
+                document.getElementById('supportBanner').classList.remove('scale-95', 'opacity-0');
+                document.getElementById('supportBanner').classList.add('scale-100', 'opacity-100');
+            }, 150);
+
+            if (isFirstTime) {
+                // First time visit (or after 24 hrs) -> Apply 10 second lock
+                localStorage.setItem('geoSupportLastSeen', now.toString());
+                
+                let timeLeft = WAIT_SECONDS;
+                skipBtn.disabled = true;
+                skipBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                skipBtn.classList.remove('hover:bg-slate-900', 'hover:-translate-y-1');
+                
+                const timerInterval = setInterval(() => {
+                    timerMsg.innerText = `Please wait ${timeLeft} seconds...`;
+                    skipBtn.innerHTML = `🔒 Locked`;
+                    timeLeft--;
+                    
+                    if (timeLeft < 0) {
+                        clearInterval(timerInterval);
+                        enableSkipBtn(skipBtn, timerMsg);
+                    }
+                }, 1000);
+            } else {
+                // Return visit within 24 hours -> Immediate skip available
+                enableSkipBtn(skipBtn, timerMsg);
+            }
+        });
+
+        function enableSkipBtn(btn, msgEl) {
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            btn.classList.add('hover:bg-slate-900', 'hover:-translate-y-1', 'transform');
+            btn.innerHTML = `Skip & Continue ⏭️`;
+            msgEl.innerText = "You can now proceed.";
+        }
+
+        function proceedToNext() {
+            // Outro animation before redirecting
+            const banner = document.getElementById('supportBanner');
+            banner.classList.remove('scale-100', 'opacity-100');
+            banner.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                window.location.href = nextUrl;
+            }, 400);
+        }
+
+        // --- Extra Security (Strict Protection) ---
+        document.addEventListener("contextmenu", (e) => { e.preventDefault(); }); 
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "F12") { e.preventDefault(); }
+            if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) { e.preventDefault(); }
+            if (e.ctrlKey && e.key === "U") { e.preventDefault(); }
+        });
+    </script>
+</body>
+</html>
