@@ -1,37 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" translate="no">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- 📱 100% Responsive for Mobile, iPad, and Windows Desktop -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="theme-color" content="#ffffff">
-    
-    <title>Official Result Portal & AI Mentor - Geo Study Point</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Official Result & AI Mentor - Geo Study Point</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Language Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- jsPDF & AutoTable for PDF Generation -->
+    <!-- PDF & QR Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-    <!-- QRious for Large QR Code Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 
     <style>
-        .glass-box {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f1f5f9; min-width: 250px; overflow-x: hidden; }
+        
+        /* 🪟 Premium Light Glassmorphism */
+        .glass-box { 
+            background: rgba(255, 255, 255, 0.9); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.6); 
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); 
         }
-        .chat-area { max-height: 250px; overflow-y: auto; scroll-behavior: smooth; }
+        
+        .chat-area { scroll-behavior: smooth; }
+        .spin-slow { animation: spin 4s linear infinite; }
     </style>
 
-    <!-- 🌐 GTranslate First-Time Auto Bengali Cookie Logic -->
+    <!-- 🌐 Default Bengali Cookie -->
     <script>
         if (document.cookie.indexOf('googtrans') === -1) {
             document.cookie = 'googtrans=/en/bn; path=/';
@@ -39,79 +37,112 @@
         }
     </script>
 </head>
-<body class="bg-gradient-to-br from-slate-100 to-indigo-50 min-h-screen flex flex-col items-center py-10 px-4 font-sans text-slate-800">
+<body class="min-h-screen flex flex-col text-slate-900 relative">
 
-    <!-- 🌍 Premium GTranslate (EN, BN, HI) -->
-    <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-[999] bg-white/90 backdrop-blur-md border border-slate-200 shadow-sm rounded-full px-4 py-2 flex items-center gap-2 transition-all hover:shadow-md">
-        <span class="text-indigo-600 text-lg"><i class="fa-solid fa-language"></i></span>
-        <div class="gtranslate_wrapper"></div>
+    <!-- 🚀 Floating Beta Badge -->
+    <div class="fixed top-6 left-1/2 transform -translate-x-1/2 z-[900] bg-slate-900/90 backdrop-blur-md text-emerald-400 border border-emerald-500/30 shadow-lg px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 w-max">
+        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+        Result Portal v0.1
+    </div>
+
+    <!-- 🌍 FIXED GTRANSLATE (No Conflicts) -->
+    <div class="fixed top-6 right-4 sm:right-6 z-[9999] overflow-visible">
+        <div class="bg-white/95 backdrop-blur-xl border border-slate-200 shadow-2xl rounded-full px-3 py-2 flex items-center gap-2 hover:scale-105 transition-transform">
+            <span class="text-indigo-600 text-lg spin-slow"><i class="fa-solid fa-earth-americas"></i></span>
+            <!-- GTranslate native wrapper -->
+            <div class="gtranslate_wrapper"></div>
+        </div>
     </div>
     <script>
-        window.gtranslateSettings = { "default_language": "en", "languages": ["en", "bn", "hi"], "wrapper_selector": ".gtranslate_wrapper", "flag_size": 20 };
+        window.gtranslateSettings = { 
+            "default_language": "en", 
+            "languages": ["en", "bn", "hi"], 
+            "wrapper_selector": ".gtranslate_wrapper", 
+            "detect_browser_language": false 
+        };
     </script>
     <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
 
-    <div class="w-full max-w-4xl space-y-8 mt-10">
+    <!-- 🎓 Main Content -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 w-full max-w-4xl flex-grow flex flex-col items-center relative z-10">
         
-        <!-- 🎓 Result Search Section -->
-        <div class="glass-box p-8 rounded-2xl relative overflow-hidden border-t-8 border-indigo-700">
-            <div class="text-center mb-6">
-                <h1 class="text-3xl font-black text-slate-900 uppercase tracking-widest">Geo Study Point</h1>
-                <h2 class="text-lg font-bold text-slate-600 mt-1 uppercase">Official Result Portal</h2>
-                <div class="mt-4 inline-block bg-emerald-100 text-emerald-800 px-4 py-2 rounded-lg text-sm font-bold border border-emerald-300 shadow-sm">
-                    ✅ Secure Evaluation & AI Verification Active
+        <!-- Search Section -->
+        <div class="glass-box p-8 sm:p-10 rounded-[2rem] w-full border-t-8 border-indigo-600 shadow-xl mb-8 transform transition-all hover:scale-[1.01]">
+            <div class="text-center mb-8">
+                <div class="inline-block bg-indigo-50 p-4 rounded-full mb-4 shadow-inner text-4xl sm:text-5xl text-indigo-600 animate-bounce">
+                    <i class="fa-solid fa-square-poll-vertical"></i>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Official Result Portal</h1>
+                <div class="mt-4 inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 px-4 py-2 rounded-lg text-xs sm:text-sm font-black uppercase tracking-widest border border-emerald-200 shadow-sm">
+                    <i class="fa-solid fa-shield-check"></i> Secure Server Evaluation
                 </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-                <input type="email" id="searchEmail" placeholder="Registered Email" class="px-5 py-3 border border-slate-300 rounded-xl w-full sm:w-72 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 font-bold text-slate-700">
-                <input type="text" id="searchId" placeholder="Verification ID (e.g. GEO-XYZ)" class="px-5 py-3 border border-slate-300 rounded-xl w-full sm:w-72 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 uppercase font-bold text-slate-700">
-                <button id="searchResultBtn" class="bg-indigo-700 hover:bg-indigo-800 text-white font-extrabold py-3 px-8 rounded-xl shadow-lg transition-all text-sm flex items-center justify-center gap-2">
-                    🔍 Fetch Result
-                </button>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6 w-full">
+                <input type="email" id="searchEmail" placeholder="Registered Email" class="px-5 py-4 border border-slate-300 rounded-xl w-full sm:w-1/2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-bold text-slate-800 bg-slate-50 shadow-inner">
+                <input type="text" id="searchId" placeholder="Verification ID (e.g. GEO-XYZ)" class="px-5 py-4 border border-slate-300 rounded-xl w-full sm:w-1/2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 uppercase font-bold text-slate-800 bg-slate-50 shadow-inner">
             </div>
+            <button id="searchResultBtn" class="w-full mt-4 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-black py-4 px-8 rounded-xl shadow-lg transition-all text-sm sm:text-base flex items-center justify-center gap-2 uppercase tracking-widest">
+                <i class="fa-solid fa-magnifying-glass"></i> Fetch Result
+            </button>
         </div>
 
         <!-- 🚀 Student Result Action Area -->
-        <div id="studentDashboardArea" class="hidden space-y-6">
+        <div id="studentDashboardArea" class="hidden w-full space-y-8 animate-[popIn_0.5s_ease-out]">
             
             <!-- PDF Download Box -->
-            <div class="glass-box p-6 rounded-2xl border-l-4 border-l-green-500 flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div>
-                    <h3 class="text-lg font-bold text-green-700">🎉 Result Found Successfully!</h3>
-                    <p class="text-xs text-slate-600 font-medium mt-1">Your data is verified by Firebase Server. Download your official marksheet below.</p>
+            <div class="glass-box p-6 sm:p-8 rounded-[2rem] border-l-8 border-emerald-500 flex flex-col sm:flex-row justify-between items-center gap-6 shadow-lg">
+                <div class="text-center sm:text-left">
+                    <h3 class="text-xl font-black text-emerald-800 flex items-center justify-center sm:justify-start gap-2">
+                        <i class="fa-solid fa-circle-check text-2xl animate-pulse"></i> Result Found Successfully!
+                    </h3>
+                    <p class="text-sm text-slate-600 font-bold mt-2 leading-relaxed">Your data is verified by the Firebase Server. You can now download your digitally signed official PDF marksheet.</p>
                 </div>
-                <button id="downloadPdfBtn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all text-sm flex items-center justify-center gap-2 animate-bounce">
-                    📥 Download PDF Marksheet
+                <button id="downloadPdfBtn" class="w-full sm:w-auto shrink-0 bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 px-8 rounded-xl shadow-lg transition-all text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-down text-xl"></i> Download PDF
                 </button>
             </div>
 
             <!-- 🤖 AI Mentor Chatbox -->
-            <div class="glass-box p-6 rounded-2xl border-t-8 border-teal-500">
-                <h3 class="text-teal-700 font-extrabold mb-2 flex items-center gap-2 text-base uppercase tracking-wide">
-                    <span>🤖</span> Post-Result AI Mentor (Gemini Flash)
-                </h3>
-                <p class="text-xs text-slate-500 mb-4 font-bold">Ask AI about your mistakes or how to improve based on your downloaded result.</p>
+            <div class="glass-box p-6 sm:p-8 rounded-[2rem] border-t-4 border-teal-500 shadow-lg">
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 mb-6 border-b border-slate-200 pb-4">
+                    <div class="bg-teal-100 text-teal-600 p-3 rounded-2xl shadow-inner text-3xl animate-bounce">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-lg font-black text-teal-900 uppercase tracking-wide">Post-Result AI Mentor</h3>
+                        <p class="text-xs text-slate-500 font-bold mt-1">Powered by Gemini Flash. Ask AI about your mistakes or improvement strategies.</p>
+                    </div>
+                </div>
                 
-                <div id="chatHistory" class="chat-area bg-slate-50 border border-slate-200 rounded-xl p-4 mb-4 space-y-3 text-sm text-slate-700 shadow-inner">
-                    <div class="bg-teal-50 p-3 rounded-xl border border-teal-100 text-teal-900 inline-block w-4/5">
-                        <b>🤖 AI Mentor:</b> Hello! I have analyzed your official result. Do you want to know where you lost marks or how to prepare better?
+                <div id="chatHistory" class="chat-area bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-4 h-64 overflow-y-auto space-y-4 text-sm text-slate-800 shadow-inner">
+                    <div class="w-full flex justify-start">
+                        <div class="bg-teal-100 p-4 rounded-2xl rounded-tl-none border border-teal-200 text-teal-900 max-w-[90%] font-semibold shadow-sm">
+                            <b><i class="fa-solid fa-robot"></i> AI Mentor:</b> Hello! I have analyzed your official result from the secure database. Do you want to know where you lost marks or how to prepare better for the next exam?
+                        </div>
                     </div>
                 </div>
 
-                <div class="flex gap-2">
-                    <input type="text" id="chatInput" placeholder="Ask AI: Why did I lose marks in the subjective part?" class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-teal-500 bg-white">
-                    <button id="sendAiBtn" class="bg-teal-600 text-white font-bold px-6 py-3 rounded-xl text-sm hover:bg-teal-700 transition shadow">Send</button>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input type="text" id="chatInput" placeholder="Ask AI: Why did I lose marks in the descriptive section?" class="flex-grow p-4 rounded-xl border border-slate-300 text-sm font-bold text-slate-800 focus:ring-2 focus:ring-teal-500 bg-white shadow-sm outline-none">
+                    <button id="sendAiBtn" class="w-full sm:w-auto bg-teal-600 hover:bg-teal-700 text-white font-black px-8 py-4 rounded-xl text-sm shadow-md transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Send
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Core Logic -->
+    <!-- 🌐 Footer -->
+    <footer class="w-full bg-slate-900 text-slate-500 py-6 text-center text-[10px] sm:text-xs font-bold uppercase tracking-widest mt-auto border-t border-slate-800">
+        <p>© 2026 Geo Study Point. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Logic Script -->
     <script>
         let currentStudentData = null; 
 
-        // ১. Fetch Result Logic 
+        // 1. Fetch Result Logic 
         document.getElementById('searchResultBtn').addEventListener('click', () => {
             const inputEmail = document.getElementById('searchEmail').value.trim();
             const inputId = document.getElementById('searchId').value.trim();
@@ -122,7 +153,7 @@
             }
 
             const btn = document.getElementById('searchResultBtn');
-            btn.innerHTML = "⏳ Authenticating...";
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
             
             // Mock Fetch Delay
             setTimeout(() => {
@@ -140,22 +171,25 @@
                     totalInfo: ["Total Aggregate", "100", "30", "+1.5", "100%", "87.0 (87%)", "A+"]
                 };
 
-                btn.innerHTML = "✅ Identity Verified";
-                btn.classList.replace('bg-indigo-700', 'bg-green-600');
+                btn.innerHTML = '<i class="fa-solid fa-check-double"></i> Identity Verified';
+                btn.classList.replace('bg-gradient-to-r', 'bg-emerald-600');
+                btn.classList.remove('from-indigo-600', 'to-blue-600');
+                
                 document.getElementById('studentDashboardArea').classList.remove('hidden');
+                
+                // Scroll to result smoothly
+                document.getElementById('studentDashboardArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 1500);
         });
 
-        // ২. PDF Generation Logic (With Digital Seal from your screenshot)
+        // 2. PDF Generation Logic
         document.getElementById('downloadPdfBtn').addEventListener('click', () => {
             if(!currentStudentData) return;
             const btn = document.getElementById('downloadPdfBtn');
-            btn.innerHTML = "⏳ Generating Official PDF...";
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating PDF...';
             
             setTimeout(() => {
-                const secureHash = (Math.random().toString(36).substring(2, 15)).toUpperCase();
-                const verificationUrl = `https://geostudypoint.com/verify-result?id=${currentStudentData.verificationId}`;
-
+                const verificationUrl = `https://geostudypoint.com/verify?id=${currentStudentData.verificationId}`;
                 const { jsPDF } = window.jspdf;
                 const docPdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
@@ -169,7 +203,7 @@
                 docPdf.setTextColor(100, 100, 100);
                 docPdf.text("OFFICIAL STATEMENT OF MARKS", 105, 27, { align: "center" });
 
-                // QR Code
+                // QR Code Generation
                 const qr = new QRious({ value: verificationUrl, size: 250, level: 'H' });
                 docPdf.addImage(qr.toDataURL('image/png'), 'PNG', 155, 10, 40, 40);
                 docPdf.setFontSize(7);
@@ -192,7 +226,7 @@
                 docPdf.setFont("helvetica", "bold");
                 docPdf.text(currentStudentData.verificationId, 55, 59);
 
-                // Table
+                // AutoTable Setup
                 docPdf.autoTable({
                     startY: 80,
                     head: [['Paper / Module', 'Full Marks', 'Pass Marks', 'Grace', 'Weightage', 'Obtained', 'Grade']],
@@ -204,10 +238,10 @@
 
                 const finalY = docPdf.lastAutoTable.finalY;
                 docPdf.setFontSize(12);
-                docPdf.setTextColor(0, 100, 0);
+                docPdf.setTextColor(16, 185, 129); // Emerald green
                 docPdf.text(`Final Result Status: ${currentStudentData.finalStatus}`, 15, finalY + 15);
 
-                // Digital Vector Seal Box
+                // Digital Vector Seal
                 const sealX = 130;
                 const sealY = finalY + 10;
                 docPdf.setDrawColor(30, 58, 138);
@@ -226,32 +260,61 @@
                 docPdf.text("Geo Study Point", sealX + 32.5, sealY + 20, { align: "center" });
 
                 docPdf.save(`Result_${currentStudentData.verificationId}.pdf`);
-                btn.innerHTML = "📥 Download PDF Marksheet";
+                btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-down text-xl"></i> Download PDF';
             }, 1000);
         });
 
-        // ৩. AI Chat Logic
+        // 3. AI Chat Logic
         document.getElementById('sendAiBtn').addEventListener('click', () => {
             const input = document.getElementById('chatInput');
             const chatHistory = document.getElementById('chatHistory');
+            const msg = input.value.trim();
             
-            if(input.value.trim() === "") return;
+            if(!msg) return;
 
             // Student Message
-            chatHistory.innerHTML += `<div class="bg-indigo-50 p-3 rounded-xl border border-indigo-100 text-indigo-900 ml-auto w-4/5 text-right"><b>You:</b> ${input.value}</div>`;
+            chatHistory.innerHTML += `
+                <div class="w-full flex justify-end">
+                    <div class="bg-slate-800 text-white p-4 rounded-2xl rounded-tr-none max-w-[85%] font-semibold shadow-sm">
+                        ${msg}
+                    </div>
+                </div>
+            `;
             input.value = "";
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            // Typing Indicator
+            const typingId = "typing-" + Date.now();
+            chatHistory.innerHTML += `
+                <div id="${typingId}" class="w-full flex justify-start">
+                    <div class="bg-slate-200 text-slate-500 p-3 rounded-2xl rounded-tl-none font-bold animate-pulse">
+                        Analyzing database records...
+                    </div>
+                </div>
+            `;
             chatHistory.scrollTop = chatHistory.scrollHeight;
 
             // Simulated AI Response
             setTimeout(() => {
-                chatHistory.innerHTML += `<div class="bg-teal-50 p-3 rounded-xl border border-teal-100 text-teal-900 inline-block w-4/5"><b>🤖 AI Mentor:</b> Based on the Teacher's evaluation in the database, you did perfectly in MCQ, but missed some key geographical terms in the descriptive section.</div>`;
+                document.getElementById(typingId).remove();
+                chatHistory.innerHTML += `
+                    <div class="w-full flex justify-start">
+                        <div class="bg-teal-100 p-4 rounded-2xl rounded-tl-none border border-teal-200 text-teal-900 max-w-[90%] font-semibold shadow-sm">
+                            <b><i class="fa-solid fa-robot"></i> AI Mentor:</b> Based on the Teacher's evaluation records, you performed exceptionally well in the MCQ section. However, in the descriptive section, you missed citing appropriate geographical diagrams which impacted your final grade.
+                        </div>
+                    </div>
+                `;
                 chatHistory.scrollTop = chatHistory.scrollHeight;
-            }, 1200);
+            }, 1500);
+        });
+        
+        // Enter key for AI chat
+        document.getElementById('chatInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') document.getElementById('sendAiBtn').click();
         });
     </script>
 
-    <!-- 🚨 Core Security Protocol (Global Kill Switch) 🚨 -->
+    <!-- Security Script -->
     <script src="security.js"></script>
-
 </body>
 </html>
