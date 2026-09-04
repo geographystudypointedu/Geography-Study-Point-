@@ -36,15 +36,17 @@
         #preloader { transition: opacity 0.5s ease-out, visibility 0.5s ease-out; }
     </style>
 
-    <!-- 🌐 Automatic Bengali Translation Cookie (Fixed) -->
+    <!-- 🌐 100% Working Auto-Bengali Cookie -->
     <script>
-        function setGTranslateCookie() {
-            if (document.cookie.indexOf('googtrans=/en/bn') === -1) {
-                document.cookie = 'googtrans=/en/bn; path=/';
-                document.cookie = 'googtrans=/en/bn; domain=' + window.location.hostname + '; path=/';
+        function setLanguageCookie() {
+            var name = "googtrans";
+            var value = "/en/bn";
+            if (document.cookie.indexOf(name + "=" + value) === -1) {
+                document.cookie = name + "=" + value + "; path=/";
+                document.cookie = name + "=" + value + "; domain=" + window.location.hostname + "; path=/";
             }
         }
-        setGTranslateCookie();
+        setLanguageCookie();
     </script>
 </head>
 <body class="flex flex-col min-h-screen text-slate-900 relative">
@@ -66,18 +68,18 @@
         <div class="animate-marquee tracking-wide">🚀 Welcome to Geo Study Point! 🌟 Military-Grade Security, AI Mentorship, and Smart Exam Systems.</div>
     </div>
 
-    <!-- 🌍 Animated Premium GTranslate Widget (FULLY RE-WRITTEN & FIXED) -->
-    <div class="fixed top-12 right-4 sm:top-14 sm:right-6 z-[99999] group overflow-visible" style="min-width: 130px;">
-        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
-        <div class="relative bg-white/95 backdrop-blur-xl border border-slate-200 shadow-xl rounded-full px-3 py-2 flex items-center gap-2 cursor-pointer transform hover:scale-105 transition-all">
-            <span class="text-indigo-600 text-xl spin-slow ml-1"><i class="fa-solid fa-earth-americas"></i></span>
+    <!-- 🌍 FIXED GTranslate Widget -->
+    <!-- z-index একদম হাই করা হয়েছে এবং overflow: visible !important দেওয়া হয়েছে যাতে ড্রপডাউন না কাটে -->
+    <div class="absolute top-12 right-4 sm:top-14 sm:right-6 z-[999999]" style="overflow: visible !important;">
+        <div class="relative bg-white/95 backdrop-blur-xl border border-slate-200 shadow-xl rounded-2xl p-2 flex items-center gap-2 cursor-pointer transition-all">
+            <span class="text-indigo-600 text-lg spin-slow ml-1"><i class="fa-solid fa-earth-americas"></i></span>
             
-            <!-- GTranslate Wrapper with explicit width to prevent collapse -->
-            <div class="gtranslate_wrapper" style="width: 80px; min-height: 24px;"></div>
+            <!-- GTranslate Dropdown Wrapper -->
+            <div class="gtranslate_wrapper" style="overflow: visible !important;"></div>
         </div>
     </div>
     
-    <!-- GTranslate Settings Script -->
+    <!-- GTranslate Settings & Correct Script -->
     <script>
         window.gtranslateSettings = { 
             "default_language": "en", 
@@ -86,10 +88,11 @@
             "detect_browser_language": false 
         };
     </script>
-    <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
+    <!-- এখানে dropdown.js ব্যবহার করা হয়েছে যা সব ব্রাউজারে সাপোর্ট করে -->
+    <script src="https://cdn.gtranslate.net/widgets/latest/dropdown.js" defer></script>
 
     <!-- 🌟 HERO SECTION -->
-    <section class="hero-bg w-full pt-24 pb-16 lg:pt-32 lg:pb-24 px-4 sm:px-6 lg:px-8 flex-grow flex items-center relative overflow-hidden">
+    <section class="hero-bg w-full pt-28 pb-16 lg:pt-32 lg:pb-24 px-4 sm:px-6 lg:px-8 flex-grow flex items-center relative overflow-hidden">
         <div class="absolute top-10 left-10 w-32 h-32 bg-blue-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse"></div>
         <div class="absolute bottom-10 right-10 w-32 h-32 bg-emerald-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse" style="animation-delay: 1s;"></div>
 
@@ -216,14 +219,13 @@
         window.addEventListener('load', function() {
             const preloader = document.getElementById('preloader');
             
-            // 1. Hide preloader after a short delay
             setTimeout(() => {
                 preloader.style.opacity = '0';
                 
                 setTimeout(() => {
                     preloader.style.visibility = 'hidden';
                     
-                    // 2. Show Support Modal EXACTLY 4.5 seconds after preloader hides
+                    // Show Support Modal EXACTLY 4.5 seconds after preloader hides
                     setTimeout(() => {
                         const modal = document.getElementById('supportModal');
                         const modalContent = document.getElementById('supportModalContent');
