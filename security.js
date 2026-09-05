@@ -1,43 +1,79 @@
 /**
- * ============================================================================
- * 🚨 GEO STUDY POINT - MASTER SECURITY & MAINTENANCE CONTROLLER 🚨
- * Status: ALL SECURITY FEATURES DISABLED BY DEFAULT (As requested)
- * ============================================================================
+ * 🚨 GEO STUDY POINT - LAYER 1 (EXTREME DETERRENT)
+ * WARNING: This script contains aggressive anti-debugging and anti-bot measures.
  */
+'use strict';
 
-// 🟢 ALL CONTROLLERS SET TO FALSE (No blocks, no restrictions)
-const KILL_SWITCH_ACTIVE = false;      // Maintained false so website never locks down
-const STRICT_SECURITY_ACTIVE = false;  // Disabled right-click/F12 blocks so you can test smoothly
+const GeoExtremeSecurity = (() => {
+    
+    // 1. Anti-Bot & Headless Browser Detection
+    const detectBots = () => {
+        const isBot = navigator.webdriver || 
+                      window.document.documentElement.getAttribute("webdriver") || 
+                      !!window.callPhantom || 
+                      !!window._phantom;
+        
+        if (isBot) {
+            document.body.innerHTML = "<h1>Unauthorized Automation Detected. Connection Terminated.</h1>";
+            while(true) { window.location.reload(); } // Infinite reload loop for bots
+        }
+    };
 
-/**
- * ----------------------------------------------------------------------------
- * 1. GTranslate Automatic Language Enforcement
- * Ensures default to Bengali safely without breaking UI layers.
- * ----------------------------------------------------------------------------
- */
-if (document.cookie.indexOf('googtrans') === -1) {
-    document.cookie = 'googtrans=/en/bn; path=/';
-    document.cookie = 'googtrans=/en/bn; domain=' + window.location.hostname + '; path=/';
-}
+    // 2. Aggressive Anti-Debugging (Memory Trap)
+    const trapDevTools = () => {
+        setInterval(() => {
+            const before = new Date().getTime();
+            debugger; // Triggers pause if DevTools is open
+            const after = new Date().getTime();
+            
+            if (after - before > 100) {
+                // If paused, flood the console and clear document
+                document.body.innerHTML = "";
+                for(let i=0; i<1000; i++) {
+                    console.error("%c🚨 SECURITY BREACH DETECTED 🚨", "font-size: 50px; color: red;");
+                }
+                window.location.replace("about:blank");
+            }
+        }, 500); // Checks every half second
+    };
 
-/**
- * ----------------------------------------------------------------------------
- * 2. Maintenance Mode / Kill Switch 
- * (Completely bypassed because KILL_SWITCH_ACTIVE is false)
- * ----------------------------------------------------------------------------
- */
-if (KILL_SWITCH_ACTIVE) {
-    // Will only execute if explicitly enabled by Admin later
-    console.warn("⚠️ Kill switch is active.");
-}
+    // 3. Absolute Key & Context Menu Blocking
+    const enforceBlocks = () => {
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
+                (e.ctrlKey && ['U', 'S', 'P'].includes(e.key))
+            ) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }, { capture: true });
+    };
 
-/**
- * ----------------------------------------------------------------------------
- * 3. Frontend Strict Protection 
- * (Completely bypassed because STRICT_SECURITY_ACTIVE is false)
- * ----------------------------------------------------------------------------
- */
-if (STRICT_SECURITY_ACTIVE) {
-    // Will only execute if explicitly enabled later
-    document.addEventListener("contextmenu", (e) => { e.preventDefault(); }); 
+    // 4. Overwrite Console to Prevent Data Leakage
+    const silenceConsole = () => {
+        const methods = ['log', 'warn', 'info', 'dir', 'trace'];
+        methods.forEach(method => {
+            console[method] = function() {
+                // Silently swallow output
+            };
+        });
+    };
+
+    const init = () => {
+        detectBots();
+        trapDevTools();
+        enforceBlocks();
+        silenceConsole();
+    };
+
+    return { init };
+})();
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', GeoExtremeSecurity.init);
+} else {
+    GeoExtremeSecurity.init();
 }
