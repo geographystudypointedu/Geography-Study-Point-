@@ -2,71 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- 📱 100% Responsive for Mobile, iPad, Windows Desktop, and 8K Screens -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <!-- 📱 Device Compatibility & Safe Area (Zoom Disabled for strict admin environment) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#ffffff">
     
-    <title>Master Admin Panel - Geo Study Point</title>
+    <title>Web Admin Panel - Geo Study Point</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        html { scroll-behavior: smooth; }
-        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f1f5f9; padding-bottom: env(safe-area-inset-bottom); }
+        /* 🔧 Base Resets & Smoothness */
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f8fafc; overflow-x: hidden; width: 100vw; padding-bottom: env(safe-area-inset-bottom); }
         
         /* 🪟 Premium Light Glassmorphism */
         .glass-box { 
-            background: rgba(255, 255, 255, 0.9); 
+            background: rgba(255, 255, 255, 0.95); 
             backdrop-filter: blur(16px); 
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.6); 
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); 
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); 
         }
         
         #dashboardContent { display: none; }
         .disabled-action { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
         
         /* Animations */
-        .spin-slow { animation: spin 4s linear infinite; }
-        .scan-line {
-            width: 100%; height: 4px; background: #0ea5e9; position: absolute; top: 0; left: 0;
-            box-shadow: 0 0 15px #0ea5e9, 0 0 30px #0ea5e9; animation: scan 2s linear infinite; display: none; z-index: 20;
-        }
+        .spin-slow { animation: spin 5s linear infinite; }
+        .scan-line { width: 100%; height: 4px; background: #0ea5e9; position: absolute; top: 0; left: 0; box-shadow: 0 0 15px #0ea5e9, 0 0 30px #0ea5e9; animation: scan 2s linear infinite; display: none; z-index: 20; }
         @keyframes scan { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
-    </style>
 
-    <!-- 🌐 Default Bengali Cookie -->
-    <script>
-        if (document.cookie.indexOf('googtrans') === -1) {
-            document.cookie = 'googtrans=/en/bn; path=/';
-            document.cookie = 'googtrans=/en/bn; domain=' + window.location.hostname + '; path=/';
-        }
-    </script>
+        /* Modal & Accordion Micro-Animations */
+        .modal-enter { animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        .modal-exit { animation: fadeOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(15px) scale(0.95); } }
+        
+        .accordion-content { transition: max-height 0.4s ease-out, opacity 0.3s ease-out, padding 0.3s ease; max-height: 0; opacity: 0; overflow: hidden; }
+        .accordion-content.active { max-height: 500px; opacity: 1; }
+        .accordion-icon { transition: transform 0.3s ease; }
+        .accordion-icon.active { transform: rotate(180deg); }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col text-slate-900 relative">
 
-    <!-- 🚀 Floating Beta Badge -->
+    <!-- 🚀 Floating Version Badge -->
     <div class="fixed top-12 sm:top-14 left-1/2 transform -translate-x-1/2 z-[900] bg-slate-900/90 backdrop-blur-md text-emerald-400 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.2)] px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 w-max">
         <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
-        Admin Panel v0.1
+        Web Admin v0.1
     </div>
 
-    <!-- 🌍 Animated Premium GTranslate Widget -->
-    <div class="fixed top-12 right-4 sm:top-14 sm:right-6 z-[999] group">
-        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+    <!-- 🌍 Official GTranslate Widget -->
+    <div class="fixed top-12 right-4 sm:top-14 sm:right-6 z-[999] group overflow-visible">
+        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse pointer-events-none"></div>
         <div class="relative bg-white/95 backdrop-blur-xl border border-slate-200 shadow-2xl rounded-full px-4 py-2 flex items-center gap-3 cursor-pointer transform hover:scale-105 transition-all">
             <span class="text-indigo-600 text-xl spin-slow"><i class="fa-solid fa-earth-americas"></i></span>
             <div class="gtranslate_wrapper"></div>
-            <span class="absolute -bottom-10 right-0 bg-slate-900 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg flex items-center gap-1">
-                <i class="fa-solid fa-language"></i> Change Language
-            </span>
         </div>
     </div>
     <script>
-        window.gtranslateSettings = { "default_language": "en", "languages": ["en", "bn", "hi"], "wrapper_selector": ".gtranslate_wrapper", "detect_browser_language": false };
+        window.gtranslateSettings = { "default_language": "bn", "native_language_names": true, "languages": ["bn", "en", "hi"], "wrapper_selector": ".gtranslate_wrapper", "detect_browser_language": false };
     </script>
     <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
 
@@ -83,8 +80,8 @@
             <div class="inline-block bg-white p-4 rounded-full mb-4 shadow-lg border border-slate-200 text-4xl sm:text-5xl text-indigo-600 animate-bounce">
                 <i class="fa-solid fa-building-columns"></i>
             </div>
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900">Administration Hub</h1>
-            <p class="text-xs sm:text-sm text-slate-600 font-bold mt-2 uppercase tracking-wider">Military-Grade Access Control</p>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900">Web Administration Hub</h1>
+            <p class="text-xs sm:text-sm text-slate-600 font-bold mt-2 uppercase tracking-wider">Secure Role-Based Access Control</p>
         </div>
 
         <!-- 🔐 1. Authentication Section -->
@@ -95,15 +92,15 @@
             </div>
             <div class="space-y-5">
                 <div>
-                    <label class="text-[11px] font-extrabold uppercase text-slate-600 mb-1 block">Registered Email</label>
-                    <input type="email" id="adminEmail" placeholder="e.g., swastikhalder2023@gmail.com" class="w-full p-4 rounded-xl border border-slate-300 font-bold text-slate-700 text-sm focus:ring-2 focus:ring-indigo-500 bg-slate-50 shadow-inner outline-none">
+                    <label class="text-[11px] font-extrabold uppercase text-slate-600 mb-1 block">Registered Admin Email</label>
+                    <input type="email" id="adminEmail" placeholder="admin@example.com" class="w-full p-4 rounded-xl border border-slate-300 font-bold text-slate-700 text-sm focus:ring-2 focus:ring-indigo-500 bg-slate-50 shadow-inner outline-none">
                 </div>
                 <div>
-                    <label class="text-[11px] font-extrabold uppercase text-slate-600 mb-1 block">Security PIN</label>
-                    <input type="password" id="adminPassword" placeholder="Enter Secure PIN" class="w-full p-4 rounded-xl border border-slate-300 font-bold text-slate-700 text-sm focus:ring-2 focus:ring-indigo-500 bg-slate-50 shadow-inner outline-none">
+                    <label class="text-[11px] font-extrabold uppercase text-slate-600 mb-1 block">Secure Access PIN</label>
+                    <input type="password" id="adminPassword" placeholder="Enter PIN" class="w-full p-4 rounded-xl border border-slate-300 font-bold text-slate-700 text-sm focus:ring-2 focus:ring-indigo-500 bg-slate-50 shadow-inner outline-none">
                 </div>
                 <button onclick="verifyAdmin()" class="w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-black py-4 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 mt-2">
-                    <i class="fa-solid fa-unlock-keyhole"></i> Authenticate Server
+                    <i class="fa-solid fa-unlock-keyhole"></i> Authenticate via Secure API
                 </button>
             </div>
         </div>
@@ -113,23 +110,23 @@
 
             <!-- 🔑 Super Admin Only Section -->
             <div id="superAdminSection" class="glass-box p-6 sm:p-8 rounded-[2rem] border-t-4 border-t-amber-500 shadow-lg hidden">
-                <h2 class="text-lg sm:text-xl font-black text-amber-700 mb-2 flex items-center gap-3"><i class="fa-solid fa-key text-2xl animate-pulse"></i> Super Admin Controls</h2>
+                <h2 class="text-lg sm:text-xl font-black text-amber-700 mb-2 flex items-center gap-3"><i class="fa-solid fa-key text-2xl animate-pulse"></i> Super Admin Controls (RBAC)</h2>
                 <p class="text-xs text-slate-600 mb-6 font-bold">Logged in as: <span class="text-indigo-600 bg-indigo-50 px-2 py-1 rounded">swastikhalder2023@gmail.com</span></p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <input type="text" placeholder="Teacher Name" class="w-full p-3.5 rounded-xl border border-slate-300 text-sm font-bold bg-slate-50 focus:ring-2 focus:ring-amber-500 outline-none">
-                    <input type="email" placeholder="Teacher Email" class="w-full p-3.5 rounded-xl border border-slate-300 text-sm font-bold bg-slate-50 focus:ring-2 focus:ring-amber-500 outline-none">
-                    <input type="password" placeholder="Assign PIN" class="w-full p-3.5 rounded-xl border border-slate-300 text-sm font-bold bg-slate-50 focus:ring-2 focus:ring-amber-500 outline-none">
+                    <input type="text" placeholder="Sub-Admin Name" class="w-full p-3.5 rounded-xl border border-slate-300 text-sm font-bold bg-slate-50 focus:ring-2 focus:ring-amber-500 outline-none">
+                    <input type="email" placeholder="Sub-Admin Email" class="w-full p-3.5 rounded-xl border border-slate-300 text-sm font-bold bg-slate-50 focus:ring-2 focus:ring-amber-500 outline-none">
+                    <input type="password" placeholder="Assign Initial PIN" class="w-full p-3.5 rounded-xl border border-slate-300 text-sm font-bold bg-slate-50 focus:ring-2 focus:ring-amber-500 outline-none">
                 </div>
-                <button onclick="alert('✅ Sub-Admin Generated in Firebase!')" class="bg-amber-600 hover:bg-amber-700 text-white font-black px-6 py-3.5 rounded-xl text-sm shadow-md transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-user-plus"></i> Generate Sub-Admin ID
+                <button onclick="alert('✅ Authorized: Sub-Admin provisioned in Central Database.')" class="bg-amber-600 hover:bg-amber-700 text-white font-black px-6 py-3.5 rounded-xl text-sm shadow-md transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus"></i> Provision Sub-Admin Account
                 </button>
             </div>
 
             <!-- 📝 MCQ Exam Answer Key Management -->
             <div class="glass-box p-6 sm:p-8 rounded-[2rem] border-t-4 border-t-emerald-500 shadow-lg hover:shadow-xl transition-shadow">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-200 pb-4">
-                    <h2 class="text-lg sm:text-xl font-black text-emerald-800 flex items-center gap-3"><i class="fa-solid fa-list-check text-2xl"></i> MCQ Database Setup</h2>
-                    <span class="bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-cloud-arrow-up animate-bounce"></i> Firebase Sync</span>
+                    <h2 class="text-lg sm:text-xl font-black text-emerald-800 flex items-center gap-3"><i class="fa-solid fa-list-check text-2xl"></i> Central Database Sync (MCQ Setup)</h2>
+                    <span class="bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-cloud-arrow-up animate-bounce"></i> API Sync Active</span>
                 </div>
                 
                 <div class="space-y-4 bg-white p-6 rounded-2xl border border-emerald-100 shadow-sm">
@@ -152,11 +149,11 @@
                     
                     <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-slate-100 items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <span class="text-xs font-black text-slate-600 uppercase tracking-wide">Timer:</span>
+                            <span class="text-xs font-black text-slate-600 uppercase tracking-wide">Exam Timer:</span>
                             <input type="number" placeholder="Mins" class="w-24 p-3 text-sm border border-slate-300 rounded-xl text-center font-bold outline-none focus:ring-2 focus:ring-emerald-500" value="15">
                         </div>
-                        <button onclick="alert('✅ Secure Action Completed!\n\nQuestion and configurations have been securely pushed to Firebase.')" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3.5 px-8 rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-floppy-disk"></i> Save to Server
+                        <button onclick="alert('✅ Configuration securely pushed to Central Database.')" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3.5 px-8 rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-floppy-disk"></i> Save to Central Server
                         </button>
                     </div>
                 </div>
@@ -165,8 +162,11 @@
             <!-- 📜 Dynamic Policy Management (CMS) -->
             <div class="glass-box p-6 sm:p-8 rounded-[2rem] border-t-4 border-t-purple-500 shadow-lg">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-200 pb-4">
-                    <h2 class="text-lg sm:text-xl font-black text-purple-800 flex items-center gap-3"><i class="fa-solid fa-file-contract text-2xl"></i> Dynamic Policy CMS</h2>
-                    <span class="bg-purple-100 text-purple-700 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-trash-can"></i> Auto-Wipe Active</span>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-black text-purple-800 flex items-center gap-3"><i class="fa-solid fa-file-contract text-2xl"></i> Dynamic Policy CMS Workflow</h2>
+                        <p class="text-[10px] sm:text-xs text-slate-500 font-bold mt-1 uppercase tracking-widest">Upload PDF → Secure Temp Storage → Extract → Review → Publish → Temp PDF Deleted</p>
+                    </div>
+                    <span class="bg-purple-100 text-purple-700 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-trash-can"></i> Auto-Wipe Protocol Active</span>
                 </div>
                 
                 <div class="overflow-x-auto w-full rounded-2xl border border-slate-200 shadow-sm bg-white">
@@ -190,19 +190,7 @@
                                 <td class="p-4 font-mono text-xs font-bold text-indigo-600">v1.2</td>
                                 <td class="p-4"><span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-md text-[10px] font-black uppercase">Published</span></td>
                                 <td class="p-4 text-center">
-                                    <button onclick="alert('Upload a new PDF to review and publish.')" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-xs font-bold shadow transition">Preview & Publish</button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-4 font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-scale-balanced text-slate-400"></i> Terms & Conditions</td>
-                                <td class="p-4">
-                                    <input type="file" id="pdfTerms" accept="application/pdf" class="hidden" onchange="processPolicyPDF('Terms & Conditions')">
-                                    <button onclick="document.getElementById('pdfTerms').click()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2"><i class="fa-solid fa-file-arrow-up"></i> Select PDF</button>
-                                </td>
-                                <td class="p-4 font-mono text-xs font-bold text-indigo-600">v1.0</td>
-                                <td class="p-4"><span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-md text-[10px] font-black uppercase">Published</span></td>
-                                <td class="p-4 text-center">
-                                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-xs font-bold shadow transition">Preview & Publish</button>
+                                    <button onclick="alert('Upload a new PDF to review and publish via CMS.')" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-xs font-bold shadow transition">Preview & Publish</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -210,14 +198,14 @@
                 </div>
             </div>
 
-            <!-- 🧠 AI Data Extractor (Gemini Flash) -->
+            <!-- 🧠 AI Data Extractor -->
             <div class="glass-box p-6 sm:p-8 rounded-[2rem] border-t-4 border-t-cyan-500 shadow-lg">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-200 pb-4">
                     <div>
                         <h2 class="text-lg sm:text-xl font-black text-cyan-900 flex items-center gap-3"><i class="fa-solid fa-brain text-2xl animate-pulse"></i> AI Multi-Format Extractor</h2>
-                        <p class="text-xs text-slate-500 font-bold mt-1">Upload files. AI extracts text and permanently wipes the source.</p>
+                        <p class="text-xs text-slate-500 font-bold mt-1">Upload files. AI extracts text and temporarily secures source before deletion.</p>
                     </div>
-                    <span class="bg-cyan-100 text-cyan-800 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-wand-magic-sparkles"></i> Gemini Flash</span>
+                    <span class="bg-cyan-100 text-cyan-800 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-wand-magic-sparkles"></i> AI-Assisted Extraction</span>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -241,59 +229,170 @@
                     <div class="flex flex-col h-full gap-4">
                         <textarea id="aiGeneratedOutput" class="w-full flex-grow h-48 p-5 rounded-2xl border border-slate-300 bg-white text-sm text-slate-800 font-medium focus:ring-2 focus:ring-cyan-500 resize-none shadow-inner outline-none leading-relaxed" readonly placeholder="Extracted AI data will appear here..."></textarea>
                         <button id="saveAiDataBtn" onclick="saveAndDestroyFile()" class="w-full bg-emerald-600 text-white font-black py-4 rounded-xl shadow-lg disabled-action uppercase tracking-widest text-sm transition hover:bg-emerald-700 flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-database"></i> Save & Wipe File
+                            <i class="fa-solid fa-database"></i> Save & Wipe Temp File
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- 🗑️ 24-Hour Recovery Trash -->
+            <!-- 🗑️ Activity Audit / Trash Review -->
             <div id="trashSection" class="glass-box p-6 sm:p-8 rounded-[2rem] border-t-4 border-t-rose-600 shadow-lg hidden">
-                <h2 class="text-lg sm:text-xl font-black text-rose-800 flex items-center gap-3 mb-2"><i class="fa-solid fa-trash-arrow-up text-2xl"></i> 24-Hour Recovery Trash</h2>
-                <p class="text-xs text-slate-600 mb-6 font-bold">Sub-admins' deleted items arrive here for final review.</p>
+                <h2 class="text-lg sm:text-xl font-black text-rose-800 flex items-center gap-3 mb-2"><i class="fa-solid fa-clock-rotate-left text-2xl"></i> Audit Logs & Recovery Trash</h2>
+                <p class="text-xs text-slate-600 mb-6 font-bold">Sub-admins' deleted items arrive here for final review (RBAC governed).</p>
                 <div id="trashList" class="bg-rose-50 p-6 rounded-2xl border border-rose-100 text-center">
-                    <p class="text-sm text-rose-500 font-bold italic"><i class="fa-solid fa-face-smile-wink mr-2"></i> Trash is currently empty.</p>
+                    <p class="text-sm text-rose-500 font-bold italic"><i class="fa-solid fa-face-smile-wink mr-2"></i> Audit logs show no pending deletions.</p>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- 🔍 Policy Preview & Publish Modal -->
+    <!-- 🔍 Policy Preview & Publish Modal (Admin CMS Workflow) -->
     <div id="policyReviewModal" class="fixed inset-0 z-[1000] bg-slate-900/95 backdrop-blur-md hidden flex-col items-center justify-center p-4">
         <div class="bg-white w-full max-w-3xl rounded-[2rem] overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
             <div class="bg-purple-600 p-5 flex justify-between items-center text-white">
-                <h3 class="font-black text-base uppercase tracking-widest" id="reviewTitle"><i class="fa-solid fa-magnifying-glass"></i> Review Policy</h3>
-                <button onclick="document.getElementById('policyReviewModal').style.display='none'" class="font-black text-2xl hover:text-rose-300 transition">&times;</button>
+                <h3 class="font-black text-base uppercase tracking-widest" id="reviewTitle"><i class="fa-solid fa-magnifying-glass"></i> Review Policy Draft</h3>
+                <button onclick="document.getElementById('policyReviewModal').style.display='none'" class="font-black text-2xl hover:text-rose-300 transition focus:outline-none">&times;</button>
             </div>
             <div class="p-6 overflow-y-auto flex-grow bg-slate-50">
-                <p class="text-xs text-emerald-600 font-black mb-3 uppercase tracking-widest"><i class="fa-solid fa-circle-check"></i> PDF Extracted Successfully</p>
-                <textarea class="w-full h-72 p-5 border border-slate-300 rounded-xl text-sm font-medium text-slate-800 bg-white resize-none outline-none leading-relaxed shadow-inner" readonly>This is the auto-extracted content from the PDF. Please review carefully before publishing to the live server...</textarea>
+                <p class="text-xs text-emerald-600 font-black mb-3 uppercase tracking-widest"><i class="fa-solid fa-circle-check"></i> PDF Data Extracted</p>
+                <textarea class="w-full h-72 p-5 border border-slate-300 rounded-xl text-sm font-medium text-slate-800 bg-white resize-none outline-none leading-relaxed shadow-inner" readonly>Extracted content preview. Publishing this will update the CMS database and automatically delete the temporary PDF file uploaded...</textarea>
             </div>
             <div class="p-6 border-t border-slate-200 bg-white flex flex-col gap-4">
-                <p class="text-[11px] text-rose-600 font-bold text-center uppercase tracking-widest"><i class="fa-solid fa-triangle-exclamation"></i> Publishing will permanently overwrite the live version.</p>
+                <p class="text-[11px] text-rose-600 font-bold text-center uppercase tracking-widest"><i class="fa-solid fa-triangle-exclamation"></i> Publishing updates the Central Database and wipes temp files.</p>
                 <button onclick="approveAndWipePolicy()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-xl shadow-lg transition flex justify-center items-center gap-2">
-                    <i class="fa-solid fa-globe"></i> Approve & Publish
+                    <i class="fa-solid fa-globe"></i> Approve, Publish & Wipe
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- 🌐 Footer -->
-    <footer class="w-full bg-slate-900 text-slate-500 py-6 text-center text-[10px] sm:text-xs font-bold uppercase tracking-widest mt-auto border-t border-slate-800">
-        <p>© 2026 Geo Study Point. All Rights Reserved.</p>
+    <!-- 🌐 MASTER FOOTER ARCHITECTURE -->
+    <footer class="bg-white text-slate-700 py-16 px-4 sm:px-6 lg:px-8 w-full mt-auto border-t border-slate-200 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-slate-100 via-white to-white pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center">
+            <div class="text-4xl text-indigo-600 mb-4"><i class="fa-solid fa-earth-americas spin-slow"></i></div>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2 tracking-tight">GEO STUDY POINT</h2>
+            <p class="text-[11px] sm:text-xs font-black text-indigo-500 uppercase tracking-widest mb-10">Education for All • Learning First • Support is Voluntary</p>
+
+            <!-- 📜 Master Policy Button -->
+            <button onclick="openFooterPolicyModal()" class="group relative bg-white border border-slate-300 hover:border-indigo-400 hover:shadow-[0_10px_30px_rgba(79,70,229,0.15)] text-slate-800 font-black py-4 px-8 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 mb-16 flex items-center justify-center gap-3 w-full sm:w-auto max-w-md mx-auto focus:outline-none">
+                <i class="fa-solid fa-scroll text-indigo-600 text-xl group-hover:scale-110 transition-transform"></i>
+                <span class="tracking-wide">Policies, Legal & Support</span>
+                <i class="fa-solid fa-arrow-right text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all"></i>
+            </button>
+
+            <!-- 👨‍💻 Architecture & Developer Credit -->
+            <div class="border-t border-slate-200 pt-10 w-full mb-10">
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-3">Architecture • Development • Maintenance</p>
+                <p class="text-sm text-slate-600 font-medium">Architected, Developed & Maintained by</p>
+                <p class="text-lg font-black text-slate-900 tracking-wide mt-1">Mr. Swastik Halder</p>
+                <p class="text-xs text-indigo-600 font-bold uppercase tracking-wider mt-1">Founder & Platform Developer</p>
+            </div>
+
+            <!-- © Copyright -->
+            <div class="mb-10">
+                <p class="text-sm font-semibold text-slate-700">© 2026 Geo Study Point. All Rights Reserved.</p>
+                <p class="text-xs font-black text-slate-500 tracking-widest mt-1">Geo Study Point™</p>
+            </div>
+
+            <!-- 🚦 Dynamic System Data Architecture -->
+            <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-6 text-[10px] sm:text-xs font-bold text-slate-500 bg-slate-50 py-3 px-6 rounded-xl border border-slate-200 shadow-sm w-full max-w-3xl">
+                <span id="dynamic-version" class="text-indigo-600 tracking-widest uppercase">BETA • v0.1</span>
+                <span class="hidden sm:inline text-slate-300">|</span>
+                <span id="dynamic-status" class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> System Status: Operational</span>
+                <span class="hidden sm:inline text-slate-300">|</span>
+                <span id="dynamic-last-updated" class="tracking-wide">Last Updated: <span class="build-timestamp">05 September 2026 • 18:50:53 IST</span></span>
+            </div>
+
+            <!-- 📅 Permanent Immutable Launch Date -->
+            <div class="mt-6 text-[10px] text-slate-400 font-bold tracking-widest uppercase bg-white px-4 py-2 border border-slate-100 rounded-lg">
+                Launch Date: 05 September 2026
+            </div>
+        </div>
     </footer>
+
+    <!-- 📜 POLICY & INFORMATION CENTRE MODAL (Footer) -->
+    <div id="footerPolicyModal" class="fixed inset-0 z-[10000] hidden items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm" aria-modal="true" role="dialog">
+        <div class="bg-white w-full max-w-3xl max-h-[90vh] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden opacity-0" id="footerPolicyModalContent">
+            
+            <div class="bg-slate-50 p-6 border-b border-slate-200 flex justify-between items-center sticky top-0 z-10 shadow-sm">
+                <h3 class="text-lg sm:text-xl font-black text-slate-900 flex items-center gap-3">
+                    <i class="fa-solid fa-scale-balanced text-indigo-600"></i> Policy & Information Centre
+                </h3>
+                <button onclick="closeFooterPolicyModal()" class="w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center text-xl transition-all shadow-sm focus:outline-none">
+                    &times;
+                </button>
+            </div>
+
+            <div class="p-4 sm:p-6 overflow-y-auto space-y-4 bg-slate-50 flex-grow">
+                <!-- Accordions -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <button class="accordion-btn w-full p-5 flex justify-between items-center hover:bg-indigo-50 transition-colors text-left focus:outline-none" onclick="toggleFooterAccordion(this)">
+                        <span class="font-black text-slate-800 text-sm sm:text-base"><span class="text-indigo-400 mr-3">01</span> 🔒 Privacy & Data Protection</span>
+                        <i class="fa-solid fa-chevron-down accordion-icon text-slate-400"></i>
+                    </button>
+                    <div class="accordion-content bg-white">
+                        <div class="p-5 text-sm text-slate-600 font-medium leading-relaxed border-t border-slate-100">
+                            <strong>Data Processing:</strong> This platform processes limited student data strictly for educational and examination verification purposes. We strictly adhere to core principles of modern Data Protection architectures.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <button class="accordion-btn w-full p-5 flex justify-between items-center hover:bg-indigo-50 transition-colors text-left focus:outline-none" onclick="toggleFooterAccordion(this)">
+                        <span class="font-black text-slate-800 text-sm sm:text-base"><span class="text-indigo-400 mr-3">02</span> © Copyright, Intellectual Property & Brand</span>
+                        <i class="fa-solid fa-chevron-down accordion-icon text-slate-400"></i>
+                    </button>
+                    <div class="accordion-content bg-white">
+                        <div class="p-5 text-sm text-slate-600 font-medium leading-relaxed border-t border-slate-100">
+                            <strong>IP & Architecture Ownership:</strong> The complete architecture, UI/UX design, custom backend workflows, and examination question sets are the intellectual property of Geo Study Point and Mr. Swastik Halder.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <button class="accordion-btn w-full p-5 flex justify-between items-center hover:bg-indigo-50 transition-colors text-left focus:outline-none" onclick="toggleFooterAccordion(this)">
+                        <span class="font-black text-slate-800 text-sm sm:text-base"><span class="text-indigo-400 mr-3">03</span> 🛡 Security, Terms & Responsible Use</span>
+                        <i class="fa-solid fa-chevron-down accordion-icon text-slate-400"></i>
+                    </button>
+                    <div class="accordion-content bg-white">
+                        <div class="p-5 text-sm text-slate-600 font-medium leading-relaxed border-t border-slate-100">
+                            <strong>Security by Design:</strong> Security is an ongoing responsibility. We employ layered backend validation and explicit authorization protocols (Zero Trust approach).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <button class="accordion-btn w-full p-5 flex justify-between items-center hover:bg-indigo-50 transition-colors text-left focus:outline-none" onclick="toggleFooterAccordion(this)">
+                        <span class="font-black text-slate-800 text-sm sm:text-base"><span class="text-indigo-400 mr-3">04</span> 💚 Support, Payments & Platform Operations</span>
+                        <i class="fa-solid fa-chevron-down accordion-icon text-slate-400"></i>
+                    </button>
+                    <div class="accordion-content bg-white">
+                        <div class="p-5 text-sm text-slate-600 font-medium leading-relaxed border-t border-slate-100">
+                            <strong>Voluntary Operations:</strong> Core educational access on Geo Study Point is 100% non-commercial and free. Support contributions hold no influence over academic grades or official platform results.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-4 border-t border-slate-200 text-center flex justify-between items-center">
+                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-md border border-slate-100"><i class="fa-solid fa-database mr-1"></i> Data from Central CMS</span>
+                <span class="text-[10px] text-emerald-500 font-bold uppercase tracking-widest"><i class="fa-solid fa-check-circle mr-1"></i> Verified</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Script Logic -->
     <script>
         const superAdminEmail = "swastikhalder2023@gmail.com";
 
-        // 1. Firebase Authentication Simulation
+        // 1. Backend Authentication Mock
         function verifyAdmin() {
             const email = document.getElementById('adminEmail').value.trim();
             const pin = document.getElementById('adminPassword').value;
             
-            if (email === "" || pin === "") { alert("⚠️ Please enter Email and PIN."); return; }
+            if (email === "" || pin === "") { alert("⚠️ Please enter Email and Secure PIN."); return; }
 
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('dashboardContent').style.display = 'block';
@@ -302,13 +401,14 @@
             const superAdminBox = document.getElementById('superAdminSection');
             const trashSection = document.getElementById('trashSection');
 
+            // RBAC Simulation
             if (email === superAdminEmail) {
                 badge.innerHTML = '<i class="fa-solid fa-crown text-amber-400"></i> Master Super Admin';
                 badge.className = "fixed top-12 left-4 sm:top-14 sm:left-6 z-[900] bg-indigo-700 text-white text-[10px] sm:text-xs px-4 py-2 rounded-full font-bold shadow-xl flex items-center gap-2";
                 superAdminBox.classList.remove('hidden');
                 trashSection.classList.remove('hidden');
             } else {
-                badge.innerHTML = '<i class="fa-solid fa-chalkboard-user"></i> Sub-Admin';
+                badge.innerHTML = '<i class="fa-solid fa-user-shield"></i> Sub-Admin';
                 badge.className = "fixed top-12 left-4 sm:top-14 sm:left-6 z-[900] bg-teal-600 text-white text-[10px] sm:text-xs px-4 py-2 rounded-full font-bold shadow-xl flex items-center gap-2";
                 superAdminBox.classList.add('hidden');
                 trashSection.classList.add('hidden');
@@ -317,12 +417,12 @@
 
         // 2. Policy CMS Workflow
         function processPolicyPDF(policyName) {
-            document.getElementById('reviewTitle').innerHTML = `<i class="fa-solid fa-magnifying-glass"></i> Review: ${policyName}`;
+            document.getElementById('reviewTitle').innerHTML = `<i class="fa-solid fa-magnifying-glass"></i> Review Draft: ${policyName}`;
             setTimeout(() => { document.getElementById('policyReviewModal').style.display = 'flex'; }, 800);
         }
         function approveAndWipePolicy() {
             document.getElementById('policyReviewModal').style.display = 'none';
-            alert("✅ Policy Published & Temp File Destroyed!");
+            alert("✅ Policy Published to Database & Temporary PDF Wiped Safely!");
         }
 
         // 3. AI File Scanner Workflow
@@ -336,11 +436,11 @@
         function startAiScan() {
             document.getElementById('startScanBtn').classList.add('hidden');
             document.getElementById('scanLine').style.display = 'block';
-            document.getElementById('aiGeneratedOutput').value = "⏳ Extracting data using Gemini Flash AI...";
+            document.getElementById('aiGeneratedOutput').value = "⏳ Securely extracting data via AI Protocol...";
 
             setTimeout(() => {
                 document.getElementById('scanLine').style.display = 'none';
-                document.getElementById('aiGeneratedOutput').value = "✅ AI Extraction Successful:\n\n[Q] What are Tides?\n[Ans] Tides are the rise and fall of sea levels caused by the combined effects of gravitational forces.";
+                document.getElementById('aiGeneratedOutput').value = "✅ Extraction Successful:\n\n[Q] What are Tides?\n[Ans] Tides are the rise and fall of sea levels caused by the combined effects of gravitational forces.";
                 document.getElementById('saveAiDataBtn').classList.remove('disabled-action');
             }, 2500);
         }
@@ -351,11 +451,59 @@
             document.getElementById('aiGeneratedOutput').value = "";
             document.getElementById('saveAiDataBtn').classList.add('disabled-action');
             document.getElementById('startScanBtn').classList.remove('hidden');
-            alert("✅ Data Saved to Server & Source File Wiped!");
+            alert("✅ Extracted Data Saved & Source File Wiped Securely!");
         }
+
+        // --- 📜 Footer Modal Control Logic ---
+        const footerPolicyModal = document.getElementById('footerPolicyModal');
+        const footerPolicyModalContent = document.getElementById('footerPolicyModalContent');
+
+        function openFooterPolicyModal() {
+            footerPolicyModal.classList.remove('hidden');
+            footerPolicyModal.classList.add('flex');
+            void footerPolicyModalContent.offsetWidth; 
+            footerPolicyModalContent.classList.remove('modal-exit');
+            footerPolicyModalContent.classList.add('modal-enter');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeFooterPolicyModal() {
+            footerPolicyModalContent.classList.remove('modal-enter');
+            footerPolicyModalContent.classList.add('modal-exit');
+            setTimeout(() => {
+                footerPolicyModal.classList.add('hidden');
+                footerPolicyModal.classList.remove('flex');
+                document.body.style.overflow = ''; 
+            }, 300); 
+        }
+
+        function toggleFooterAccordion(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.accordion-icon');
+            
+            document.querySelectorAll('#footerPolicyModal .accordion-content').forEach(el => {
+                if(el !== content && el.classList.contains('active')) {
+                    el.classList.remove('active');
+                    el.previousElementSibling.querySelector('.accordion-icon').classList.remove('active');
+                    el.previousElementSibling.classList.remove('bg-indigo-50');
+                }
+            });
+
+            content.classList.toggle('active');
+            icon.classList.toggle('active');
+            button.classList.toggle('bg-indigo-50');
+        }
+
+        footerPolicyModal.addEventListener('click', (e) => {
+            if (e.target === footerPolicyModal) { closeFooterPolicyModal(); }
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape' && !footerPolicyModal.classList.contains('hidden')) { closeFooterPolicyModal(); }
+        });
     </script>
     
-    <!-- Security Script -->
+    <!-- Central Security Layer (Deterrent) -->
     <script src="security.js"></script>
 </body>
 </html>
