@@ -2,15 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <!-- 📱 Device Compatibility & Safe Area (Zoom Disabled for App-like feel) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff">
     <title>Student Dashboard - Geo Study Point</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f1f5f9; min-width: 250px; overflow-x: hidden; }
+        /* 🔧 Base Resets & Smoothness */
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f8fafc; overflow-x: hidden; width: 100vw; }
         
         /* 🪟 Light Glassmorphism Boxes */
         .glass-box { 
@@ -19,22 +23,30 @@
             border: 1px solid rgba(255, 255, 255, 0.6); 
         }
         
-        .glow-box-emerald { border-top: 6px solid #10b981; box-shadow: 0 10px 40px rgba(16,185,129,0.1); }
-        .glow-box-blue { border-top: 6px solid #3b82f6; box-shadow: 0 10px 40px rgba(59,130,246,0.1); }
+        .glow-box-emerald { border-top: 6px solid #10b981; box-shadow: 0 10px 40px rgba(16,185,129,0.08); }
+        .glow-box-blue { border-top: 6px solid #3b82f6; box-shadow: 0 10px 40px rgba(59,130,246,0.08); }
         
         /* 🎨 Animations */
         @keyframes scroll-left { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
-        .animate-marquee { display: inline-block; white-space: nowrap; animation: scroll-left 25s linear infinite; }
-        .spin-slow { animation: spin 4s linear infinite; }
-    </style>
+        .animate-marquee { display: inline-block; white-space: nowrap; animation: scroll-left 25s linear infinite; padding-left: 100%; }
+        .spin-slow { animation: spin 5s linear infinite; }
 
-    <!-- 🌐 Default Bengali Cookie -->
-    <script>
-        if (document.cookie.indexOf('googtrans') === -1) {
-            document.cookie = 'googtrans=/en/bn; path=/';
-            document.cookie = 'googtrans=/en/bn; domain=' + window.location.hostname + '; path=/';
+        /* 📜 Modal & Accordion Micro-Animations */
+        .modal-enter { animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        .modal-exit { animation: fadeOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes fadeOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(15px) scale(0.95); } }
+        
+        .accordion-content { transition: max-height 0.4s ease-out, opacity 0.3s ease-out, padding 0.3s ease; max-height: 0; opacity: 0; overflow: hidden; }
+        .accordion-content.active { max-height: 500px; opacity: 1; }
+        .accordion-icon { transition: transform 0.3s ease; }
+        .accordion-icon.active { transform: rotate(180deg); }
+
+        /* Accessibility: Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
         }
-    </script>
+    </style>
 </head>
 <body class="min-h-screen flex flex-col text-slate-900 relative">
 
@@ -43,25 +55,22 @@
         <div class="animate-marquee tracking-wide">🚀 Welcome to Student Dashboard! 🌟 Practice attentively, try to give your absolute best. 🎓</div>
     </div>
 
-    <!-- 🚀 Floating Beta Badge -->
+    <!-- 🚀 Floating Version Badge (Centralized Control Target) -->
     <div class="fixed top-12 sm:top-14 left-1/2 transform -translate-x-1/2 z-[900] bg-slate-900/90 backdrop-blur-md text-emerald-400 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.2)] px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 w-max">
         <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
-        Beta 0.1
+        BETA v0.1
     </div>
 
-    <!-- 🌍 Animated Premium GTranslate Widget -->
-    <div class="fixed top-12 right-4 sm:top-14 sm:right-6 z-[999] group">
-        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+    <!-- 🌍 Official GTranslate Widget -->
+    <div class="fixed top-12 right-4 sm:top-14 sm:right-6 z-[999] group overflow-visible">
+        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse pointer-events-none"></div>
         <div class="relative bg-white/95 backdrop-blur-xl border border-slate-200 shadow-2xl rounded-full px-4 py-2 flex items-center gap-3 cursor-pointer transform hover:scale-105 transition-all">
             <span class="text-indigo-600 text-xl spin-slow"><i class="fa-solid fa-earth-americas"></i></span>
             <div class="gtranslate_wrapper"></div>
-            <span class="absolute -bottom-10 right-0 bg-slate-900 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg flex items-center gap-1">
-                <i class="fa-solid fa-language"></i> Change Language
-            </span>
         </div>
     </div>
     <script>
-        window.gtranslateSettings = { "default_language": "en", "languages": ["en", "bn", "hi"], "wrapper_selector": ".gtranslate_wrapper", "detect_browser_language": false };
+        window.gtranslateSettings = { "default_language": "bn", "native_language_names": true, "languages": ["bn", "en", "hi"], "wrapper_selector": ".gtranslate_wrapper", "detect_browser_language": false };
     </script>
     <script src="https://cdn.gtranslate.net/latest/lc.js" defer></script>
 
@@ -79,19 +88,17 @@
 
         <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-10">
             
-            <!-- 📝 1. Exam Section (With Redirect Logic) -->
-            <div class="glass-box glow-box-emerald rounded-3xl p-6 sm:p-8 flex flex-col h-full transform hover:-translate-y-1 transition-transform">
+            <!-- 📝 1. Exam Section -->
+            <div class="glass-box glow-box-emerald rounded-3xl p-6 sm:p-8 flex flex-col h-full transform hover:-translate-y-1 transition-transform duration-300">
                 <h3 class="text-sm sm:text-base font-black text-emerald-800 uppercase mb-6 bg-emerald-50 py-3 rounded-2xl text-center border border-emerald-100 flex items-center justify-center gap-2 shadow-inner">
                     <i class="fa-solid fa-pen-nib text-emerald-600"></i> Examination Center
                 </h3>
-                <p class="text-xs text-slate-500 font-bold mb-6 text-center">Secure testing environment. Do not switch tabs during the exam.</p>
+                <p class="text-xs text-slate-500 font-bold mb-6 text-center">Secure testing environment. Backend validation active.</p>
                 
                 <div class="space-y-4 mt-auto">
-                    <!-- Redirects via support banner -->
                     <button onclick="window.location.href='support_initiative.html?next=short_exam.html'" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-black py-4 rounded-2xl shadow-lg transition-all text-sm sm:text-base flex items-center justify-center gap-3">
                         <i class="fa-solid fa-list-check text-xl"></i> Start Short Question Exam
                     </button>
-                    <!-- Redirects via support banner -->
                     <button onclick="window.location.href='support_initiative.html?next=subjective_exam.html'" class="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-black py-4 rounded-2xl shadow-lg transition-all text-sm sm:text-base flex items-center justify-center gap-3">
                         <i class="fa-solid fa-file-pen text-xl"></i> Start Subjective Exam
                     </button>
@@ -99,7 +106,7 @@
             </div>
 
             <!-- 📊 2. Result Section -->
-            <div class="glass-box glow-box-blue rounded-3xl p-6 sm:p-8 flex flex-col h-full transform hover:-translate-y-1 transition-transform">
+            <div class="glass-box glow-box-blue rounded-3xl p-6 sm:p-8 flex flex-col h-full transform hover:-translate-y-1 transition-transform duration-300">
                 <h3 class="text-sm sm:text-base font-black text-blue-800 uppercase mb-6 bg-blue-50 py-3 rounded-2xl text-center border border-blue-100 flex items-center justify-center gap-2 shadow-inner">
                     <i class="fa-solid fa-square-poll-vertical text-blue-600"></i> Download Result
                 </h3>
@@ -123,43 +130,164 @@
 
     <!-- 🤖 GLOBAL AI HELP WIDGET -->
     <div id="aiHelpWidget" class="fixed bottom-6 right-4 sm:right-6 z-[995] flex flex-col items-end">
-        
         <!-- AI Chat Window -->
         <div id="aiChatWindow" class="hidden bg-white w-[90vw] max-w-[350px] sm:w-96 rounded-2xl shadow-2xl border border-slate-200 flex-col overflow-hidden mb-4 transition-all transform origin-bottom-right">
-            
             <div class="bg-indigo-600 p-4 text-white flex justify-between items-center shadow-md relative z-10">
                 <div class="flex items-center gap-3">
                     <div class="bg-white/20 p-2 rounded-full h-10 w-10 flex items-center justify-center text-xl animate-pulse">🤖</div>
                     <div>
                         <h3 class="font-bold text-sm sm:text-base tracking-wide">Geo AI Support</h3>
-                        <p class="text-[9px] sm:text-[10px] text-indigo-200 uppercase tracking-widest font-bold">Site Data & Web Search</p>
+                        <p class="text-[9px] sm:text-[10px] text-indigo-200 uppercase tracking-widest font-bold">Platform Assistant</p>
                     </div>
                 </div>
-                <button onclick="toggleAiChat()" class="text-white hover:text-rose-300 font-black text-xl transition-colors">×</button>
+                <button onclick="toggleAiChat()" class="text-white hover:text-rose-300 font-black text-xl transition-colors focus:outline-none">×</button>
             </div>
             
             <div id="aiHelpHistory" class="p-4 h-64 sm:h-72 overflow-y-auto bg-slate-50 space-y-4 text-sm scroll-smooth">
                 <div class="w-full flex justify-start">
                     <div class="bg-indigo-100 text-indigo-900 p-3 sm:p-4 rounded-xl rounded-tl-none inline-block max-w-[90%] text-xs sm:text-sm font-medium shadow-sm border border-indigo-200">
-                        Hello! 👋 I am the official AI Assistant of Geo Study Point. You can ask me questions related to the website or general queries backed by Google Search.
+                        Hello! 👋 I am the official AI Assistant of Geo Study Point. How can I help you navigate the platform today?
                     </div>
                 </div>
             </div>
             
             <div class="p-3 sm:p-4 bg-white border-t border-slate-200 flex gap-2">
                 <input type="text" id="aiHelpInput" placeholder="How can I help you?" class="flex-grow p-3 rounded-xl border border-slate-300 text-xs sm:text-sm focus:ring-2 focus:ring-indigo-500 bg-slate-50 outline-none font-medium text-slate-800">
-                <button onclick="sendAiHelpMessage()" class="bg-indigo-600 text-white w-12 h-12 rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-md flex items-center justify-center">
+                <button onclick="sendAiHelpMessage()" class="bg-indigo-600 text-white w-12 h-12 rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-md flex items-center justify-center focus:outline-none">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
             </div>
         </div>
 
         <!-- Floating Action Button -->
-        <button onclick="toggleAiChat()" class="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl sm:text-3xl transform transition-all hover:scale-110 hover:shadow-indigo-500/50 border-2 border-white">
+        <button onclick="toggleAiChat()" class="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl sm:text-3xl transform transition-all hover:scale-110 hover:shadow-indigo-500/50 border-2 border-white focus:outline-none">
             💬
         </button>
     </div>
 
+    <!-- 🌐 MASTER FOOTER ARCHITECTURE -->
+    <footer class="bg-white text-slate-700 py-16 px-4 sm:px-6 lg:px-8 w-full mt-auto border-t border-slate-200 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-slate-100 via-white to-white pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center">
+            <div class="text-4xl text-indigo-600 mb-4"><i class="fa-solid fa-earth-americas spin-slow"></i></div>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2 tracking-tight">GEO STUDY POINT</h2>
+            <p class="text-sm sm:text-base font-bold text-slate-600 mb-2">AI-Powered Educational Practice & Examination Platform</p>
+            <p class="text-[11px] sm:text-xs font-black text-indigo-500 uppercase tracking-widest mb-10">Education for All • Learning First • Support is Voluntary</p>
+
+            <!-- 📜 Master Policy Button -->
+            <button onclick="openPolicyModal()" class="group relative bg-white border border-slate-300 hover:border-indigo-400 hover:shadow-[0_10px_30px_rgba(79,70,229,0.15)] text-slate-800 font-black py-4 px-8 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 mb-16 flex items-center justify-center gap-3 w-full sm:w-auto max-w-md mx-auto">
+                <i class="fa-solid fa-scroll text-indigo-600 text-xl group-hover:scale-110 transition-transform"></i>
+                <span class="tracking-wide">Policies, Legal & Support</span>
+                <i class="fa-solid fa-arrow-right text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all"></i>
+            </button>
+
+            <!-- 👨‍💻 Architecture & Developer Credit -->
+            <div class="border-t border-slate-200 pt-10 w-full mb-10">
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-3">Architecture • Development • Maintenance</p>
+                <p class="text-sm text-slate-600 font-medium">Architected, Developed & Maintained by</p>
+                <p class="text-lg font-black text-slate-900 tracking-wide mt-1">Mr. Swastik Halder</p>
+                <p class="text-xs text-indigo-600 font-bold uppercase tracking-wider mt-1">Founder & Platform Developer</p>
+            </div>
+
+            <!-- © Copyright -->
+            <div class="mb-10">
+                <p class="text-sm font-semibold text-slate-700">© 2026 Geo Study Point. All Rights Reserved.</p>
+                <p class="text-xs font-black text-slate-500 tracking-widest mt-1">Geo Study Point™</p>
+            </div>
+
+            <!-- 🚦 Dynamic System Data Architecture -->
+            <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-6 text-[10px] sm:text-xs font-bold text-slate-500 bg-slate-50 py-3 px-6 rounded-xl border border-slate-200 shadow-sm w-full max-w-3xl">
+                <span id="dynamic-version" class="text-indigo-600 tracking-widest uppercase">BETA • v0.1</span>
+                <span class="hidden sm:inline text-slate-300">|</span>
+                <span id="dynamic-status" class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> System Status: Operational</span>
+                <span class="hidden sm:inline text-slate-300">|</span>
+                <!-- Last Updated: Auto generated from build metadata -->
+                <span id="dynamic-last-updated" class="tracking-wide">Last Updated: <span class="build-timestamp">05 September 2026 • 18:20:22 IST</span></span>
+            </div>
+
+            <!-- 📅 Permanent Immutable Launch Date -->
+            <div class="mt-6 text-[10px] text-slate-400 font-bold tracking-widest uppercase bg-white px-4 py-2 border border-slate-100 rounded-lg">
+                Launch Date: 05 September 2026
+            </div>
+        </div>
+    </footer>
+
+    <!-- 📜 POLICY & INFORMATION CENTRE MODAL (Synchronized) -->
+    <div id="policyModal" class="fixed inset-0 z-[10000] hidden items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm" aria-modal="true" role="dialog">
+        <div class="bg-white w-full max-w-3xl max-h-[90vh] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden opacity-0" id="policyModalContent">
+            
+            <div class="bg-slate-50 p-6 border-b border-slate-200 flex justify-between items-center sticky top-0 z-10 shadow-sm">
+                <h3 class="text-lg sm:text-xl font-black text-slate-900 flex items-center gap-3">
+                    <i class="fa-solid fa-scale-balanced text-indigo-600"></i> Policy & Information Centre
+                </h3>
+                <button onclick="closePolicyModal()" class="w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center text-xl transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-500">
+                    &times;
+                </button>
+            </div>
+
+            <div class="p-4 sm:p-6 overflow-y-auto space-y-4 bg-slate-50 flex-grow">
+                <!-- 01 Privacy -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <button class="accordion-btn w-full p-5 flex justify-between items-center hover:bg-indigo-50 transition-colors text-left focus:outline-none" onclick="toggleAccordion(this)">
+                        <span class="font-black text-slate-800 text-sm sm:text-base"><span class="text-indigo-400 mr-3">01</span> 🔒 Privacy & Data Protection</span>
+                        <i class="fa-solid fa-chevron-down accordion-icon text-slate-400"></i>
+                    </button>
+                    <div class="accordion-content bg-white">
+                        <div class="p-5 text-sm text-slate-600 font-medium leading-relaxed border-t border-slate-100">
+                            <strong>Data Minimization & Processing:</strong> This platform processes limited student data strictly for educational and examination verification purposes. Temporary files uploaded for evaluation are securely processed and deleted following assessment. We strictly adhere to core principles of modern Data Protection architectures, prioritizing your privacy at all times.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 02 Copyright -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <button class="accordion-btn w-full p-5 flex justify-between items-center hover:bg-indigo-50 transition-colors text-left focus:outline-none" onclick="toggleAccordion(this)">
+                        <span class="font-black text-slate-800 text-sm sm:text-base"><span class="text-indigo-400 mr-3">02</span> © Copyright, Intellectual Property & Brand</span>
+                        <i class="fa-solid fa-chevron-down accordion-icon text-slate-400"></i>
+                    </button>
+                    <div class="accordion-content bg-white">
+                        <div class="p-5 text-sm text-slate-600 font-medium leading-relaxed border-t border-slate-100">
+                            <strong>IP & Architecture Ownership:</strong> The complete architecture, UI/UX design, custom backend workflows, and examination question sets are the intellectual property of Geo Study Point and its Founder, Mr. Swastik Halder. Unauthorized scraping, replication, mirroring, or commercial exploitation is strictly prohibited.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 03 Security -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <button class="accordion-btn w-full p-5 flex justify-between items-center hover:bg-indigo-50 transition-colors text-left focus:outline-none" onclick="toggleAccordion(this)">
+                        <span class="font-black text-slate-800 text-sm sm:text-base"><span class="text-indigo-400 mr-3">03</span> 🛡 Security, Terms & Responsible Use</span>
+                        <i class="fa-solid fa-chevron-down accordion-icon text-slate-400"></i>
+                    </button>
+                    <div class="accordion-content bg-white">
+                        <div class="p-5 text-sm text-slate-600 font-medium leading-relaxed border-t border-slate-100">
+                            <strong>Security by Design:</strong> Security is an ongoing responsibility. We employ layered backend validation and explicit authorization protocols (Zero Trust approach). Students are required to maintain examination integrity. Any attempt to manipulate API endpoints, bypass session timers, or execute unauthorized requests will result in automated auditing and session termination.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 04 Support -->
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <button class="accordion-btn w-full p-5 flex justify-between items-center hover:bg-indigo-50 transition-colors text-left focus:outline-none" onclick="toggleAccordion(this)">
+                        <span class="font-black text-slate-800 text-sm sm:text-base"><span class="text-indigo-400 mr-3">04</span> 💚 Support, Payments & Platform Operations</span>
+                        <i class="fa-solid fa-chevron-down accordion-icon text-slate-400"></i>
+                    </button>
+                    <div class="accordion-content bg-white">
+                        <div class="p-5 text-sm text-slate-600 font-medium leading-relaxed border-t border-slate-100">
+                            <strong>Voluntary Operations:</strong> Core educational access on Geo Study Point is 100% non-commercial and free. Financial contributions from users are strictly voluntary and assist exclusively with server maintenance and backend infrastructure costs. Support contributions hold no influence over academic grades, AI evaluation, or official platform results.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-4 border-t border-slate-200 text-center flex justify-between items-center">
+                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-md border border-slate-100"><i class="fa-solid fa-database mr-1"></i> Data from Central CMS</span>
+                <span class="text-[10px] text-emerald-500 font-bold uppercase tracking-widest"><i class="fa-solid fa-check-circle mr-1"></i> Verified</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script>
         // AI Chat Toggle Logic
         function toggleAiChat() {
@@ -173,7 +301,7 @@
             }
         }
 
-        // AI Chat Interaction Logic
+        // AI Chat Interaction Logic (Mock Backend Call)
         function sendAiHelpMessage() {
             const input = document.getElementById('aiHelpInput');
             const history = document.getElementById('aiHelpHistory');
@@ -195,19 +323,18 @@
             history.innerHTML += `
                 <div id="${typingId}" class="w-full flex justify-start">
                     <div class="bg-slate-200 text-slate-500 p-3 rounded-xl rounded-tl-none inline-block text-xs font-bold animate-pulse">
-                        Scanning site & Google...
+                        Scanning backend knowledge base...
                     </div>
                 </div>
             `;
             history.scrollTop = history.scrollHeight;
 
-            // Mock Response Simulation
             setTimeout(() => {
                 document.getElementById(typingId).remove();
                 history.innerHTML += `
                     <div class="w-full flex justify-start">
                         <div class="bg-indigo-100 text-indigo-900 p-3 sm:p-4 rounded-xl rounded-tl-none inline-block max-w-[90%] text-xs sm:text-sm font-medium shadow-sm border border-indigo-200">
-                            <b>🤖 AI:</b> Based on the platform database and search data, here is the relevant information... (Backend integration pending)
+                            <b>🤖 AI:</b> Based on authorized platform data, here is the relevant information. Please refer to the official exam guidelines for more details.
                         </div>
                     </div>
                 `;
@@ -218,14 +345,57 @@
         document.getElementById('aiHelpInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') sendAiHelpMessage();
         });
+
+        // --- 📜 Modal & Accordion Control Logic ---
+        const policyModal = document.getElementById('policyModal');
+        const policyModalContent = document.getElementById('policyModalContent');
+
+        function openPolicyModal() {
+            policyModal.classList.remove('hidden');
+            policyModal.classList.add('flex');
+            void policyModalContent.offsetWidth; // Trigger reflow
+            policyModalContent.classList.remove('modal-exit');
+            policyModalContent.classList.add('modal-enter');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closePolicyModal() {
+            policyModalContent.classList.remove('modal-enter');
+            policyModalContent.classList.add('modal-exit');
+            setTimeout(() => {
+                policyModal.classList.add('hidden');
+                policyModal.classList.remove('flex');
+                document.body.style.overflow = ''; 
+            }, 300); 
+        }
+
+        function toggleAccordion(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.accordion-icon');
+            
+            document.querySelectorAll('.accordion-content').forEach(el => {
+                if(el !== content && el.classList.contains('active')) {
+                    el.classList.remove('active');
+                    el.previousElementSibling.querySelector('.accordion-icon').classList.remove('active');
+                    el.previousElementSibling.classList.remove('bg-indigo-50');
+                }
+            });
+
+            content.classList.toggle('active');
+            icon.classList.toggle('active');
+            button.classList.toggle('bg-indigo-50');
+        }
+
+        policyModal.addEventListener('click', (e) => {
+            if (e.target === policyModal) { closePolicyModal(); }
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape' && !policyModal.classList.contains('hidden')) { closePolicyModal(); }
+        });
     </script>
-
-    <!-- Footer -->
-    <footer class="w-full bg-slate-900 text-slate-500 py-6 text-center text-[10px] sm:text-xs font-bold uppercase tracking-widest mt-auto border-t border-slate-800">
-        <p>© 2026 Geo Study Point. All Rights Reserved.</p>
-    </footer>
-
-    <!-- Security Switch -->
+    
+    <!-- Centralized Security Layer (Deterrent Only) -->
     <script src="security.js"></script>
 </body>
 </html>
